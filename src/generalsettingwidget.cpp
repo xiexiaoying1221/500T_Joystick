@@ -1,6 +1,11 @@
-/*
+﻿/*
     总体设置
 */
+
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "generalsettingwidget.h"
 #include "ui_generalsettingwidget.h"
 

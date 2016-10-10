@@ -1,12 +1,12 @@
-#ifndef ALARMLISTWIDGET_H
+﻿#ifndef ALARMLISTWIDGET_H
 #define ALARMLISTWIDGET_H
 
 #include <QWidget>
-#include <qtableview.h>
-#include <qstandarditemmodel.h>
+#include <QTableView>
+#include <QHeaderView>
+#include <QStandardItemModel>
 #include "globalSettings.h"
 #include "AlarmHandle.h"
-#include "modbusdataprocess.h"
 
 namespace Ui {
     class AlarmListWidget;

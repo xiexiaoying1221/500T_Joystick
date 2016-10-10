@@ -1,7 +1,12 @@
-#include <QtGui>
+﻿#define WIN32_LEAN_AND_MEAN
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
 
+#include "modbusdataprocess.h"
+#include <QApplication>
 #include "mainwindow.h"
-#include <globalSettings.h>
+#include "globalSettings.h"
 #include "softwareoperationwidget.h"
 #include "positionreferencewidget.h"
 #include "powerconsumptionwidget.h"
@@ -18,14 +23,10 @@
 #include "adjustingbrightnesswidget.h"
 #include "mainViewWidget.h"
 #include "dataCommit.h"
-#include "modbusdataprocess.h"
-//#include "alarmlisthandle.h"
 
 
 int main(int argc, char *argv[]){
     QApplication app(argc, argv);
-    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
     InitData();
 

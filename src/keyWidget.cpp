@@ -1,4 +1,8 @@
-﻿#include "keyWidget.h"
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
+#include "keyWidget.h"
 
 KeyWidget::KeyWidget(QWidget *parent, QRect keyRect)
     :QWidget(parent,Qt::FramelessWindowHint){

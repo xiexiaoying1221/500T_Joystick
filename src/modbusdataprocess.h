@@ -1,10 +1,10 @@
 ﻿#ifndef MODBUSDATAPROCESS_H
 #define MODBUSDATAPROCESS_H
 
+#include "modbus/modbustcpcomm.h"
 #include <QObject>
 #include <QTimer>
 #include <QThread>
-#include "modbus/modbustcpcomm.h"
 
 class ModbusDataProcess : public QObject
 {

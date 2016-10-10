@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright © 2001-2011 Stéphane Raimbault <stephane.raimbault@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -91,11 +91,13 @@ static int _modbus_set_slave(modbus_t *ctx, int slave)
     /* Broadcast address is 0 (MODBUS_BROADCAST_ADDRESS) */
     if (slave >= 0 && slave <= 247) {
         ctx->slave = slave;
-    } else if (slave == MODBUS_TCP_SLAVE) {
+    }
+    else if (slave == MODBUS_TCP_SLAVE) {
         /* The special value MODBUS_TCP_SLAVE (0xFF) can be used in TCP mode to
          * restore the default value. */
         ctx->slave = slave;
-    } else {
+    }
+    else {
         errno = EINVAL;
         return -1;
     }

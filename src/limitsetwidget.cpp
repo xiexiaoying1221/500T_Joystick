@@ -1,6 +1,10 @@
-/*
+﻿/*
     限值设置
 */
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "limitsetwidget.h"
 #include "ui_limitsetwidget.h"
 
@@ -10,7 +14,6 @@ LimitSetWidget::LimitSetWidget(QWidget *parent,QRect viewAreaRect) :
 {
     ui->setupUi(this);
     this->setGeometry(viewAreaRect.x()+1,  viewAreaRect.y()+1, viewAreaRect.width()-1,viewAreaRect.height()-1);
-
     this->setAutoFillBackground(true);
 //    QPalette p;
 //    p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_8)));//"images/限值设置-日.png"

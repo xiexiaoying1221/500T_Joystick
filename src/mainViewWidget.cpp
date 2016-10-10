@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "MainViewWidget.h"
 
 MainViewWidget::MainViewWidget(QWidget *parent,QRect viewAreaRect)
@@ -18,8 +22,7 @@ void MainViewWidget::refreshData()
 }
 
 //白天、夜晚模式切换
-void MainViewWidget::changeDNMode()
-{
+void MainViewWidget::changeDNMode(){
     QPalette p;
     if(daynight_mode == DAYMODE)
     {

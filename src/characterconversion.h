@@ -1,4 +1,4 @@
-#ifndef CHARACTERCONVERSION_H
+﻿#ifndef CHARACTERCONVERSION_H
 #define CHARACTERCONVERSION_H
 
 #include <QObject>

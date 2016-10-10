@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "infoWidget.h"
 
 InfoWidget::InfoWidget(QWidget *parent, QRect infoRect)
@@ -24,8 +28,7 @@ void InfoWidget::paintEvent(QPaintEvent *){
     int part = width / 16;
     QTextOption to(Qt::AlignCenter);
 
-    if(atlen == 0)
-    {
+    if(atlen == 0){
         this->setAutoFillBackground(false);
         return;
     }
@@ -39,25 +42,21 @@ void InfoWidget::paintEvent(QPaintEvent *){
 //    QBrush brush3(COLOR_19);//紧急
 //    QBrush brush4(COLOR_20);//启用
 
-    if(AlarmOrderList[0][3] == "警告" || AlarmOrderList[0][3] == "W")
-    {
+    if(AlarmOrderList[0][3] == "警告" || AlarmOrderList[0][3] == "W"){
         p = new QPalette(COLOR_16);
         painter.setPen(PEN_WARN);
     }
-    else if(AlarmOrderList[0][3] == "报警" || AlarmOrderList[0][3] == "A")
-    {
-          p = new QPalette(COLOR_18);
-          painter.setPen(PEN_ALARM);
+    else if(AlarmOrderList[0][3] == "报警" || AlarmOrderList[0][3] == "A"){
+        p = new QPalette(COLOR_18);
+        painter.setPen(PEN_ALARM);
     }
-    else if(AlarmOrderList[0][3] == "紧急" || AlarmOrderList[0][3] == "E")
-    {
-          p = new QPalette(COLOR_19);
-          painter.setPen(PEN_ALARM);
+    else if(AlarmOrderList[0][3] == "紧急" || AlarmOrderList[0][3] == "E"){
+        p = new QPalette(COLOR_19);
+        painter.setPen(PEN_ALARM);
     }
-    else
-    {
-          p = new QPalette(COLOR_11);
-          painter.setPen(PEN_INFO);
+    else{
+        p = new QPalette(COLOR_11);
+        painter.setPen(PEN_INFO);
     }
 
     this->setPalette(*p);

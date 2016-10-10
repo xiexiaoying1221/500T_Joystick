@@ -1,6 +1,10 @@
-/*
+﻿/*
     软件升级和系统重启视图
 */
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "softwareoperationwidget.h"
 #include "ui_softwareoperationwidget.h"
 

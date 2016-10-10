@@ -1,4 +1,13 @@
-QT      += network
+#-------------------------------------------------
+#
+# Project created by QtCreator 2016-10
+#
+#-------------------------------------------------
+
+QT       += core gui serialport network
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 HEADERS += mainwindow.h \
     mainViewWidget.h \
     titleWidget.h \
@@ -26,9 +35,7 @@ HEADERS += mainwindow.h \
     systemstatuswidget.h \
     adjustingbrightnesswidget.h \
     dataCommit.h \
-    serrialComm\qextserialbase.h \
     serialcomm.h \
-    serrialComm\win_qextserialport.h \
     systemsettingwidget.h \
     AlarmHandle.h \
     headingsetpwidget.h \
@@ -47,8 +54,6 @@ HEADERS += mainwindow.h \
     modbus/stdint.h \
     modbus/modbustcpcomm.h\
     modbusdataprocess.h \
- #   alarmlisthandle.h \
- #   alarmarray.h \
     gpio/define.h \
     gpio/REL_DEBUG.H \
     gpio/REL_SUSI.H \
@@ -82,9 +87,7 @@ SOURCES += mainwindow.cpp \
     systemstatuswidget.cpp \
     adjustingbrightnesswidget.cpp \
     dataCommit.cpp \
-    serrialComm\qextserialbase.cpp \
     serialcomm.cpp \
-    serrialComm\win_qextserialport.cpp \
     systemsettingwidget.cpp \
     AlarmHandle.cpp \
     characterconversion.cpp \
@@ -95,8 +98,6 @@ SOURCES += mainwindow.cpp \
     modbus/modbus-rtu.c \
     modbus/modbus-tcp.c \
     modbusdataprocess.cpp \
-#    alarmlisthandle.cpp \
-#    alarmarray.cpp
 
 FORMS += mainwindow.ui \
     limitsetwidget.ui \
@@ -123,5 +124,7 @@ RESOURCES += \
 LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\
         -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
         -lgdi32\
+        -luser32\
+        -ladvapi32\
         -lWs2_32\
         -lSusi

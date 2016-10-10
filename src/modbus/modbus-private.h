@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright © 2010-2011 Stéphane Raimbault <stephane.raimbault@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -77,7 +77,7 @@ typedef struct _sft {
     int t_id;
 } sft_t;
 
-//typedef size_t ssize_t; //apa+++
+typedef size_t ssize_t; //apa+++
 
 typedef struct _modbus_backend {
     unsigned int backend_type;

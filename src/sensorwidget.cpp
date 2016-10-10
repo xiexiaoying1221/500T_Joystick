@@ -1,6 +1,10 @@
-/*
+﻿/*
     传感器视图
 */
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "sensorwidget.h"
 #include "ui_sensorwidget.h"
 

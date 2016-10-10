@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "characterconversion.h"
 
 QFont FONT_1 = QFont("微软雅黑",8);
@@ -9,21 +13,21 @@ QFont FONT_15;//视图区标题文字字体
 QFont FONT_16;//按键键名字体
 QFont FONT_17;//报警页字体
 
-QString view1_xuanzhuanzhongxin = "旋转中心：";
-QString str_chuanshou = "船艏";
-QString str_chuanzhong = "船舯";
-QString str_chuanwei = "船艉";
-QString view1_juchuanshou = "距船艏";
-QString view1_juyouxian = "距右舷";
-QString view1_chuansu = "船速";
-QString view1_shedingshouxiang = "设定艏向";
-QString sensor_dianluojing = "电罗经";
-QString sensor_fengsufengxiangyi = "风速风向仪";
+QString view1_xuanzhuanzhongxin =   "旋转中心：";
+QString str_chuanshou =             "船艏";
+QString str_chuanzhong =            "船舯";
+QString str_chuanwei =              "船艉";
+QString view1_juchuanshou =         "距船艏";
+QString view1_juyouxian =           "距右舷";
+QString view1_chuansu =             "船速";
+QString view1_shedingshouxiang =    "设定艏向";
+QString sensor_dianluojing =        "电罗经";
+QString sensor_fengsufengxiangyi =  "风速风向仪";
 QString sensor_yundongcankaodanyuan = "运动参考单元";
-QString sensor_gps1 = "GPS1";
-QString sensor_gps2 = "GPS2";
-QString sensor_vrs = "VRS";
-QString sensor_suduchuanganqi = "速度传感器";
+QString sensor_gps1 =               "GPS1";
+QString sensor_gps2 =               "GPS2";
+QString sensor_vrs =                "VRS";
+QString sensor_suduchuanganqi =     "速度传感器";
 
 //按键的键名字符串
 QString btnstr_shitu;

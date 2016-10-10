@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtGui/QtGui>
@@ -65,6 +69,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //设置区域
     setAreaRect.setRect(keyAreaWidth,titleLHeight + infoLHeight+2,setAreaWidth,setAreaHeight);
 
+    //调光页面区域
+    adjustingbrightnessRect.setRect(keyAreaWidth,titleLHeight + infoLHeight+2,keyAreaWidth-2+ setAreaWidth,setAreaHeight );
+
+
     setWindowFlags(Qt::FramelessWindowHint);
     character->Refresh_character(State_language);
 
@@ -122,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     systemInfoWidget->setObjectName("s3");
     systemInfoWidget->setVisible(false);
 
-    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,setAreaRect);
+    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,adjustingbrightnessRect);
     adjustingbrightnesswidget->setVisible(false);
     adjustingbrightnesswidget->setObjectName("adjustingbrightnesswidget");
 
@@ -336,10 +344,8 @@ void MainWindow::hideKeyArea(){
     */
 
     if(objName.startsWith("gs") || objName.startsWith("es")
-               || objName.startsWith("ls") || objName.startsWith("as") || objName
-   .startsWith("adjustingbrightnesswidget")
-                   || objName.startsWith("systemsettingwidget") || objName.
-   startsWith("headingsetpwidget"))
+               || objName.startsWith("ls") || objName.startsWith("as")
+               || objName.startsWith("systemsettingwidget") || objName.startsWith("headingsetpwidget") )
         return;
 
     keyWidget->setVisible(false);
@@ -423,11 +429,6 @@ void MainWindow::btnTest_clicked()//中英文切换
 
 void MainWindow::btnLightDim_clicked()//调光
 {
-//	QProcess dimProg;
-//	dimProg.start("PPCBacklightAdjustmentTool");
-
-//	dimProg.waitForFinished();
-
         if(currentWidget != NULL)
         {
             if(currentWidget->objectName() != adjustingbrightnesswidget->objectName())
@@ -435,6 +436,7 @@ void MainWindow::btnLightDim_clicked()//调光
             else
                 return;
         }
+        hideKeyArea();
         adjustingbrightnesswidget->setVisible(true);
 
         previousWidget = currentWidget;
@@ -775,6 +777,3 @@ void MainWindow::paintEvent(QPaintEvent *)
 {
 
 }
-
-
-

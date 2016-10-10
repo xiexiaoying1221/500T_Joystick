@@ -1,4 +1,4 @@
-#ifndef GLOBALSETTINGS_H
+﻿#ifndef GLOBALSETTINGS_H
 #define GLOBALSETTINGS_H
 
 #include "dataCommit.h"

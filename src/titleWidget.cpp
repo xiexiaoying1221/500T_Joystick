@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "titleWidget.h"
 
 TitleWidget::TitleWidget(QWidget *parent,QRect titleRect)
@@ -57,7 +61,6 @@ void TitleWidget::paintEvent(QPaintEvent *){
 void TitleWidget::refreshData(){
     QDateTime time = QDateTime::currentDateTime();//获取系统现在的时间
     QString strTime = time.currentDateTime().toString("yyyy.MM.dd hh:mm:ss");
-
     QLabel * label = this->findChild<QLabel *>("lblTime");
     label->setFont(FONT_7);
     label->setText(strTime);

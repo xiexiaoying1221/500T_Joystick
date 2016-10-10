@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "positionWidget.h"
 
 PositionWidget::PositionWidget(QWidget *parent, QRect positionRect)
@@ -182,7 +186,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
         //点位置
         int pointX = cmdfy;
 
-        if(fabs(pointX) > 10 * interval)
+        if(fabs((float)pointX) > 10 * interval)
         {
            pointX = pointX >0 ? -10 * interval : 10*interval;
         }
@@ -423,7 +427,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
         //点 位置
         int pointX = -cmdfx;
 
-        if(fabs(pointX) > 10 * interval)
+        if(fabs((float)pointX) > 10 * interval)
         {
            pointX = pointX >0 ? -10 * interval : 10*interval;
         }
@@ -856,7 +860,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
         //点 位置
         int pointX = -cmdfx;
 
-        if(fabs(pointX) > 10 * interval)
+        if(fabs((float)pointX) > 10 * interval)
         {
            pointX = pointX >0 ? -10 * interval : 10*interval;
         }
@@ -947,12 +951,12 @@ void PositionWidget::paintEvent(QPaintEvent *){
         int pointX = cmdfy;
         int pointY = -cmdfx;
 
-        if(fabs(pointX) > 10 * interval)
+        if(fabs((float)pointX) > 10 * interval)
         {
            pointX = pointX >0 ? 10 * interval : -10*interval;
         }
 
-        if(fabs(pointY) > 10 * interval)
+        if(fabs((float)pointY) > 10 * interval)
         {
            pointY =  pointY >0 ? 10 * interval : -10*interval;
         }

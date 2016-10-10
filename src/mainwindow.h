@@ -1,5 +1,6 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
 #include <QMainWindow>
 #include <qlayout.h>
 #include <qlabel.h>
@@ -146,7 +147,8 @@ private:
     QRect viewAreaRect;
     //设置区域(视图区-按键区)
     QRect setAreaRect;
-
+    //调光窗口区域
+    QRect adjustingbrightnessRect;
 
     MainViewWidget *viewWidget;
     TitleWidget *titleWidget;

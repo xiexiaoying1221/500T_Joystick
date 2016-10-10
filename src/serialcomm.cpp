@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "serialcomm.h"
 #include "dataCommit.h"
 #include <QDebug>
@@ -10,37 +14,29 @@ long error_count = 0;
 SerialComm::SerialComm(QObject *parent) :
     QObject(parent)
 {
-    //myCom = new Win_QextSerialPort("COM5",QextSerialBase::EventDriven);
 
 }
 
 void SerialComm::OpenMyCom()
 {
     bool open_flag = false;
-    myCom = new Win_QextSerialPort("COM2",QextSerialBase::EventDriven);
 
-    //定义串口对象，指定串口名和查询模式，这里使用事件驱动EventDriven
 
-    open_flag = myCom ->open(QIODevice::ReadWrite);
-    qDebug()<<"open_flag:"<<open_flag;
-    //以读写方式打开串口
+    myCom = new QSerialPort(this);
 
-    myCom->setBaudRate(BAUD9600);
-    //波特率设置，我们设置为9600
-
-    myCom->setDataBits(DATA_8);
+    myCom->setPortName("COM2");
     //数据位设置，我们设置为8位数据位
-
-    myCom->setParity(PAR_NONE);
-    //奇偶校验设置，我们设置为无校验
-
-    myCom->setStopBits(STOP_1);
+    myCom->setDataBits(QSerialPort::Data8);
     //停止位设置，我们设置为1位停止位
-
-    myCom->setFlowControl(FLOW_OFF);
+    myCom->setStopBits(QSerialPort::OneStop);
+    //奇偶校验设置，我们设置为无校验
+    myCom->setParity(QSerialPort::NoParity);
     //数据流控制设置，我们设置为无数据流控制
-
-    myCom->setTimeout(500);
+    myCom->setFlowControl(QSerialPort::NoFlowControl);
+    //波特率设置，我们设置为9600
+    myCom->setBaudRate(9600);
+    //以读写方式打开串口
+    open_flag = myCom->open(QIODevice::ReadWrite);
 
     connect(myCom,SIGNAL(readyRead()),this,SLOT(readMyCom()));
     //信号和槽函数关联，当串口缓冲区有数据时，进行读串口操作

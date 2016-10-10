@@ -1,4 +1,4 @@
-#ifndef POSITIONWIDGET_H
+﻿#ifndef POSITIONWIDGET_H
 #define POSITIONWIDGET_H
 #include <QDebug>
 #include <qwidget.h>

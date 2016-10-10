@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright © 2001-2011 Stéphane Raimbault <stephane.raimbault@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -1080,17 +1080,12 @@ static int read_registers(modbus_t *ctx, int function, int addr, int nb,
         int i;
 
         rc = receive_msg(ctx, rsp, MSG_CONFIRMATION);
-        if (rc == -1)
-            return -1;
-        if (rc == -2)
-            return -2;
-        if (rc == -3)
-            return -3;
-        if (rc == -4)
-            return -4;
+        if (rc < 0)
+            return rc;
+
         rc = check_confirmation(ctx, req, rsp, rc);
-        if (rc == -1)
-            return -1;
+        if (rc  < 0)
+            return rc;
 
         offset = ctx->backend->header_length;
 

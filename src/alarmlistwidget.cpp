@@ -1,6 +1,10 @@
-/*
+﻿/*
     报警列表视图
 */
+
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
 
 #include "alarmlistwidget.h"
 #include "ui_alarmlistwidget.h"
@@ -42,14 +46,7 @@ AlarmListWidget::AlarmListWidget(QWidget *parent,QRect rect) :
 
     //设置表格属性
     //设置列宽不可变动
-    ui->alarm_tableView->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
-    ui->alarm_tableView->horizontalHeader()->setResizeMode(1, QHeaderView::Fixed);
-    ui->alarm_tableView->horizontalHeader()->setResizeMode(2, QHeaderView::Fixed);
-    ui->alarm_tableView->horizontalHeader()->setResizeMode(3, QHeaderView::Fixed);
-    ui->alarm_tableView->horizontalHeader()->setResizeMode(4, QHeaderView::Fixed);
-    ui->alarm_tableView->horizontalHeader()->setResizeMode(5, QHeaderView::Fixed);
-    ui->alarm_tableView->horizontalHeader()->setResizeMode(6, QHeaderView::Fixed);
-
+    ui->alarm_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     //设置列宽
     ui->alarm_tableView->setColumnWidth(0,60);

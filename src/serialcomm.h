@@ -1,10 +1,10 @@
-#ifndef SERIALCOMM_H
+﻿#ifndef SERIALCOMM_H
 #define SERIALCOMM_H
 
 #include <QObject>
 #include <QStringList>
 #include <QRegExp>
-#include "serrialComm/win_qextserialport.h"
+#include  <QSerialPort>
 
 #define MAX_DATA8 6.879
 //#define ZERO_DATA8 4.543
@@ -27,9 +27,8 @@ public:
 
 signals:
 private:
-    Win_QextSerialPort *myCom;
     QString myCom_data;
-
+    QSerialPort * myCom;
 
 public slots:
     void readMyCom();

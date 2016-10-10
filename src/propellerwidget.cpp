@@ -1,6 +1,9 @@
-/*
+﻿/*
     推进器视图
 */
+#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
 
 #include "propellerwidget.h"
 #include "ui_propellerwidget.h"

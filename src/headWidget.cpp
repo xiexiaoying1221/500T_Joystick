@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "headWidget.h"
 
 HeadWidget::HeadWidget(QWidget *parent, QRect headRect)
@@ -39,7 +43,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
     int r2 = width;//外圆弧半径
     int interval2 = 30;//外圆弧 - 内圆弧 间隔
 
-    QPen pen1;//线条Pen//,Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin
+    QPen pen1;//线条Pen
     QPen pen2;//设定进度条
     QPen pen3;//反馈进度条
     QPen pen4;//黑字体

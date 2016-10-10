@@ -1,3 +1,7 @@
+﻿#if _MSC_VER >= 1600
+#pragma execution_character_set("utf-8")
+#endif
+
 #include "headingsetpwidget.h"
 #include "ui_headingsetpwidget.h"
 
