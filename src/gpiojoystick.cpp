@@ -1,6 +1,19 @@
 ﻿#if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
 #endif
+//-----------------------------------------------------------------------------
+//	GPIO
+//-----------------------------------------------------------------------------
+//  GPIO interface included in "REL_SUSI.H"
+//int SusiIOAvailable();
+//BOOL SusiIOCountEx(DWORD *inCount, DWORD *outCount);
+//BOOL SusiIOQueryMask(DWORD flag, DWORD *Mask);
+//BOOL SusiIOReadEx(BYTE PinNum, BOOL *status);
+//BOOL SusiIOReadMultiEx(DWORD TargetPinMask, DWORD *StatusMask);
+//BOOL SusiIOSetDirection(BYTE PinNum, BYTE IO, DWORD *PinDirMask);
+//BOOL SusiIOSetDirectionMulti(DWORD TargetPinMask, DWORD *PinDirMask);
+//BOOL SusiIOWriteEx(BYTE PinNum, BOOL status);
+//BOOL SusiIOWriteMultiEx(DWORD TargetPinMask, DWORD StatusMask);
 
 #include "gpiojoystick.h"
 
@@ -98,31 +111,26 @@ void GpioJoystick::Gpio2Buzzer()
     else
         setbuzzer = 0;
 
-    if(setbuzzer != setbuzzer_old || first == true)
-    {
+    if(setbuzzer != setbuzzer_old || first == true){
         if(first == true)
             first = false;
 
-        if (mylib.load())
-        {
+        if (mylib.load()){
             qDebug()<<"DLL load is OK!";
 
 
             init = (Fun2)mylib.resolve("SusiDllInit");
-            if(init)
-            {
+            if(init){
                 init();
                 //qDebug()<<"LINK init GPIO OK!";
             }
-            else
-            {
+            else{
                 qDebug()<<"LINK init GPIO ERROR!";
             }
 
             //将第一路GPIO设置为写
             setdirection = (Fun3)mylib.resolve("SusiIOSetDirectionMulti");
-            if(setdirection)
-            {
+            if(setdirection){
                 //BOOL SusiIOSetDirectionMulti(DWORD TargetPinMask, DWORD *PinDirMask);
                 //TargetPinMask=0000 0001(only set gpio0 direction)
                 //0-write,1-read.

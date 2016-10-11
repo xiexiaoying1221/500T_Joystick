@@ -395,7 +395,7 @@ void InitData()
     MAX_Fsum = 15.0;//船舶推力最大合力-粗略值
     MAX_Nsum = 6.0;//船舶推力最大合力矩-粗略值
 
-    point_rot = 1;//1:船首，0：船舯，2：船艉
+    point_rot = 0;//1:船首，0：船舯，2：船艉
 
     Operate_mode = READY_MODE;//开机第一次运行，待机模式
     //isReady_first = true;

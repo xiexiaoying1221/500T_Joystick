@@ -1,4 +1,4 @@
-#ifndef TITLEWIDGET_H
+﻿#ifndef TITLEWIDGET_H
 #define TITLEWIDGET_H
 
 #include <qwidget.h>
@@ -11,7 +11,6 @@
 #include <qlabel.h>
 
 #include <globalSettings.h>
-//#include <dataCommit.h>
 
 class TitleWidget: public QWidget{
     Q_OBJECT

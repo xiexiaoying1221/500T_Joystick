@@ -54,7 +54,7 @@ HEADERS += mainwindow.h \
     modbus/stdint.h \
     modbus/modbustcpcomm.h\
     modbusdataprocess.h \
-    gpio/define.h \
+    #gpio/define.h \
     gpio/REL_DEBUG.H \
     gpio/REL_SUSI.H \
     gpio/REL_ERRLIB.H \
@@ -123,7 +123,6 @@ RESOURCES += \
 
 LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\
         -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
-        -lgdi32\
         -luser32\
         -ladvapi32\
         -lWs2_32\

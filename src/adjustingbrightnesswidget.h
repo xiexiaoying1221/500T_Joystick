@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <WinUser.h>
+#include <QWindow>
 
 #include "dataCommit.h"
 #include "globalSettings.h"
@@ -27,6 +28,8 @@ public:
 //    int SetGamma(int);
     void changeDNMode();
     void Refresh_changless_words();
+    void attachWindow(void);
+    void hideWindow( bool visible );
 
 private:
     Ui::AdjustingBrightnessWidget *ui;
@@ -43,6 +46,8 @@ private:
 //    int lblh;
 
     QProcess* m_dimProg;
+    QWindow* m_window;
+    QWidget* m_widget;
 signals:
 //    void ok_signal(QString);
 //    void cancel_signal(QString);

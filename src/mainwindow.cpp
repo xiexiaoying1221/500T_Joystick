@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     systemInfoWidget->setObjectName("s3");
     systemInfoWidget->setVisible(false);
 
-    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,adjustingbrightnessRect);
+    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,viewAreaRect);
     adjustingbrightnesswidget->setVisible(false);
     adjustingbrightnesswidget->setObjectName("adjustingbrightnesswidget");
 
@@ -329,19 +329,11 @@ void MainWindow::changeDayNightMode()
 void MainWindow::showKeyArea(){
     keyWidget->setVisible(true);
     pbShowKeyArea->setVisible(false);
+    adjustingbrightnesswidget->hideWindow ( false );
 }
 
 void MainWindow::hideKeyArea(){
     QString objName =currentWidget->objectName();
-
-    /*
-    if(objName.startsWith("gs") || objName.startsWith("es")
-            || objName.startsWith("ls") || objName.startsWith("as") || objName.startsWith("adjustingbrightnesswidget"))
-        return;
-
-    keyWidget->setVisible(false);
-    pbShowKeyArea->setVisible(true);
-    */
 
     if(objName.startsWith("gs") || objName.startsWith("es")
                || objName.startsWith("ls") || objName.startsWith("as")
@@ -350,6 +342,7 @@ void MainWindow::hideKeyArea(){
 
     keyWidget->setVisible(false);
     pbShowKeyArea->setVisible(true);
+    adjustingbrightnesswidget->hideWindow ( true );
 
 }
 
@@ -437,6 +430,7 @@ void MainWindow::btnLightDim_clicked()//调光
                 return;
         }
         hideKeyArea();
+        adjustingbrightnesswidget->attachWindow ();
         adjustingbrightnesswidget->setVisible(true);
 
         previousWidget = currentWidget;

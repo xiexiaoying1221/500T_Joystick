@@ -149,7 +149,7 @@ void MainViewWidget::paintEvent(QPaintEvent *)
         //距右舷的值
         x1 = x+75;
         y1 = y+55;
-        painter.drawText(QRect(x1,y1,80,20),"0.0  m",Qt::AlignLeft|Qt::AlignBottom);
+        painter.drawText(QRect(x1,y1,80,20),QString("%1  m").arg(QString::number(SHIP_WIDTH/2.0,'f',1)),Qt::AlignLeft|Qt::AlignBottom);
     }
 
 //    y += 20;
