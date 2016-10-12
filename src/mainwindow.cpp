@@ -222,6 +222,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer1,SIGNAL(timeout()),SLOT(timer1Done()));
     timer1->start(500);
 
+    gpiohandle = new GpioJoystick(this);
     gpiohandle->GpioInit();
 
     //定时刷新各窗体数据

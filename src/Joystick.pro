@@ -121,8 +121,7 @@ FORMS += mainwindow.ui \
 RESOURCES += \
     img.qrc
 
-LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\
-        -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
+LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
         -luser32\
         -ladvapi32\
         -lWs2_32\

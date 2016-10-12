@@ -149,6 +149,7 @@ void ModbusDataProcess::RefreshRecvData()
     modbusdata.readFloat_buff(&mes_heading,     8216);
     modbusdata.readFloat_buff(&heading,         8218);
 
+    modbusdata.readFloat_buff(&fbk_rotateRate,  8220);
     modbusdata.readFloat_buff(&mes_winddir,     8222);
     modbusdata.readFloat_buff(&mes_windspd,     8224);
 
@@ -206,7 +207,6 @@ void ModbusDataProcess::RefreshRecvData()
     modbusdata.readBool_buff(&CCdata_info[5],   8196,2);//右主推就绪信号状态
     modbusdata.readBool_buff(&CCdata_info[6],   8196,3);//左舵就绪信号状态
     modbusdata.readBool_buff(&CCdata_info[7],   8196,4);//右舵就绪信号状态
-
 }
 
 void ModbusDataProcess::RefreshSendData()

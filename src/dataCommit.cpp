@@ -16,6 +16,7 @@ float mes_windspd = 0.0;
 quint32 cc_hearbeat = 0;
 quint32 fbk_rotateCenter = 0;
 quint32 fbk_controlMode = 0;
+float fbk_rotateRate = 0.0;
 
 unsigned short State_cc_net1 = 0;//0-正常；1-异常
 unsigned short State_cc_net2 = 0;

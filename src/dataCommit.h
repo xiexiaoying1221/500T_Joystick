@@ -83,6 +83,7 @@ extern float mes_windspd;
 extern quint32 cc_hearbeat;
 extern quint32 fbk_rotateCenter;
 extern quint32 fbk_controlMode;
+extern float fbk_rotateRate;
 
 extern unsigned short State_cc_net1;
 extern unsigned short State_cc_net2;

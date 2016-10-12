@@ -4,7 +4,8 @@
 //-----------------------------------------------------------------------------
 //	GPIO
 //-----------------------------------------------------------------------------
-//  GPIO interface included in "REL_SUSI.H"
+
+//GPIO interface included in "REL_SUSI.H"
 //int SusiIOAvailable();
 //BOOL SusiIOCountEx(DWORD *inCount, DWORD *outCount);
 //BOOL SusiIOQueryMask(DWORD flag, DWORD *Mask);
@@ -17,152 +18,111 @@
 
 #include "gpiojoystick.h"
 
+
+
+
 GpioJoystick::GpioJoystick(QObject *parent) :
     QObject(parent)
 {
-    //QObject(parent),mylib("EAPI_1.dll")
+    m_lib = nullptr;
+    setbuzzer = 0;
+    setbuzzer_old = 0;
+    first = true;
+    ready = false;
 }
 
-int GpioJoystick::GpioInit()
-{
-    static int setbuzzer = 0;
-    static int setbuzzer_old = 0;
-    static bool first = true;
-    //mylib("EAPI_1.dll");
-   // mylib.isLibrary("EAPI_1.dll");
-    QLibrary mylib("Susi.dll");
+void GpioJoystick::GpioInit(){
 
-    bool init;
+    Fun1 initial;
+    Fun5 setdirection;
 
-    if(Enable_buzzer == true)
-        setbuzzer = 1;
-    else
-        setbuzzer = 0;
+    DWORD ret = 0;
+    bool ok;
 
-    if(setbuzzer != setbuzzer_old || first == true)
-    {
-        if(first == true)
-            first = false;
-
-        if (mylib.load())
-        {
-            qDebug()<<"DLL load is OK!";
-
-            init = mylib.resolve("SusiDllInit");
-            if(init)
-            {
-                qDebug()<<"init GPIO OK!";
-            }
-            else
-            {
-                qDebug()<<"init GPIO ERROR!";
-            }
-
-
-            /*
-            open=(Fun1)mylib.resolve("EApiLibInitialize");
-            set=(Fun)mylib.resolve("EApiGPIOSetLevel");
-            if (open)
-            {
-                result=open();
-            }
-            else
-            {
-                qDebug()<<"Link to Function open() is not OK!";
-            }
-            if (set)
-            {
-                result=set(EAPI_GPIO_ID2,1,setbuzzer);
-            }
-            else
-            {
-                 qDebug()<<"Link to Function set() is not OK!";
-            }
-            */
-
-            return OK;
-        }
-        else
-        {
-            qDebug()<<"DLL is not loaded!";
-            return ERROR;
-        }
-
-        setbuzzer_old = setbuzzer;
+    if(m_lib == nullptr){
+        m_lib = new QLibrary("Susi.dll", this);
     }
-
-}
-
-void GpioJoystick::Gpio2Buzzer()
-{
-    static bool setbuzzer = 0;
-    static int setbuzzer_old = 0;
-    static bool first = true;
-    Fun2 init;
-    Fun3 setdirection;
-    Fun4 setstatus;
-
-    QLibrary mylib("Susi.dll");
-
-
-
-    if(Enable_buzzer == true)
+    if(Enable_buzzer)
         setbuzzer = 1;
     else
         setbuzzer = 0;
 
-    if(setbuzzer != setbuzzer_old || first == true){
-        if(first == true)
-            first = false;
-
-        if (mylib.load()){
-            qDebug()<<"DLL load is OK!";
-
-
-            init = (Fun2)mylib.resolve("SusiDllInit");
-            if(init){
-                init();
-                //qDebug()<<"LINK init GPIO OK!";
+    if(first){
+        first = false;
+        if (m_lib->load()){
+            initial = (Fun1)m_lib->resolve("SusiDllInit");
+            if( initial ){
+                    if( initial() ){
+                        qDebug()<<"init GPIO OK!";
+                        //将第一路GPIO设置为写
+                        setdirection = (Fun5)m_lib->resolve("SusiIOSetDirection");
+                        if(setdirection){
+                            //IO: 0-write,1-read.
+                            //BOOL SusiIOSetDirection(BYTE PinNum, BYTE IO, DWORD *PinDirMask);
+                            ok = setdirection(0,0,&ret);
+                            if(ok){
+                                //qDebug()<<"Successed! set GPIO 0 to write, GPIO ready!";
+                                ready = true;
+                            }
+                            else{
+                                qDebug()<<"Error!, set GPIO 0 to write fail";
+                                ready = false;
+                            }
+                        }
+                        else{
+                            qDebug()<<"Error, SusiIOSetDirection not found";
+                            ready = false;
+                        }
+                    }
+                    else{
+                        qDebug()<<"Error, susi dll init fail";
+                        ready = false;
+                    }
             }
             else{
-                qDebug()<<"LINK init GPIO ERROR!";
+                qDebug()<<"Error, susi dll init not found!";
+                ready = false;
             }
+        }
+        else{
+            qDebug()<<"Error, susi dll load fail";
+            ready = false;
+        }
+    }
+}
 
-            //将第一路GPIO设置为写
-            setdirection = (Fun3)mylib.resolve("SusiIOSetDirectionMulti");
-            if(setdirection){
-                //BOOL SusiIOSetDirectionMulti(DWORD TargetPinMask, DWORD *PinDirMask);
-                //TargetPinMask=0000 0001(only set gpio0 direction)
-                //0-write,1-read.
-                setdirection(1,0);
-                //qDebug()<<"LINK setdirection GPIO OK!";
-            }
-            else
-            {
-                qDebug()<<"LINK setdirection GPIO ERROR!";
-            }
+void GpioJoystick::Gpio2Buzzer(){
+    Fun4 setstatus;
 
-            setstatus = (Fun4)mylib.resolve("SusiIOWriteEx");
-            if(setstatus)
-            {
-                //BOOL SusiIOWriteEx(BYTE PinNum, BOOL status);
-                setstatus(0,setbuzzer);
-                //qDebug()<<"LINK setstatus GPIO OK!";
-                qDebug()<<"setbuzzer"<<setbuzzer;
+    bool ok;
+
+    if(m_lib == nullptr || !ready){
+        qDebug()<<"Error, susi GPIO not ready";
+        GpioInit();
+        return;
+    }
+    if(Enable_buzzer)
+        setbuzzer = 1;
+    else
+        setbuzzer = 0;
+
+    if(setbuzzer != setbuzzer_old){
+        setstatus = (Fun4)m_lib->resolve("SusiIOWriteEx");
+        if(setstatus){
+            //BOOL SusiIOWriteEx(BYTE PinNum, BOOL status);
+            ok = setstatus(0,Enable_buzzer);
+            if(ok){
+                //qDebug()<<"Successed! setbuzzer"<<Enable_buzzer;
+                setbuzzer_old = setbuzzer;
             }
-            else
-            {
-                qDebug()<<"LINK setstatus GPIO ERROR!";
+            else{
+                qDebug()<<"Error, SusiIOWriteEx fail";
             }
-//            return OK;
         }
         else
         {
-            qDebug()<<"DLL is not loaded!";
-//            return ERROR;
+            qDebug()<<"Error, SusiIOWriteEx not found!";
         }
-
-        setbuzzer_old = setbuzzer;
     }
 }
 
