@@ -16,7 +16,6 @@ float mes_windspd = 0.0;
 quint32 cc_hearbeat = 0;
 quint32 fbk_rotateCenter = 0;
 quint32 fbk_controlMode = 0;
-float fbk_rotateRate = 0.0;
 
 unsigned short State_cc_net1 = 0;//0-正常；1-异常
 unsigned short State_cc_net2 = 0;
@@ -273,9 +272,9 @@ float MAX_RX = 0.0;//舵提供Y轴最大推力
 float MAX_RY = 0.0;//舵提供X轴最大推力
 float MAX_RZ = 0.0;//
 
-float MAX_FX = 360000;//MAX_PX + MAX_RX;//
-float MAX_FY = 144526;//MAX_PY + MAX_RY;//
-float MAX_NZ = 3189400;//MAX_PZ + MAX_RZ;//
+float MAX_FX = 390 * 1000;//MAX_PX + MAX_RX;//
+float MAX_FY = 20 * 1000;//MAX_PY + MAX_RY;//
+float MAX_NZ = 820 * 1000;//MAX_PZ + MAX_RZ;//
 
 float ship_m = 552.2;
 float ship_mx = 43.0;
@@ -455,13 +454,13 @@ float SwitchJoy2Force(float joyvalue,short dim)
     switch(dim)
     {
     case 1:
-        max_force = MAX_FX;
+        max_force = MAX_SURGINGFORCE;
         break;
     case 2:
-        max_force = MAX_FY;
+        max_force = MAX_SWAYINGFORCE;
         break;
     case 3:
-        max_force =  MAX_NZ;
+        max_force =  MAX_ROTATETORQUE;
         break;
     default:
         max_force = 0;

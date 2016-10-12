@@ -54,9 +54,9 @@
 #define MAX_RUDDER 255128 //max liju
 #define MAX_SPEED 0.95 //船模最大航速 m/s，最大航速13节
 
-#define MAX_ROTATETORQUE 820 * 1000 //最大回转力矩820kNm
-#define MAX_SWAYINGFORCE 20 * 1000  //横荡最大力	20kN
-#define MAX_SURGINGFORCE 390 * 1000 //纵荡最大力	390kN
+#define MAX_ROTATETORQUE (820 * 1000) //最大回转力矩820kNm
+#define MAX_SWAYINGFORCE (20 * 1000)  //横荡最大力	20kN
+#define MAX_SURGINGFORCE (390 * 1000) //纵荡最大力	390kN
 
 #define READY_MODE 0
 #define MANUAL_MODE 1
@@ -83,7 +83,6 @@ extern float mes_windspd;
 extern quint32 cc_hearbeat;
 extern quint32 fbk_rotateCenter;
 extern quint32 fbk_controlMode;
-extern float fbk_rotateRate;
 
 extern unsigned short State_cc_net1;
 extern unsigned short State_cc_net2;

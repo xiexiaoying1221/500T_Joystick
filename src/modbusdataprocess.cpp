@@ -149,7 +149,7 @@ void ModbusDataProcess::RefreshRecvData()
     modbusdata.readFloat_buff(&mes_heading,     8216);
     modbusdata.readFloat_buff(&heading,         8218);
 
-    modbusdata.readFloat_buff(&fbk_rotateRate,  8220);
+    modbusdata.readFloat_buff(&speed_r,  8220);
     modbusdata.readFloat_buff(&mes_winddir,     8222);
     modbusdata.readFloat_buff(&mes_windspd,     8224);
 

@@ -86,8 +86,8 @@ void HeadWidget::paintEvent(QPaintEvent *){
     QRectF rectangle2(-r1,-height + 30 + interval1 ,2*r1,2*r1);
     painter.drawEllipse(rectangle2);
 
-    /*艏向位置、回转率*/
-    float speedR = speed_r;
+    //艏向位置、回转率
+    float speedR = speed_r * 60.0;//原来是度每秒，转换为度每分钟
     if((speedR > -0.1 && speedR < 0) || (speedR > 0 && speedR < 0.1))
         speedR = 0;
 
@@ -95,7 +95,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
     painter.setPen(pen1);
     painter.setFont(FONT_3);
     painter.drawText(-60 - 40, - height*2/3 + 100,str_huizhuanlv);//"回转率"
-    painter.setFont(FONT_2);
+    painter.setFont(FONT_3);
     painter.drawText(50,- height*2/3 + 85,danwei_dufen );//"°/分"
     if(speedR>0)
         painter.drawText(50,- height*2/3 + 105, str_youxian);//"右舷"
@@ -109,7 +109,6 @@ void HeadWidget::paintEvent(QPaintEvent *){
 
     painter.drawText(-60,- height*2/3 - 15 + 90 ,120,30,Qt::AlignCenter,QString::number(speedR,'f',1));
 
-//    int tempHeading =heading * 10;
     painter.setFont(FONT_12);
     painter.drawText(-190,- height*2/3 - 60 + 50 ,400,80,Qt::AlignCenter, QString::number(heading,'f',1 )+"  °");
 
@@ -120,7 +119,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
 
      painter.drawLine(0,0,600,600);
 
-    // 左右方向三角形
+    // 上方,左右方向三角形
     QPolygonF polygonL;
     polygonL << QPointF(-90, -height + 75) << QPointF(-30, -height + 60) << QPointF(-30,-height + 90) ;
 
@@ -136,7 +135,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
 
     QPolygonF polygonR;
     polygonR << QPointF(90, -height + 75) << QPointF(30, -height + 60) << QPointF(30,-height + 90) ;
-    if(speedR > 0)
+    if(speedR > 0 )
     {
         painter.setBrush(BRUSH_1);
     }
@@ -150,7 +149,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
     painter.setPen(pen1);
     painter.drawLine(0,-height + 30 + interval1,0,-height);
 
-    /*===========下端============*/
+    /*===========下端扇形回转力区域============*/
 
     /*联合操作杆模式下自动艏向控制*/
     if(Operate_mode == HEADING_MODE || Operate_mode == KEEPXD_MODE || Operate_mode == KEEPYD_MODE || Operate_mode == KEEPPOS_MODE)
@@ -627,7 +626,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
 
         QRectF rectangle6(-r2 ,-height*1/4 + interval2/4 ,2*r2,2*r2);
 
-        spanAngle6 = fabs(cmd_Nz) * 24.68 / MAX_NZ;/*最大跨度 25*/
+        spanAngle6 = fabs(cmd_Nz) * 24.68 / MAX_ROTATETORQUE;/*最大跨度 25*/
 
          if(cmd_Nz < 0)
          {
@@ -647,7 +646,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
         painter.setPen(pen3);
         QRectF rectangle8(-r2 ,-height*1/4 + interval2 * 3/4 ,2*r2,2*r2);
 
-        spanAngle7 = fabs(fbk_Nz) * 23.40 / MAX_NZ;/*最大跨度 23.40*/
+        spanAngle7 = fabs(fbk_Nz) * 23.40 / MAX_ROTATETORQUE;/*最大跨度 23.40*/
 
          if(fbk_Nz < 0)
          {
@@ -664,7 +663,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
         painter.setFont(FONT_9);
         painter.setPen(pen4);
 
-        painter.drawText(QRect(-40,-height*1/4 + interval2 ,80,40),Qt::AlignCenter,QString::number(fbk_Nz * 100.0 / MAX_NZ,'f',0)+"%");
+        painter.drawText(QRect(-40,-height*1/4 + interval2 ,80,40),Qt::AlignCenter,QString::number(fbk_Nz * 100.0 / MAX_ROTATETORQUE,'f',0)+"%");
         painter.setPen(pen1);
         painter.setFont(FONT_2);
         if(fbk_Nz > 0)
@@ -682,26 +681,29 @@ void HeadWidget::paintEvent(QPaintEvent *){
 
         int rotateAng = 0;
 
+        //小三角形转弯方向指示
         QPolygonF polygon;
 
-        if(cmd_Nz > 0)
-        {
-            rotateAng = 15;
+
+        if(cmd_Nz > 5000 || cmd_Nz < -5000.0){
+            if(cmd_Nz > 0)
+            {
+                rotateAng = 15;
+            }
+            else if( cmd_Nz < -0 )
+            {
+                rotateAng = -15;
+            }
+
+            painter.rotate(rotateAng);
+
+            polygon << QPointF(0 ,-r2 - 12)
+                    << QPointF(-8, -r2 + 10) << QPointF(8, -r2 + 10) ;
+
+            painter.setBrush(BRUSH_8);
+            painter.setPen(pen1);
+            painter.drawPolygon(polygon, Qt::WindingFill);
         }
-        else if( cmd_Nz < 0 )
-        {
-            rotateAng = -15;
-        }
-
-        painter.rotate(rotateAng);
-
-        polygon << QPointF(0 ,-r2 - 12)
-                << QPointF(-8, -r2 + 10) << QPointF(8, -r2 + 10) ;
-
-        painter.setBrush(BRUSH_8);
-        painter.setPen(pen1);
-
-        painter.drawPolygon(polygon, Qt::WindingFill);
 
         //还原坐标系
         painter.rotate(-rotateAng);
