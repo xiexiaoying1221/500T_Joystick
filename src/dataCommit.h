@@ -54,10 +54,6 @@
 #define MAX_RUDDER 255128 //max liju
 #define MAX_SPEED 0.95 //船模最大航速 m/s，最大航速13节
 
-#define MAX_ROTATETORQUE (820 * 1000) //最大回转力矩820kNm
-#define MAX_SWAYINGFORCE (20 * 1000)  //横荡最大力	20kN
-#define MAX_SURGINGFORCE (390 * 1000) //纵荡最大力	390kN
-
 #define READY_MODE 0
 #define MANUAL_MODE 1
 #define KEEPPOS_MODE 2
@@ -174,7 +170,6 @@ extern unsigned short btn_language;
 
 
 //_OT_SettingData
-
 extern unsigned short Run_mode;//1仿真；2实船；3测试
 extern unsigned short Operate_mode;//1待机，2手操，3位置保持,4自动舵，5自动艏向，6自动纵向，7自动横向，8自动艏向自动纵向，9自动艏向自动横向，10自动纵向自动横向
 extern float set_heading;
@@ -204,6 +199,7 @@ extern short drughttype;
 extern short gain_autopilot;
 extern float max_rudangle;
 extern int gainlevel;
+extern int set_maxRudderAngle;
 extern bool flag_weathercomp;
 extern unsigned int avlb_power;
 extern unsigned int real_power;
@@ -277,6 +273,7 @@ extern float cmd_Fy_old[10];//由手柄推进值及环境力求得的横向推�
 extern float cmd_Nz_old[10];//由手柄推进值及环境力求得的转向推力指令
 
 
+extern bool jsReqSwitch;//Joystick模式开关
 extern bool headTunningFinished;//自动艏向调节完成
 extern short switch2Joystick;
 extern bool Ready_prop1;
@@ -289,10 +286,10 @@ extern bool Run_prop2;
 extern bool Run_prop3;
 extern bool Run_rudder1;
 extern bool Run_rudder2;
-extern bool controllerStateReady;
-extern bool controllerStateSimulation;
-extern bool controllerStateBypass;
-extern bool controllerStateAutoHeading;
+extern bool fbk_StateReady;
+extern bool fbk_StateSimulation;
+extern bool fbk_StateBypass;
+extern bool fbk_StateAutoHeading;
 
 extern float fbk_prop1_pitch;
 extern float fbk_prop2_pitch;

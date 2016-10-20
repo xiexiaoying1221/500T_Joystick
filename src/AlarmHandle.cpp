@@ -162,7 +162,7 @@ void AlarmListMain()
     Refresh_Alarm_words();
 }
 
-//alarmlist count number from 0 to 14, sum 15
+//alarmlist count number from 0 to 15, sum 16
 void CCAlarmHandle()
 {
     QTime cTime = QTime::currentTime();
@@ -200,7 +200,7 @@ void CCAlarmHandle()
 
 
 }
-//alarmlist count number from 15 to 22, sum 8
+//alarmlist count number from 16 to 24, sum 9
 void InfoHandle()
 {
     QTime cTime = QTime::currentTime();
@@ -217,7 +217,7 @@ void InfoHandle()
 
     if(first_enter == true)//CCdata_info[i] != last_info[i] 初始化
     {
-        for(i=0,j=16;i<8;i++,j++)//控制柜共有8条提示信息需要显示
+        for(i=0,j=16;i<9;i++,j++)//控制柜共有8条提示信息需要显示
         {
 //            qDebug()<<"info["<<i<<"]:"<<CCdata_info[i]<<last_info[i]<<first_enter;
             if(CCdata_info[i] == false)//第一次进入，未就绪提示
@@ -272,6 +272,9 @@ void InfoHandle()
                     AlarmList[j][5] = str_CCinfo15;//报警描述
 //                    qDebug()<<"2R.RUD"<<j<<AlarmList[j][5];
                     break;
+                case 8:
+                    AlarmList[j][5] = str_CCinfo17;//报警描述
+                    break;
                 default:
                     break;
                 }
@@ -281,7 +284,7 @@ void InfoHandle()
     }
     else
     {
-        for(i=0,j=16;i<8;i++,j++)//控制柜共有8条提示信息需要显示
+        for(i=0,j=16;i<9;i++,j++)//控制柜共有8条提示信息需要显示
         {
             if(CCdata_info[i] == false && last_info[i] != false )//未就绪提示
             {
@@ -311,7 +314,7 @@ void InfoHandle()
     }
 }
 
-//alarmlist count number from 23 to 27, sum 5
+//alarmlist count number from 25 to 29, sum 5
 void OTAlarmHandle()
 {
     QTime cTime = QTime::currentTime();
@@ -324,7 +327,7 @@ void OTAlarmHandle()
 
     int i,j;
 
-    for(i=0,j=24;i<5;i++)
+    for(i=0,j=25;i<5;i++)
     {
         if(OTdata_alarm[i] == true && ota_flag[i] != true)
         {
@@ -432,11 +435,11 @@ void Refresh_Alarm_words()
             AlarmList[node][1] = str_kongzhigui;//报警来源设备
             AlarmList[node][3] = almstr_jinggao;//QString("警告");//报警类型-警告、报警、紧急、提示
         }
-        else if( node < 24){
+        else if( node < 25){
             AlarmList[node][1] = str_kongzhigui;//报警来源设备
             AlarmList[node][3] = almstr_tishi;//QString("警告");//报警类型-警告、报警、紧急、提示
         }
-        else if( node < 29){
+        else if( node < 30){
             AlarmList[node][1] = str_caozuoduan;//报警来源设备
             AlarmList[node][3] = almstr_baojing;//QString("警告");//报警类型-警告、报警、紧急、提示
         }
@@ -555,18 +558,26 @@ void Refresh_Alarm_words()
             }
             break;
         case 24:
-            AlarmList[node][5] = str_OTalm0;
+            if(!CCdata_info[node - 16]){
+                AlarmList[node][5] = str_CCinfo16;
+            }
+            else{
+                AlarmList[node][5] = str_CCinfo17;
+            }
             break;
         case 25:
-            AlarmList[node][5] = str_OTalm1;
+            AlarmList[node][5] = str_OTalm0;
             break;
         case 26:
-            AlarmList[node][5] = str_OTalm2;
+            AlarmList[node][5] = str_OTalm1;
             break;
         case 27:
-            AlarmList[node][5] = str_OTalm3;
+            AlarmList[node][5] = str_OTalm2;
             break;
         case 28:
+            AlarmList[node][5] = str_OTalm3;
+            break;
+        case 29:
             AlarmList[node][5] = str_OTalm4;
             break;
 

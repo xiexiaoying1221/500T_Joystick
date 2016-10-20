@@ -20,7 +20,7 @@ extern QString sensor_gps1;
 extern QString sensor_gps2;
 extern QString sensor_vrs;
 extern QString sensor_suduchuanganqi;
-
+extern QString joystickRequest;
 extern QString str_huizhuanlv;
 extern QString str_shouxiang;
 extern QString str_bei;
@@ -160,6 +160,7 @@ extern QString str_tuilifenpeimoshi_ZTSZ;  //推力分配模式
 extern QString str_shezhihuizhuanlv_ZTSZ;  //设置回转率
 extern QString str_fenglibuchang_ZTSZ;     //风力补偿
 extern QString str_zengyidengji_ZTSZ;      //增益等级
+extern QString str_zuidaduojiao_ZTSZ;
 extern QString str_chuanbochishuileixing_ZTSZ;  //船舶吃水类型
 
 extern QString str_dianluojing_CQSZ;
@@ -267,6 +268,9 @@ extern QString str_CCinfo12;
 extern QString str_CCinfo13;
 extern QString str_CCinfo14;
 extern QString str_CCinfo15;
+extern QString str_CCinfo16;
+extern QString str_CCinfo17;
+
 
 extern QString str_OTalm0;
 extern QString str_OTalm1;

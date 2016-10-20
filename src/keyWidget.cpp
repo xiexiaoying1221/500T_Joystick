@@ -199,7 +199,7 @@ void KeyWidget::keyAreaInit(){
     btn27 = new QPushButton(this);//仿真（20160918新增）
     btn27->setFocusPolicy(Qt::NoFocus);
     btn27->setGeometry(x3, y3 , btnWidth,btnWidth);
-    if(controllerStateSimulation == true)
+    if(Run_mode == 1)
          btn27->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
     else
          btn27->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
@@ -217,7 +217,7 @@ void KeyWidget::keyAreaInit(){
     btn12 = new QPushButton(this);//手操
     btn12->setFocusPolicy(Qt::NoFocus);
     btn12->setGeometry(x2, y4 , btnWidth,btnWidth);
-    if(controllerStateReady == 1 || controllerStateSimulation == 1){
+    if(fbk_StateReady == 1 || fbk_StateSimulation == 1){
         btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
     }
     else{
@@ -261,7 +261,7 @@ void KeyWidget::keyAreaInit(){
     btn16 = new QPushButton(this);//自动艏向
     btn16->setFocusPolicy(Qt::NoFocus);
     btn16->setGeometry(x2 , y5 , btnWidth,btnWidth);
-    if(controllerStateAutoHeading == true)
+    if(fbk_StateAutoHeading == true)
         btn16->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
     else
         btn16->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
@@ -925,23 +925,19 @@ void KeyWidget::unFixKeyArea()
 
 
 void KeyWidget::btnSimulate_clicked(){
-//1仿真；2实船；3测试
-    if(Run_mode != 1){
-        Run_mode = 1;
+    //只能在待机模式下，才能进入或退出仿真
+    //fbk_controlMode 0待机，1手操
+    //qDebug()<<"KeyWidget::btnSimulate_clicked()"<<fbk_controlMode;
+    if( fbk_controlMode == 0 ){
+        //Run_mode 1仿真；2实船；3测试
+        if(Run_mode != 1){
+            Run_mode = 1;
+        }
+        else{
+            Run_mode = 2;
+        }
+        //qDebug()<<"KeyWidget::btnSimulate_clicked()"<<"inside"<<Run_mode<<fbk_StateSimulation;
     }
-    else{
-        Run_mode = 2;
-    }
-
-    if(controllerStateSimulation == true)//仿真，亮
-    {
-        btn27->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
-    }
-    else//灭
-    {
-        btn27->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
-    }
-
 }
 
 void KeyWidget::refreshData()//按键区刷新
@@ -999,4 +995,21 @@ void KeyWidget::refreshData()//按键区刷新
         btn11->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
     else
         btn11->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+
+//仿真按钮
+    if(fbk_StateSimulation == true)//仿真，亮
+    {
+        btn27->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+    }
+    else if(btn27FlashCount%4 >=2 && Run_mode == 1)//闪烁亮
+    {
+        btn27->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+        btn27FlashCount ++;
+    }
+    else//闪烁灭或彻底灭
+    {
+        btn27->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+        btn27FlashCount ++;
+    }
+
 }

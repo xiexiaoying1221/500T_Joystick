@@ -197,7 +197,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(changemode(int)),keyWidget,SLOT(changeMode(int)));
 
 
-    //-----------将所有需要中英文切换的字符串赋值-add by xxy---初始化所有不变的文字部分------------------------------------
+//-----------将所有需要中英文切换的字符串赋值-add by xxy---初始化所有不变的文字部分------------------------------------
 //    character->Refresh_character("Chinese");
 //    sensorwidget->Refresh_changless_words();
 //    propellerwidget->Refresh_changless_words();
@@ -669,7 +669,7 @@ void MainWindow::btnHeadingSetting_clicked()//艏向设定
     }
 
     headingsetpwidget->setVisible(true);
-//    headingsetpwidget->lower();
+    headingsetpwidget->refreshData ();
     previousWidget = currentWidget;
     currentWidget = headingsetpwidget;
 }

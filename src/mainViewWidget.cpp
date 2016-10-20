@@ -204,6 +204,14 @@ void MainViewWidget::paintEvent(QPaintEvent *)
     painter.drawRect(x + 2*statusAreaW/3 + statusAreaW/6 - ySpace/6 , y + (ySpace/2 - ySpace/6 ) ,ySpace/3,ySpace/3);
     y += ySpace;
 
+    QRect jsReq(x, y ,2*statusAreaW/3,ySpace);
+    painter.drawText(jsReq,Qt::AlignRight | Qt::AlignVCenter,joystickRequest);//"Joystick模式"
+    if(jsReqSwitch == 0)
+        painter.setBrush(BRUSH_3);//橙色
+    else
+        painter.setBrush(BRUSH_11);//绿色
+    painter.drawRect(x + 2*statusAreaW/3 + statusAreaW/6 - ySpace/6 , y + (ySpace/2 - ySpace/6 ) ,ySpace/3,ySpace/3);
+    y += ySpace;
 
     /*------------右上角，风力区----------------*/
 
@@ -533,13 +541,9 @@ void MainViewWidget::paintEvent(QPaintEvent *)
     r1 = 32;
        //20160922新增
 
-//#define MAX_ROTATETORQUE 820 * 1000 //最大回转力矩820kNm
-//#define MAX_SWAYINGFORCE 20 * 1000  //横荡最大力	20kN
-//#define MAX_SURGINGFORCE 390 * 1000 //纵荡最大力	390kN
-
         //合力线
-        float overflowFx = abs(fbk_Fx) - (MAX_SURGINGFORCE);//纵向发力的超出部分
-        float overflowFy = abs(fbk_Fy) - (MAX_SWAYINGFORCE);//横向发力的超出部分
+        float overflowFx = abs(fbk_Fx) - (MAX_FX);//纵向发力的超出部分
+        float overflowFy = abs(fbk_Fy) - (MAX_FY);//横向发力的超出部分
 
         double fbkFxRate, fbkFyRate;//计算实际发力的百分比
         if(overflowFx >0){
@@ -547,14 +551,14 @@ void MainViewWidget::paintEvent(QPaintEvent *)
                 else fbkFxRate = -1.0;
         }
         else{
-                fbkFxRate = fbk_Fx / (MAX_SURGINGFORCE);
+                fbkFxRate = fbk_Fx / (MAX_FX);
         }
         if(overflowFy >0){
                 if(fbk_Fy > 0) fbkFyRate = 1.0;
                 else fbkFyRate = -1.0;
         }
         else{
-                fbkFyRate = fbk_Fy / (MAX_SWAYINGFORCE);
+                fbkFyRate = fbk_Fy / (MAX_FY);
         }
 
         double fbkForceRate = hypotenuse(fbkFxRate, fbkFyRate);//合力的大小,百分比
@@ -566,7 +570,7 @@ void MainViewWidget::paintEvent(QPaintEvent *)
 //        qDebug()<<fbkForceRate<<forceAngle / 3.1415926535 * 180<<fbkFyRate<<fbkFxRate<<overflowFx<<overflowFy;
 
         //画扭矩
-        float overflowNz = abs(fbk_Nz) - (MAX_ROTATETORQUE);
+        float overflowNz = abs(fbk_Nz) - (MAX_NZ);
 
         double fbkNzRate;
         if(overflowNz >0){
@@ -574,7 +578,7 @@ void MainViewWidget::paintEvent(QPaintEvent *)
                 else fbkNzRate = -1.0;
         }
         else{
-                fbkNzRate = fbk_Nz / (MAX_ROTATETORQUE);
+                fbkNzRate = fbk_Nz / (MAX_NZ);
         }
 
         painter.setPen(pen3);

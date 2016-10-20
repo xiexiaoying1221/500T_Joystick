@@ -1,9 +1,10 @@
-﻿#ifndef GENERALSETTINGWIDGET_H
+﻿void on_gbpbOK_clicked();
+#ifndef GENERALSETTINGWIDGET_H
 #define GENERALSETTINGWIDGET_H
 
 #include <QWidget>
-#include <lineedit.h>
 #include <qchar.h>
+#include <QPushButton>
 #include "dataCommit.h"
 #include "globalSettings.h"
 
@@ -24,12 +25,14 @@ public:
 
 private:
     Ui::GeneralSettingWidget *ui;
+    QPushButton * m_editPtr;
+    QString m_lastValue;
 
-    QLineEdit *leThrusterAlloc;
-    QLineEdit *leRateTurn;
-    QLineEdit *leDraughtType;
-    QLineEdit *leWindComp;
-    QLineEdit *leGainLevel;
+//    QLineEdit *leThrusterAlloc;
+//    QLineEdit *leRateTurn;
+//    QLineEdit *leDraughtType;
+//    QLineEdit *leWindComp;
+//    QLineEdit *leGainLevel;
 
 private slots:
     void leThrusterAlloc_click();
@@ -37,6 +40,7 @@ private slots:
     void leDraughtType_click();
     void leWindComp_click();
     void leGainLevel_click();
+    void leMaxRudderAngle_click();
 
     /*小键盘*/
     void gbpbNumber_click();

@@ -111,11 +111,12 @@ void ModbusDataProcess::RefreshRecvData()
 
     //qDebug()<<"----otrecv----state:"<<State_Gyro<<State_Wind;
    //推进器就绪
-    modbusdata.readBool_buff(&controllerStateReady,             8192,0);
-    modbusdata.readBool_buff(&controllerStateSimulation,        8192,1);
-    modbusdata.readBool_buff(&controllerStateBypass,            8192,2);
-    modbusdata.readBool_buff(&controllerStateAutoHeading,       8192,3);
-    modbusdata.readBool_buff(&headTunningFinished,              8192,4);
+    modbusdata.readBool_buff(&fbk_StateReady,             8192,0);
+    modbusdata.readBool_buff(&fbk_StateSimulation,        8192,1);
+    modbusdata.readBool_buff(&fbk_StateBypass,            8192,2);
+    modbusdata.readBool_buff(&fbk_StateAutoHeading,       8192,3);
+    modbusdata.readBool_buff(&headTunningFinished,        8192,4);
+    modbusdata.readBool_buff(&jsReqSwitch,                8192,5);
 
     modbusdata.readBool_buff(&Ready_prop1,      8196,0);
     modbusdata.readBool_buff(&Ready_prop2,      8196,1);
@@ -144,7 +145,7 @@ void ModbusDataProcess::RefreshRecvData()
         CCdata_alarm[15] = false;
 
     modbusdata.readFloat_buff(&Rwind_spd,       8228);
-    modbusdata.readFloat_buff(&Rwind_dir,       8230);
+    modbusdata.readFloat_buff(&Rwind_dir,       8226);
 
     modbusdata.readFloat_buff(&mes_heading,     8216);
     modbusdata.readFloat_buff(&heading,         8218);
@@ -207,12 +208,12 @@ void ModbusDataProcess::RefreshRecvData()
     modbusdata.readBool_buff(&CCdata_info[5],   8196,2);//右主推就绪信号状态
     modbusdata.readBool_buff(&CCdata_info[6],   8196,3);//左舵就绪信号状态
     modbusdata.readBool_buff(&CCdata_info[7],   8196,4);//右舵就绪信号状态
+    CCdata_info[8] = jsReqSwitch;//Joystick模式开关状态
 }
 
 void ModbusDataProcess::RefreshSendData()
 {
     //return;
-
     if(Run_mode == 1)//仿真模式
     {
         modbusdata.writeBool_buff(true,		24576,0);//仿真模式使能-T
@@ -267,6 +268,7 @@ void ModbusDataProcess::RefreshSendData()
     //qDebug()<<"----otsend----point_rot:"<<point_rot;
     modbusdata.writeUint32_buff((quint32)Operate_mode,24608);//控制模式请求
     modbusdata.writeUint32_buff((quint32)gainlevel,24610);//控制器增益
+    modbusdata.writeUint32_buff((quint32)set_maxRudderAngle,24616);//最大允许舵角
     modbusdata.writeUint32_buff((quint32)point_rot,24612);//旋转中心编
     modbusdata.writeUint32_buff(1,24614);//shouxianjiaojiasudu--xiesiwei 1
 

@@ -35,6 +35,10 @@ HeadingSetpWidget::HeadingSetpWidget(QWidget *parent,QRect viewRect) :
 
 }
 
+void HeadingSetpWidget::refreshData(){
+    ui->dial->setValue( convert2dial( set_heading ) );
+}
+
 //白天、夜晚模式切换
 void HeadingSetpWidget::changeDNMode()
 {

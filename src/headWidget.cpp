@@ -94,7 +94,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
 
     painter.setPen(pen1);
     painter.setFont(FONT_3);
-    painter.drawText(-60 - 40, - height*2/3 + 100,str_huizhuanlv);//"回转率"
+    painter.drawText(-85 - 40, - height*2/3 + 85,str_huizhuanlv);//"回转率"
     painter.setFont(FONT_3);
     painter.drawText(50,- height*2/3 + 85,danwei_dufen );//"°/分"
     if(speedR>0)
@@ -626,7 +626,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
 
         QRectF rectangle6(-r2 ,-height*1/4 + interval2/4 ,2*r2,2*r2);
 
-        spanAngle6 = fabs(cmd_Nz) * 24.68 / MAX_ROTATETORQUE;/*最大跨度 25*/
+        spanAngle6 = fabs(cmd_Nz) * 24.68 / MAX_NZ;/*最大跨度 25*/
 
          if(cmd_Nz < 0)
          {
@@ -646,7 +646,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
         painter.setPen(pen3);
         QRectF rectangle8(-r2 ,-height*1/4 + interval2 * 3/4 ,2*r2,2*r2);
 
-        spanAngle7 = fabs(fbk_Nz) * 23.40 / MAX_ROTATETORQUE;/*最大跨度 23.40*/
+        spanAngle7 = fabs(fbk_Nz) * 23.40 / MAX_NZ;/*最大跨度 23.40*/
 
          if(fbk_Nz < 0)
          {
@@ -663,7 +663,7 @@ void HeadWidget::paintEvent(QPaintEvent *){
         painter.setFont(FONT_9);
         painter.setPen(pen4);
 
-        painter.drawText(QRect(-40,-height*1/4 + interval2 ,80,40),Qt::AlignCenter,QString::number(fbk_Nz * 100.0 / MAX_ROTATETORQUE,'f',0)+"%");
+        painter.drawText(QRect(-40,-height*1/4 + interval2 ,80,40),Qt::AlignCenter,QString::number(fbk_Nz * 100.0 / MAX_NZ,'f',0)+"%");
         painter.setPen(pen1);
         painter.setFont(FONT_2);
         if(fbk_Nz > 0)

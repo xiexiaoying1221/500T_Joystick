@@ -1,4 +1,4 @@
-﻿/*
+﻿                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   /*
     总体设置
 */
 
@@ -15,6 +15,7 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
 {
     ui->setupUi(this);
 
+    m_editPtr = nullptr;
 
     this->setAutoFillBackground(true);
 //    QPalette p;
@@ -26,73 +27,73 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
     ui->groupBox->setVisible(false);
     ui->groupBox->setStyleSheet("background-image: url(:/images/设置区.png);");
 
-    leThrusterAlloc = new LineEdit(this);
-    leRateTurn = new LineEdit(this);
-    leDraughtType = new LineEdit(this);
-    leWindComp = new LineEdit(this);
-    leGainLevel = new LineEdit(this);
+//    leThrusterAlloc = new LineEdit(this);
+//    leRateTurn = new LineEdit(this);
+//    leDraughtType = new LineEdit(this);
+//    leWindComp = new LineEdit(this);
+//    leGainLevel = new LineEdit(this);
 
     changeDNMode();
 
-    leThrusterAlloc->setGeometry(ui->leThrusterAlloc_->geometry());
-    leThrusterAlloc->setReadOnly(true);
-    leThrusterAlloc->setText(ui->leThrusterAlloc_->text());
-    leThrusterAlloc->setStyleSheet(ui->leThrusterAlloc_->styleSheet());
-    leThrusterAlloc->setFont(ui->leThrusterAlloc_->font());
+//    leThrusterAlloc->setGeometry(ui->leThrusterAlloc_->geometry());
+//    leThrusterAlloc->setText(ui->leThrusterAlloc_->text());
+//    leThrusterAlloc->setStyleSheet(ui->leThrusterAlloc_->styleSheet());
+//    leThrusterAlloc->setFont(ui->leThrusterAlloc_->font());
 
 
-    leRateTurn->setGeometry(ui->leRateTurn_->geometry());
-    leRateTurn->setReadOnly(true);
-    leRateTurn->setText(ui->leRateTurn_->text());
-    leRateTurn->setStyleSheet(ui->leRateTurn_->styleSheet());
-    leRateTurn->setFont(ui->leRateTurn_->font());
+//    leRateTurn->setGeometry(ui->leRateTurn_->geometry());
+//    leRateTurn->setText(ui->leRateTurn_->text());
+//    leRateTurn->setStyleSheet(ui->leRateTurn_->styleSheet());
+//    leRateTurn->setFont(ui->leRateTurn_->font());
 
 
-    leDraughtType->setGeometry(ui->leDraughtType_->geometry());
-    leDraughtType->setReadOnly(true);
-    leDraughtType->setText(ui->leDraughtType_->text());
-    leDraughtType->setStyleSheet(ui->leDraughtType_->styleSheet());
-    leDraughtType->setFont(ui->leDraughtType_->font());
+//    leDraughtType->setGeometry(ui->leDraughtType_->geometry());
+//    leDraughtType->setText(ui->leDraughtType_->text());
+//    leDraughtType->setStyleSheet(ui->leDraughtType_->styleSheet());
+//    leDraughtType->setFont(ui->leDraughtType_->font());
 
 
-    leWindComp->setGeometry(ui->leWindComp_->geometry());
-    leWindComp->setReadOnly(true);
-    leWindComp->setText(ui->leWindComp_->text());
-    leWindComp->setStyleSheet(ui->leWindComp_->styleSheet());
-    leWindComp->setFont(ui->leWindComp_->font());
+//    leWindComp->setGeometry(ui->leWindComp_->geometry());
+//    leWindComp->setText(ui->leWindComp_->text());
+//    leWindComp->setStyleSheet(ui->leWindComp_->styleSheet());
+//    leWindComp->setFont(ui->leWindComp_->font());
 
 
-    leGainLevel->setGeometry(ui->leGainLevel_->geometry());
-    leGainLevel->setReadOnly(true);
-    leGainLevel->setText(ui->leGainLevel_->text());
-    leGainLevel->setStyleSheet(ui->leGainLevel_->styleSheet());
-    leGainLevel->setFont(ui->leGainLevel_->font());
+//    leGainLevel->setGeometry(ui->leGainLevel_->geometry());
+//    leGainLevel->setText(ui->leGainLevel_->text());
+//    leGainLevel->setStyleSheet(ui->leGainLevel_->styleSheet());
+//    leGainLevel->setFont(ui->leGainLevel_->font());
 
-    connect(leThrusterAlloc,SIGNAL(clicked()),this,SLOT(leThrusterAlloc_click()));
-    connect(leRateTurn,SIGNAL(clicked()),this,SLOT(leRateTurn_click()));
-    connect(leDraughtType,SIGNAL(clicked()),this,SLOT(leDraughtType_click()));
-    connect(leWindComp,SIGNAL(clicked()),this,SLOT(leWindComp_click()));
-    connect(leGainLevel,SIGNAL(clicked()),this,SLOT(leGainLevel_click()));
+//    ui->leMaxRudderAngle_->setReadOnly(true);
 
-    leThrusterAlloc->setText(mode_thrAlloc == 1 ? "模式一" : "模式二");
+    connect(ui->leThrusterAlloc_,SIGNAL(clicked(bool)),this,SLOT(leThrusterAlloc_click()));
+    connect(ui->leRateTurn_,SIGNAL(clicked(bool)),this,SLOT(leRateTurn_click()));
+    connect(ui->leDraughtType_,SIGNAL(clicked(bool)),this,SLOT(leDraughtType_click()));
+    connect(ui->leWindComp_,SIGNAL(clicked(bool)),this,SLOT(leWindComp_click()));
+    connect(ui->leGainLevel_,SIGNAL(clicked(bool)),this,SLOT(leGainLevel_click()));
+    connect(ui->leMaxRudderAngle_,SIGNAL(clicked(bool)),this,SLOT(leMaxRudderAngle_click()));
 
-    leRateTurn->setText(QString::number(set_rot,'f',1));
+    ui->leThrusterAlloc_->setText(mode_thrAlloc == 1 ? "模式一" : "模式二");
+
+    ui->leRateTurn_->setText(QString::number(set_rot,'f',1));
+
     if(drughttype == 1)
-        leDraughtType->setText(str_moshi1);//"模式一"
+         ui->leDraughtType_->setText(str_moshi1);//"模式一"
     else if(drughttype == 2 )
-         leDraughtType->setText(str_moshi2);//"模式二"
+         ui->leDraughtType_->setText(str_moshi2);//"模式二"
     else
-         leDraughtType->setText(str_moshi3);//"模式三"
+         ui->leDraughtType_->setText(str_moshi3);//"模式三"
 
-    leWindComp->setText(flag_windcomp ? str_on : str_off);//"On" : "Off"
+    ui->leWindComp_->setText(flag_windcomp ? str_on : str_off);//"On" : "Off"
 
     if(gainlevel == 1)
-        leGainLevel->setText(str_di);//"Low"
+        ui->leGainLevel_->setText(str_di);//"Low"
     else if(gainlevel == 2)
-        leGainLevel->setText(str_zhong);//"Middle"
+        ui->leGainLevel_->setText(str_zhong);//"Middle"
     else
-        leGainLevel->setText(str_gao);//"High"
+        ui->leGainLevel_->setText(str_gao);//"High"
 
+    ui->leMaxRudderAngle_->setText ( QString::number(set_maxRudderAngle) );
 
     /*按键区 事件-槽*/
     connect(ui->pb0,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
@@ -132,13 +133,17 @@ void GeneralSettingWidget::changeDNMode()
         ui->label_3->setStyleSheet(StyleSheet_DayColor);
         ui->label_4->setStyleSheet(StyleSheet_DayColor);
         ui->label_5->setStyleSheet(StyleSheet_DayColor);
+        ui->label_6->setStyleSheet(StyleSheet_DayColor);
+        ui->label_7->setStyleSheet(StyleSheet_DayColor);
+        ui->label_8->setStyleSheet(StyleSheet_DayColor);
 
         p.setColor(QPalette::Text,QColor(COLOR_15));
-        leDraughtType->setPalette(p);
-        leThrusterAlloc->setPalette(p);
-        leRateTurn->setPalette(p);
-        leWindComp->setPalette(p);
-        leGainLevel->setPalette(p);
+        ui->leDraughtType_->setPalette(p);
+        ui->leThrusterAlloc_->setPalette(p);
+        ui->leRateTurn_->setPalette(p);
+        ui->leWindComp_->setPalette(p);
+        ui->leGainLevel_->setPalette(p);
+        ui->leMaxRudderAngle_->setPalette (p);
     }
     else
     {
@@ -149,60 +154,75 @@ void GeneralSettingWidget::changeDNMode()
         ui->label_3->setStyleSheet(StyleSheet_NgtColor);
         ui->label_4->setStyleSheet(StyleSheet_NgtColor);
         ui->label_5->setStyleSheet(StyleSheet_NgtColor);
+        ui->label_6->setStyleSheet(StyleSheet_NgtColor);
+        ui->label_7->setStyleSheet(StyleSheet_NgtColor);
+        ui->label_8->setStyleSheet(StyleSheet_NgtColor);
 
         p.setColor(QPalette::Text,QColor(COLOR_23));
-        leDraughtType->setPalette(p);
-        leThrusterAlloc->setPalette(p);
-        leRateTurn->setPalette(p);
-        leWindComp->setPalette(p);
-        leGainLevel->setPalette(p);
+        ui->leDraughtType_->setPalette(p);
+        ui->leThrusterAlloc_->setPalette(p);
+        ui->leRateTurn_->setPalette(p);
+        ui->leWindComp_->setPalette(p);
+        ui->leGainLevel_->setPalette(p);
+        ui->leMaxRudderAngle_->setPalette (p);
     }
 }
 
 void GeneralSettingWidget::leThrusterAlloc_click()
 {
-     QLineEdit *le = qobject_cast<QLineEdit *>(sender());
-     if(le->text() == "模式一" || le->text() == "Mode 1")
-         le->setText(str_moshi2);//"模式二"
+     if(ui->leThrusterAlloc_->text() == "模式一" || ui->leThrusterAlloc_->text() == "Mode 1")
+         ui->leThrusterAlloc_->setText(str_moshi2);//"模式二"
      else
-         le->setText(str_moshi1);//"模式一"
+         ui->leThrusterAlloc_->setText(str_moshi1);//"模式一"
 }
 
 void GeneralSettingWidget::leRateTurn_click()
 {
+    if(ui->groupBox->isVisible () ){
+        m_editPtr->setText ( m_lastValue );
+    }
+    m_editPtr = ui->leRateTurn_;
     ui->groupBox->setVisible(true);
-    leRateTurn->setText("");
+    m_lastValue = ui->leRateTurn_->text ();
+    ui->leRateTurn_->setText("");
 }
 
 void GeneralSettingWidget::leDraughtType_click()
 {
-    QLineEdit *le = qobject_cast<QLineEdit *>(sender());
-    if(le->text() == "模式一"  || le->text() == "Mode 1")
-        le->setText(str_moshi2);//"模式二"
-    else if(le->text() == "模式二"  || le->text() == "Mode 2")
-        le->setText(str_moshi3);//"模式三"
+    if(ui->leDraughtType_->text() == "模式一"  || ui->leDraughtType_->text() == "Mode 1")
+        ui->leDraughtType_->setText(str_moshi2);//"模式二"
+    else if(ui->leDraughtType_->text() == "模式二"  || ui->leDraughtType_->text() == "Mode 2")
+        ui->leDraughtType_->setText(str_moshi3);//"模式三"
     else
-        le->setText(str_moshi1);//"模式一"
+        ui->leDraughtType_->setText(str_moshi1);//"模式一"
 }
 
 void GeneralSettingWidget::leWindComp_click()
 {
-     QLineEdit *le = qobject_cast<QLineEdit *>(sender());
-     if(le->text() == "Off" || le->text() == "关")
-         le->setText(str_on);//"On"
+     if(ui->leWindComp_->text() == "Off" || ui->leWindComp_->text() == "关")
+         ui->leWindComp_->setText(str_on);//"On"
      else
-         le->setText(str_off);//"Off"
+         ui->leWindComp_->setText(str_off);//"Off"
 }
 
 void GeneralSettingWidget::leGainLevel_click()
 {
-    QLineEdit *le = qobject_cast<QLineEdit *>(sender());
-    if(le->text() == "Low" || le->text() == "低")
-        le->setText(str_zhong);//"Middle"
-    else if(le->text()=="Middle" || le->text() == "中")
-        le->setText(str_gao);//"High"
+    if(ui->leGainLevel_->text() == "Low" || ui->leGainLevel_->text() == "低")
+        ui->leGainLevel_->setText(str_zhong);//"Middle"
+    else if(ui->leGainLevel_->text()=="Middle" || ui->leGainLevel_->text() == "中")
+        ui->leGainLevel_->setText(str_gao);//"High"
     else
-        le->setText(str_di);//"Low"
+        ui->leGainLevel_->setText(str_di);//"Low"
+}
+
+void GeneralSettingWidget::leMaxRudderAngle_click(){
+    if(ui->groupBox->isVisible () ){
+        m_editPtr->setText ( m_lastValue );
+    }
+    m_editPtr = ui->leMaxRudderAngle_;
+    ui->groupBox->setVisible(true);
+    m_lastValue = ui->leMaxRudderAngle_->text ();
+    ui->leMaxRudderAngle_->setText("");
 }
 
 void GeneralSettingWidget::gbpbNumber_click()
@@ -212,47 +232,61 @@ void GeneralSettingWidget::gbpbNumber_click()
     if(text == "．")
         text = ".";
 
-    leRateTurn->setText(leRateTurn->text() + text);
+    if(m_editPtr != nullptr){
+        m_editPtr->setText(m_editPtr->text() + text);
+    }
 }
 
 void GeneralSettingWidget::gbpbOK_click()
 {
-    QString text = leRateTurn->text();
+    QString text;
+    if(m_editPtr != nullptr){
+        text = m_editPtr->text();
+    }
 
     bool ok;
     double a = text.toDouble(&ok);
-    if(!ok)
+    if(!ok || a  > 999)
     {
-        leRateTurn->setText("");
+        if(m_editPtr != nullptr){
+            m_editPtr->setText( m_lastValue );
+        }
     }
-    else
-    {
-       if(a  > 999) return;
-       ui->groupBox->setVisible(false);
-       leRateTurn->setFocus();
+    ui->groupBox->setVisible(false);
+    if(m_editPtr != nullptr){
+        m_editPtr->setFocus();
     }
+    m_editPtr = nullptr;
 }
 
 void GeneralSettingWidget::pbOK_clicked()
 {
+    if(ui->gbpbOK->isVisible ()){
+        gbpbOK_click();
+    }
+
     bool isOk;
-    mode_thrAlloc = leThrusterAlloc->text() == str_moshi1 ? 1 :2 ;//"模式一"
-    set_rot = leRateTurn->text().toDouble(&isOk);
+    mode_thrAlloc = ui->leThrusterAlloc_->text() == str_moshi1 ? 1 :2 ;//"模式一"
+    set_rot = ui->leRateTurn_->text().toDouble(&isOk);
     if(!isOk)
         set_rot =0;
 
-    if(leDraughtType->text() == "模式一"  || leDraughtType->text() == "Mode 1")
+    set_maxRudderAngle = ui->leRateTurn_->text().toInt(&isOk);
+    if(!isOk)
+        set_maxRudderAngle =0;
+
+    if(ui->leDraughtType_->text() == "模式一"  || ui->leDraughtType_->text() == "Mode 1")
         drughttype = 1;
-    else if(leDraughtType->text() == "模式二"  || leDraughtType->text() == "Mode 2")
+    else if(ui->leDraughtType_->text() == "模式二"  || ui->leDraughtType_->text() == "Mode 2")
         drughttype = 2;
     else
         drughttype = 3;
 
-    flag_windcomp = leWindComp->text() == str_off ? 0 : 1;//"Off"
+    flag_windcomp = ui->leWindComp_->text() == str_off ? 0 : 1;//"Off"
 
-    if(leGainLevel->text() == "Low" || leGainLevel->text() == "低")
+    if(ui->leGainLevel_->text() == "Low" || ui->leGainLevel_->text() == "低")
         gainlevel = 1;
-    else if(leGainLevel->text() == "Middle" || leGainLevel->text() == "中")
+    else if(ui->leGainLevel_->text() == "Middle" || ui->leGainLevel_->text() == "中")
         gainlevel = 2;
     else
         gainlevel = 3;
@@ -276,43 +310,52 @@ void GeneralSettingWidget::Refresh_changless_words()
     ui->label_5->setFont(FONT_3);
     ui->label_5->setText(str_chuanbochishuileixing_ZTSZ);
 
+    ui->label_6->setFont(FONT_3);
+    ui->label_6->setText(str_zuidaduojiao_ZTSZ);
+
+    ui->label_7->setFont(FONT_3);
+    ui->label_7->setText (danwei_du);
+
+    ui->label_8->setFont(FONT_3);
+    ui->label_8->setText (danwei_dumiao);
+
     ui->pbOk->setFont(FONT_3);
     ui->pbOk->setText(str_queding);
 
     ui->pbCancel->setFont(FONT_3);
     ui->pbCancel->setText(str_quxiao);
 
-    leDraughtType->setFont(FONT_3);
+    ui->leDraughtType_->setFont(FONT_3);
 
-    if(leDraughtType->text() == "Mode 1" || leDraughtType->text() == "模式一")
-        leDraughtType->setText(str_moshi1);
-    else if(leDraughtType->text() == "Mode 2" || leDraughtType->text() == "模式二")
-        leDraughtType->setText(str_moshi2);
+    if(ui->leDraughtType_->text() == "Mode 1" || ui->leDraughtType_->text() == "模式一")
+        ui->leDraughtType_->setText(str_moshi1);
+    else if(ui->leDraughtType_->text() == "Mode 2" || ui->leDraughtType_->text() == "模式二")
+        ui->leDraughtType_->setText(str_moshi2);
     else
-        leDraughtType->setText(str_moshi3);
+        ui->leDraughtType_->setText(str_moshi3);
 
-    leThrusterAlloc->setFont(FONT_3);
+    ui->leThrusterAlloc_->setFont(FONT_3);
 
-    if(leThrusterAlloc->text() == "Mode 1" || leThrusterAlloc->text() == "模式一")
-            leThrusterAlloc->setText(str_moshi1);
+    if(ui->leThrusterAlloc_->text() == "Mode 1" || ui->leThrusterAlloc_->text() == "模式一")
+            ui->leThrusterAlloc_->setText(str_moshi1);
         else
-            leThrusterAlloc->setText(str_moshi2);
+            ui->leThrusterAlloc_->setText(str_moshi2);
 
-    leGainLevel->setFont(FONT_3);
+    ui->leGainLevel_->setFont(FONT_3);
 
-    if(leGainLevel->text() == "高" || leGainLevel->text() == "High")
-        leGainLevel->setText(str_gao);
-    else if(leGainLevel->text() == "中" || leGainLevel->text() == "Middle")
-        leGainLevel->setText(str_zhong);
+    if(ui->leGainLevel_->text() == "高" || ui->leGainLevel_->text() == "High")
+        ui->leGainLevel_->setText(str_gao);
+    else if(ui->leGainLevel_->text() == "中" || ui->leGainLevel_->text() == "Middle")
+        ui->leGainLevel_->setText(str_zhong);
     else
-        leGainLevel->setText(str_di);
+        ui->leGainLevel_->setText(str_di);
 
-    leWindComp->setFont(FONT_3);
+    ui->leWindComp_->setFont(FONT_3);
 
-    if(leWindComp->text() == "开" || leWindComp->text() == "On")
-        leWindComp->setText(str_on);
+    if(ui->leWindComp_->text() == "开" || ui->leWindComp_->text() == "On")
+        ui->leWindComp_->setText(str_on);
     else
-        leWindComp->setText(str_off);
+        ui->leWindComp_->setText(str_off);
 
     ui->gbpbOK->setFont(FONT_1);
     ui->gbpbOK->setText(str_queding);
@@ -326,5 +369,3 @@ GeneralSettingWidget::~GeneralSettingWidget()
 {
     delete ui;
 }
-
-

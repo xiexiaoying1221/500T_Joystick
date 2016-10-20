@@ -153,8 +153,8 @@ void PositionWidget::paintEvent(QPaintEvent *){
         painter.drawLine(-rectW,-5*interval,interval-5,-5*interval);
         painter.drawLine(-rectW,5*interval,interval-5,5*interval );
 
-        int cmdfy = 8 * interval * cmd_Fy / MAX_SWAYINGFORCE;
-        int fbkfy = 8 * interval * fbk_Fy / MAX_SWAYINGFORCE;
+        int cmdfy = 8 * interval * cmd_Fy / MAX_FY;
+        int fbkfy = 8 * interval * fbk_Fy / MAX_FY;
 
 
         int beginY = cmdfy > 0 ? 2*interval : -2*interval;
@@ -168,7 +168,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
 
 
         //虚线
-        cmdfy = 10 * interval * cmd_Fy / MAX_SWAYINGFORCE;
+        cmdfy = 10 * interval * cmd_Fy / MAX_FY;
 
         painter.setPen(pen5);
 
@@ -230,7 +230,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
 
 
         painter.drawText(rectver,Qt::AlignLeft,QString::number((offsetNorth) ,'f',1));// "米"
-        painter.drawText(recthor,Qt::AlignTop,QString::number(fbk_Fy * 100.0 /MAX_SWAYINGFORCE,'f',0) +'%');//xxy
+        painter.drawText(recthor,Qt::AlignTop,QString::number(fbk_Fy * 100.0 /MAX_FY,'f',0) +'%');//xxy
         painter.setPen(pen2);
         painter.setFont(FONT_1);
         painter.drawText(QRect(rectver.x() + rectver.width(),rectver.y(),10,rectver.height()),Qt::AlignCenter,danwei_mi);
@@ -404,8 +404,8 @@ void PositionWidget::paintEvent(QPaintEvent *){
         painter.drawLine(5*interval,-rectW,5*interval,rectW -5);
 
 
-        int cmdfx = rectH * cmd_Fx / MAX_SURGINGFORCE;
-        int fbkfx = rectH * fbk_Fx / MAX_SURGINGFORCE;
+        int cmdfx = rectH * cmd_Fx / MAX_FX;
+        int fbkfx = rectH * fbk_Fx / MAX_FX;
 
         if(cmdfx > rectH) cmdfx = rectH;
         if(fbkfx > rectH) fbkfx = rectH;
@@ -420,7 +420,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
         painter.drawLine(rectW/2,beginX,rectW/2,beginX-fbkfx);//fbk-fx
 
         //虚线
-        cmdfx = 10 * interval * cmd_Fx / MAX_SURGINGFORCE;
+        cmdfx = 10 * interval * cmd_Fx / MAX_FX;
 
         painter.setPen(pen5);
 
@@ -491,7 +491,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
 
 
          painter.drawText(rectver,Qt::AlignTop | Qt::AlignRight,QString::number((offsetEast) ,'f',1) );
-         painter.drawText(recthor,Qt::AlignTop,QString::number(fbk_Fx * 100.0 /MAX_SURGINGFORCE,'f',0) +'%');//xxy
+         painter.drawText(recthor,Qt::AlignTop,QString::number(fbk_Fx * 100.0 /MAX_FX,'f',0) +'%');//xxy
          painter.setPen(pen2);
          painter.setFont(FONT_1);
          painter.drawText(QRect(rectver.x()+rectver.width(),rectver.y(),10,rectHeight),Qt::AlignLeft | Qt::AlignVCenter ,danwei_mi);
@@ -837,7 +837,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
 //        cmd_Fy = -cmd_Fy;
 //        fbk_Fy = - fbk_Fy;
 
-        int cmdfx = rectH * cmd_Fx / MAX_SURGINGFORCE;
+        int cmdfx = rectH * cmd_Fx / MAX_FX;
         int fbkfx = rectH * speed_u / MAX_SPEED;
 
         if(cmdfx > rectH) cmdfx = rectH;
@@ -853,7 +853,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
         painter.drawLine(rectW/2,beginX,rectW/2,beginX-fbkfx);//fbk-fx
 
         //虚线
-        cmdfx = 10 * interval * cmd_Fx / MAX_SURGINGFORCE;
+        cmdfx = 10 * interval * cmd_Fx / MAX_FX;
 
         painter.setPen(pen5);
 
@@ -888,7 +888,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
          painter.setPen(pen);
          painter.setFont(FONT_9);
 
-         painter.drawText(recthor,Qt::AlignCenter,QString::number(cmd_Fx*13.0/MAX_SURGINGFORCE,'f',1));
+         painter.drawText(recthor,Qt::AlignCenter,QString::number(cmd_Fx*13.0/MAX_FX,'f',1));
          painter.setPen(pen2);
          painter.setFont(FONT_1);
          painter.drawText(QRect(recthor.x()+recthor.width(),recthor.y(),10,recthor.height()) , Qt::AlignVCenter | Qt::AlignLeft ,danwei_jie);//"速度"
@@ -916,11 +916,11 @@ void PositionWidget::paintEvent(QPaintEvent *){
         }
 
 
-        float cmdfx = rectH * cmd_Fx / MAX_SURGINGFORCE;
-        float fbkfx = rectH * fbk_Fx / MAX_SURGINGFORCE;
-        int cmdfy = rectH * cmd_Fy / MAX_SWAYINGFORCE;
-        int fbkfy = rectH * fbk_Fy / MAX_SWAYINGFORCE;
-        //qDebug()<<"PositionWidget::paintEvent.0"<<rectH<<cmd_Fx<<MAX_SURGINGFORCE<<cmdfx;
+        float cmdfx = rectH * cmd_Fx / MAX_FX;
+        float fbkfx = rectH * fbk_Fx / MAX_FX;
+        int cmdfy = rectH * cmd_Fy / MAX_FY;
+        int fbkfy = rectH * fbk_Fy / MAX_FY;
+        //qDebug()<<"PositionWidget::paintEvent.0"<<rectH<<cmd_Fx<<MAX_FX<<cmdfx;
 
         int beginX = cmdfx > 0 ? -2*interval : 2*interval;
         int beginY = cmdfy > 0 ? 2*interval : -2*interval;
@@ -936,8 +936,8 @@ void PositionWidget::paintEvent(QPaintEvent *){
 
         //虚线
 
-        cmdfx = 10 * interval * cmd_Fx / MAX_SURGINGFORCE;
-        cmdfy = 10 * interval * cmd_Fy / MAX_SWAYINGFORCE;
+        cmdfx = 10 * interval * cmd_Fx / MAX_FX;
+        cmdfy = 10 * interval * cmd_Fy / MAX_FY;
 
         painter.setPen(pen5);
         if(!(cmd_Fx == 0 && cmd_Fy ==0))
@@ -993,12 +993,11 @@ void PositionWidget::paintEvent(QPaintEvent *){
         painter.setPen(pen);
         painter.setFont(FONT_9);
 
-
 //        painter.drawRect(rectver);
 //        painter.drawRect(recthor);
 
-        painter.drawText(rectver,Qt::AlignTop,QString::number(fbk_Fx*100/MAX_SURGINGFORCE,'f',0) +'%');
-        painter.drawText(recthor,Qt::AlignTop,QString::number(fbk_Fy*100/MAX_SWAYINGFORCE,'f',0) +'%');
+        painter.drawText(rectver,Qt::AlignTop,QString::number(fbk_Fx*100/MAX_FX,'f',0) +'%');
+        painter.drawText(recthor,Qt::AlignTop,QString::number(fbk_Fy*100/MAX_FY,'f',0) +'%');
 
         painter.setPen(pen2);
         painter.setFont(FONT_1);

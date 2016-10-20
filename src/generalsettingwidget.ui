@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>454</width>
-    <height>768</height>
+    <height>996</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,125 +42,6 @@ border-style:outset;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="leDraughtType_">
-   <property name="geometry">
-    <rect>
-     <x>235</x>
-     <y>360</y>
-     <width>131</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leThrusterAlloc_">
-   <property name="geometry">
-    <rect>
-     <x>237</x>
-     <y>117</y>
-     <width>131</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leGainLevel_">
-   <property name="geometry">
-    <rect>
-     <x>235</x>
-     <y>300</y>
-     <width>91</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leWindComp_">
-   <property name="geometry">
-    <rect>
-     <x>235</x>
-     <y>240</y>
-     <width>85</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pbCancel">
    <property name="geometry">
     <rect>
@@ -190,8 +71,8 @@ border-style:outset;</string>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>230</y>
+     <x>190</x>
+     <y>310</y>
      <width>161</width>
      <height>171</height>
     </rect>
@@ -363,7 +244,7 @@ border-style:outset;</string>
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>117</y>
+     <y>817</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -382,7 +263,7 @@ border-style:outset;</string>
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>180</y>
+     <y>117</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -398,7 +279,7 @@ border-style:outset;</string>
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>240</y>
+     <y>880</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -414,7 +295,7 @@ border-style:outset;</string>
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>300</y>
+     <y>180</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -430,7 +311,7 @@ border-style:outset;</string>
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>360</y>
+     <y>940</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -442,23 +323,30 @@ border-style:outset;</string>
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="leThrusterAlloc_1">
+  <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>230</y>
-     <width>131</width>
+     <x>40</x>
+     <y>240</y>
+     <width>171</width>
      <height>41</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>12</pointsize>
-    </font>
+   <property name="text">
+    <string>最大舵角</string>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="leRateTurn_">
+   <property name="geometry">
+    <rect>
+     <x>235</x>
+     <y>117</y>
+     <width>91</width>
+     <height>40</height>
+    </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;
@@ -466,31 +354,17 @@ border-width:0;
 border-style:outset;</string>
    </property>
    <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <string>leRateTurn_</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="leRateTurn_">
+  <widget class="QPushButton" name="leGainLevel_">
    <property name="geometry">
     <rect>
      <x>235</x>
      <y>180</y>
-     <width>85</width>
+     <width>91</width>
      <height>40</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;
@@ -498,26 +372,107 @@ border-width:0;
 border-style:outset;</string>
    </property>
    <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <string>leGainLevel_</string>
    </property>
   </widget>
-  <zorder>leWindComp_</zorder>
-  <zorder>leRateTurn_</zorder>
-  <zorder>leGainLevel_</zorder>
-  <zorder>leDraughtType_</zorder>
-  <zorder>leThrusterAlloc_</zorder>
-  <zorder>pbOk</zorder>
-  <zorder>pbCancel</zorder>
-  <zorder>groupBox</zorder>
-  <zorder>label_1</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
-  <zorder>label_5</zorder>
-  <zorder>leThrusterAlloc_1</zorder>
+  <widget class="QPushButton" name="leMaxRudderAngle_">
+   <property name="geometry">
+    <rect>
+     <x>235</x>
+     <y>240</y>
+     <width>91</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;
+border-width:0;
+border-style:outset;</string>
+   </property>
+   <property name="text">
+    <string>leMaxRudderAngle</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="leWindComp_">
+   <property name="geometry">
+    <rect>
+     <x>235</x>
+     <y>880</y>
+     <width>91</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;
+border-width:0;
+border-style:outset;</string>
+   </property>
+   <property name="text">
+    <string>leMaxRudderAngle</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="leThrusterAlloc_">
+   <property name="geometry">
+    <rect>
+     <x>237</x>
+     <y>817</y>
+     <width>131</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;
+border-width:0;
+border-style:outset;</string>
+   </property>
+   <property name="text">
+    <string>leThrusterAlloc_</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="leDraughtType_">
+   <property name="geometry">
+    <rect>
+     <x>235</x>
+     <y>940</y>
+     <width>91</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;
+border-width:0;
+border-style:outset;</string>
+   </property>
+   <property name="text">
+    <string>lineEdit</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>240</y>
+     <width>61</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>degree</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>117</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>degree/sec</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

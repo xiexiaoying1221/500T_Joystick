@@ -112,7 +112,7 @@ unsigned short Operate_mode = 0;//1待机，2手操，3位置保持,4自动舵�
 float set_heading = 0.0;
 float set_north = 0.0;
 float set_east = 0.0;
-float set_rot = 0.0;
+float set_rot = 0.3;
 float set_spd = 0.0;
 float set_pos_x = 0.0;
 float set_pos_y = 0.0;
@@ -136,6 +136,7 @@ short drughttype = 0;
 short gain_autopilot = 0;
 float max_rudangle = 35;
 int gainlevel = 0;
+int set_maxRudderAngle = 45;
 bool flag_weathercomp = false;
 unsigned int avlb_power = 0;
 unsigned int real_power = 0;
@@ -200,7 +201,7 @@ float cmd_Fx_old[10] = {0.0};
 float cmd_Fy_old[10] = {0.0};
 float cmd_Nz_old[10] = {0.0};
 
-
+bool jsReqSwitch = false;//Joystick模式开关
 bool headTunningFinished = false;//自动艏向调节完成
 short switch2Joystick = 0;
 bool Ready_prop1 = 0;
@@ -214,10 +215,10 @@ bool Run_prop3 = 0;
 bool Run_rudder1 = 0;
 bool Run_rudder2 = 0;
 
-bool controllerStateReady = 0;
-bool controllerStateSimulation = 0;
-bool controllerStateBypass = 0;
-bool controllerStateAutoHeading = 0;
+bool fbk_StateReady = 0;
+bool fbk_StateSimulation = 0;
+bool fbk_StateBypass = 0;
+bool fbk_StateAutoHeading = 0;
 
 float fbk_prop1_pitch = 0.0;
 float fbk_prop2_pitch = 0.0;
@@ -272,9 +273,9 @@ float MAX_RX = 0.0;//舵提供Y轴最大推力
 float MAX_RY = 0.0;//舵提供X轴最大推力
 float MAX_RZ = 0.0;//
 
-float MAX_FX = 390 * 1000;//MAX_PX + MAX_RX;//
-float MAX_FY = 20 * 1000;//MAX_PY + MAX_RY;//
-float MAX_NZ = 820 * 1000;//MAX_PZ + MAX_RZ;//
+float MAX_FX = (390 * 1000); //纵荡最大力	390kN
+float MAX_FY = (20 * 1000);  //横荡最大力	20kN
+float MAX_NZ = (820 * 1000); //最大回转力矩820kNm
 
 float ship_m = 552.2;
 float ship_mx = 43.0;
@@ -454,13 +455,13 @@ float SwitchJoy2Force(float joyvalue,short dim)
     switch(dim)
     {
     case 1:
-        max_force = MAX_SURGINGFORCE;
+        max_force = MAX_FX;
         break;
     case 2:
-        max_force = MAX_SWAYINGFORCE;
+        max_force = MAX_FY;
         break;
     case 3:
-        max_force =  MAX_ROTATETORQUE;
+        max_force =  MAX_NZ;
         break;
     default:
         max_force = 0;

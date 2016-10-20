@@ -28,6 +28,7 @@ QString sensor_gps1 =               "GPS1";
 QString sensor_gps2 =               "GPS2";
 QString sensor_vrs =                "VRS";
 QString sensor_suduchuanganqi =     "速度传感器";
+QString joystickRequest =           "Joystick模式";
 
 //按键的键名字符串
 QString btnstr_shitu;
@@ -166,6 +167,7 @@ QString str_shezhihuizhuanlv_ZTSZ;  //设置回转率
 QString str_fenglibuchang_ZTSZ;     //风力补偿
 QString str_zengyidengji_ZTSZ;      //增益等级
 QString str_chuanbochishuileixing_ZTSZ;  //船舶吃水类型
+QString str_zuidaduojiao_ZTSZ; //最大舵角
 
 //传感器启用设置
 QString str_dianluojing_CQSZ;       //电罗经
@@ -274,6 +276,8 @@ QString str_CCinfo12;
 QString str_CCinfo13;
 QString str_CCinfo14;
 QString str_CCinfo15;
+QString str_CCinfo16;
+QString str_CCinfo17;
 
 QString str_OTalm0;
 QString str_OTalm1;
@@ -319,6 +323,7 @@ void CharacterConversion::Refresh_character(QString language)
         sensor_gps2 = "GPS2 ";
         sensor_vrs = "VRS ";
         sensor_suduchuanganqi = "SpeedGPS ";
+        joystickRequest =           "Joystick Mode";
 
         str_shouxiang = "Hd.";
         str_bei = "N";
@@ -453,8 +458,9 @@ void CharacterConversion::Refresh_character(QString language)
 
         str_tuilifenpeimoshi_ZTSZ = "Alloc.Mode";//推力分配模式
         str_shezhihuizhuanlv_ZTSZ = "ROT"; //设置回转率
-        str_fenglibuchang_ZTSZ = "WindComp."; //风力补偿
-        str_zengyidengji_ZTSZ = "GainLevel";//增益等级
+        str_fenglibuchang_ZTSZ = "Wind Comp."; //风力补偿
+        str_zengyidengji_ZTSZ = "Gain Level";//增益等级
+        str_zuidaduojiao_ZTSZ = "Max Rudder Angle";//最大舵角
         str_chuanbochishuileixing_ZTSZ = "Draught Type ";//船舶吃水类型
 
         str_dianluojing_CQSZ = "Gyro";//电罗经
@@ -562,6 +568,8 @@ void CharacterConversion::Refresh_character(QString language)
         str_CCinfo13 = "L.Rud Ready";
         str_CCinfo14 = "R.Rud Not Ready";
         str_CCinfo15 = "R.Rud Ready";
+        str_CCinfo16 = "Joystick Mode Off";
+        str_CCinfo17 = "Joystick Mode On";
 
         str_OTalm0 = "Joystick x Error";
         str_OTalm1 = "Joystick y Error";
@@ -595,6 +603,7 @@ void CharacterConversion::Refresh_character(QString language)
         sensor_gps2 = "GPS2";
         sensor_vrs = "VRS";
         sensor_suduchuanganqi = "速度传感器";
+        joystickRequest =           "Joystick模式";
 
         str_shouxiang = "艏向";
         str_bei = "北";
@@ -642,7 +651,7 @@ void CharacterConversion::Refresh_character(QString language)
         btnstr_zhongyingwen = "English"; //暂时没用
         btnstr_yingda = "应答/消声";
 
-        str_huizhuanlv = "回转率";
+        str_huizhuanlv = "艏向角速度";
         str_shoucetui = "艏侧推";
         str_weizuozhutui = "艉左主推";
         str_weiyouzhutui = "艉右主推";
@@ -729,6 +738,7 @@ void CharacterConversion::Refresh_character(QString language)
         str_shezhihuizhuanlv_ZTSZ = "设置回转率";//ROT
         str_fenglibuchang_ZTSZ = "风力补偿";//WindComp.
         str_zengyidengji_ZTSZ = "增益等级";//GainLevel
+        str_zuidaduojiao_ZTSZ = "最大舵角";//Max Rudder Angle
         str_chuanbochishuileixing_ZTSZ = "船舶吃水类型";//Graught Type
 
         str_dianluojing_CQSZ = "电罗经";//电罗经Gyro
@@ -835,6 +845,8 @@ void CharacterConversion::Refresh_character(QString language)
         str_CCinfo13 = "左舵就绪";
         str_CCinfo14 = "右舵未就绪";
         str_CCinfo15 = "右舵就绪";
+        str_CCinfo16 = "Joystick模式关";
+        str_CCinfo17 = "Joystick模式开";
 
         str_OTalm0 = "x轴断线 ";
         str_OTalm1 = "y轴断线";
