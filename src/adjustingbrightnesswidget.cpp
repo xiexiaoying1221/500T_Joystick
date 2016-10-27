@@ -26,8 +26,6 @@ AdjustingBrightnessWidget::AdjustingBrightnessWidget(QWidget *parent,QRect viewR
     QPalette p;
     p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_1)));//"images/调光-日.png"
     this->setPalette(p);
-
-
 }
 
 //白天、夜晚模式切换

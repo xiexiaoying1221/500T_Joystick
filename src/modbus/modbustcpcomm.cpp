@@ -1,4 +1,4 @@
-#include "modbustcpcomm.h"
+﻿#include "modbustcpcomm.h"
 
 
 ModbusTCPComm::ModbusTCPComm(){
@@ -19,8 +19,8 @@ ModbusTCPComm::ModbusTCPComm(){
 
 ModbusTCPComm::~ModbusTCPComm(){
 
+    connectOK = false;
     modbus_free (myConnection);
-    delete myConnection;
     free(readBuffer);
     free(writeBuffer);
 }

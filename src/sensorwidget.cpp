@@ -104,7 +104,7 @@ void SensorWidget::refreshData()
     }
    ui->leenable_gyro->setPalette(pe);
 
-   ui->leheading_gyro->setText(QString::number(mes_heading,'f',1));
+   ui->leheading_gyro->setText(QString::number(heading,'f',1));
 
     //风速风向仪
 
@@ -131,8 +131,8 @@ void SensorWidget::refreshData()
     }
     ui->leenable_wind->setPalette(pe);
 
-    ui->lespeed_wind->setText(QString::number(mes_windspd,'f',1));
-    ui->ledirection_wind->setText(QString::number(mes_winddir,'f',1));
+    ui->lespeed_wind->setText(QString::number(Rwind_spd,'f',1));
+    ui->ledirection_wind->setText(QString::number(Rwind_dir,'f',1));
 }
 
 //白天、夜晚模式切换

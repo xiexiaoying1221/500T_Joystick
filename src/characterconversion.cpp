@@ -56,10 +56,13 @@ QString btnstr_chuanshou;
 QString btnstr_chuanwei;
 QString btnstr_zhuanru;
 QString btnstr_zhuanchu;
+QString btnstr_qiangqie;
 QString btnstr_ceshi;
 QString btnstr_tiaoguang;
 QString btnstr_zhongyingwen;
 QString btnstr_yingda;
+QString btnstr_fanhui;
+QString btnstr_lingpai;
 
 QString str_huizhuanlv;
 QString str_shouxiang;
@@ -95,6 +98,11 @@ QString str_luoju;
 QString str_zhuansu;
 QString str_queding;
 QString str_quxiao;
+
+QString str_zhanminchen;
+QString str_zhanzhuangtai;
+QString str_zhancuowu;
+QString str_benji;
 
 QString danwei_jie = "节";
 QString danwei_du = "°";
@@ -211,6 +219,8 @@ QString str_nomatch_headsurge;
 QString str_nomatch_headsway;
 QString str_nomatch_surgesway;
 
+QString str_take_out;
+QString str_give_in;
 QString str_gonglvxiaohao;
 QString str_keyonggonglv;
 
@@ -366,11 +376,13 @@ void CharacterConversion::Refresh_character(QString language)
         btnstr_chuanwei = "Stern\npivot";
         btnstr_zhuanru = "Take";
         btnstr_zhuanchu = "Give";
+        btnstr_qiangqie = "Force Take";
         btnstr_ceshi = "Test";
         btnstr_tiaoguang = "Light";
         btnstr_zhongyingwen = "中文";
         btnstr_yingda = "Ack/Silence";
-
+        btnstr_fanhui = "Back";
+        btnstr_lingpai = "Token";
 
         str_huizhuanlv = "ROT";
         str_shoucetui = "BowTunnel";
@@ -391,6 +403,11 @@ void CharacterConversion::Refresh_character(QString language)
 
         str_queding = "Enter";
         str_quxiao = "Cancel";
+
+        str_zhanminchen = "name";
+        str_zhanzhuangtai = "state";
+        str_zhancuowu = "last error";
+        str_benji = "self";
 
         danwei_jie = "knt";
         danwei_du = "°";
@@ -502,6 +519,8 @@ void CharacterConversion::Refresh_character(QString language)
         str_nomatch_headsway = "Don't match run conditions\nof AutoHead&Sway!";
         str_nomatch_surgesway = "Don't match run conditions\nof AutoSurge&Sway!";
 
+        str_take_out = "Station '%1' required\n to take out the control token.";
+        str_give_in = "Station '%1' required\n to give the control token";
         str_gonglvxiaohao = "Power Consumption";
         str_keyonggonglv = "Avalible Power:";
 
@@ -646,10 +665,13 @@ void CharacterConversion::Refresh_character(QString language)
         btnstr_chuanwei = "船艉\n旋转";
         btnstr_zhuanru = "转入";
         btnstr_zhuanchu = "转出";
+        btnstr_qiangqie = "强切";
         btnstr_ceshi = "测试";
         btnstr_tiaoguang = "调光";
         btnstr_zhongyingwen = "English"; //暂时没用
         btnstr_yingda = "应答/消声";
+        btnstr_fanhui = "返回";
+        btnstr_lingpai = "令牌";
 
         str_huizhuanlv = "艏向角速度";
         str_shoucetui = "艏侧推";
@@ -670,6 +692,11 @@ void CharacterConversion::Refresh_character(QString language)
 
         str_queding = "确定";
         str_quxiao = "取消";
+
+        str_zhanminchen = "站名称";
+        str_zhanzhuangtai = "状态";
+        str_zhancuowu = "最后错误";
+        str_benji = "本站";
 
         danwei_jie = "节";
         danwei_du = "°";
@@ -780,6 +807,9 @@ void CharacterConversion::Refresh_character(QString language)
         str_nomatch_headsway = "不满足进入自动艏向横向模式的条件!";
         str_nomatch_surgesway = "不满足进入自动纵向横向模式的条件!";
 
+
+        str_take_out = "控制站'%1'请求获得控制权。";
+        str_give_in =  "控制站'%1'请求让出控制权。";
         str_gonglvxiaohao = "功率消耗";
         str_keyonggonglv = "可用功率：";
 

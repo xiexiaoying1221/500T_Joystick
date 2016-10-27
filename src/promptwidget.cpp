@@ -20,6 +20,8 @@ PromptWidget::PromptWidget(QWidget *parent,QWidget *singalReceiver,QRect viewRec
 
     QFont font("微软雅黑",15);
 
+    statePtr= &Operate_mode;//默认的prompWidget是用于修改操作模式的
+
     lblPrompt = new QLabel(this);
     lblPrompt->setAlignment(Qt::AlignCenter);
     lblPrompt->setFont(font);
@@ -72,11 +74,17 @@ void PromptWidget::showEvent(QShowEvent *)
     lblPrompt->setText(message);
 }
 
+void PromptWidget::Refresh_changless_words()
+{
+    pbOK->setText(str_queding);
+    pbCancel->setText(str_quxiao);
+}
+
 void PromptWidget::clickOk(){
     bool ok;
-    if(set_mode != -1)
+    if(targetState != -1)
     {
-        Operate_mode = set_mode;
+        *statePtr = targetState;
         ok = true;
     }
     else
@@ -84,12 +92,6 @@ void PromptWidget::clickOk(){
 
     emit changemode(ok);
     this->setVisible(false);
-}
-
-void PromptWidget::Refresh_changless_words()
-{
-    pbOK->setText(str_queding);
-    pbCancel->setText(str_quxiao);
 }
 
 void PromptWidget::clickCancel(){

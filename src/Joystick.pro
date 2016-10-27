@@ -58,7 +58,8 @@ HEADERS += mainwindow.h \
     gpio/REL_DEBUG.H \
     gpio/REL_SUSI.H \
     gpio/REL_ERRLIB.H \
-    gpio/REL_ERRDRV.H
+    gpio/REL_ERRDRV.H \
+    tokenwidget.h
 
 SOURCES += mainwindow.cpp \
     main.cpp \
@@ -98,6 +99,7 @@ SOURCES += mainwindow.cpp \
     modbus/modbus-rtu.c \
     modbus/modbus-tcp.c \
     modbusdataprocess.cpp \
+    tokenwidget.cpp
 
 FORMS += mainwindow.ui \
     limitsetwidget.ui \
@@ -116,7 +118,8 @@ FORMS += mainwindow.ui \
     systemstatuswidget.ui \
     adjustingbrightnesswidget.ui \
     systemsettingwidget.ui \
-    headingsetpwidget.ui
+    headingsetpwidget.ui \
+    tokenwidget.ui
 
 RESOURCES += \
     img.qrc
@@ -126,3 +129,5 @@ LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
         -ladvapi32\
         -lWs2_32\
         -lSusi
+
+include(tokenManager\tokenManager.pri)

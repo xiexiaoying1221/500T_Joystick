@@ -131,5 +131,7 @@
         <file>images/总体设置.png</file>
         <file>images/总体设置-日.png</file>
         <file>images/总体设置-夜.png</file>
+        <file>images/令牌管理-日.png</file>
+        <file>images/令牌管理-夜.png</file>
     </qresource>
 </RCC>

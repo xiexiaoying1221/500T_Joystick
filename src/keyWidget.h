@@ -52,8 +52,8 @@ private :
     QPushButton *btn19;//船艏
     QPushButton *btn20;//船舯
     QPushButton *btn21;//船艉
-    QPushButton *btn22;//转入
-    QPushButton *btn23;//转出
+    QPushButton *btn22;//令牌
+//    QPushButton *btn23;//转出
 
     QPushButton *btn24;//调光
     QPushButton *btn25;//中英文转换-（原测试按钮）
@@ -61,9 +61,13 @@ private :
     QPushButton *btn26;//隐藏按键区
     QPushButton *btn27;//仿真（20160918新增）
 
+    int btn10FlashCount;//btn10闪烁计数器
+    int btn12FlashCount;//btn12闪烁计数器
+    int btn16FlashCount;//btn16闪烁计数器
     int btn19FlashCount;//btn19闪烁计数器
     int btn20FlashCount;//btn20闪烁计数器
     int btn21FlashCount;//btn21闪烁计数器
+    int btn22FlashCount;//btn22闪烁计数器
     int btn27FlashCount;//btn27闪烁计数器
 
 private slots:
@@ -78,8 +82,8 @@ private slots:
     void btnForePivot_clicked();//船艏
     void btnCentrePivot_click();//船舯
     void btnAftPivot_click();//船艉
-    void btnTurnIn_clicked();//转入
-    void btnTurnOut_clicked();//转出
+//    void btnTurnIn_clicked();//转入
+//    void btnTurnOut_clicked();//转出
     void btnSimulate_clicked();//仿真
     void btnCurrentHeading_clicked();//当前艏向
 

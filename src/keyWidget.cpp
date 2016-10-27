@@ -94,7 +94,7 @@ void KeyWidget::keyAreaInit(){
       --btn19:船艏
       --btn20:船舯
       --btn21:船艉
-      --btn22:转入
+      --btn22:令牌
       --btn23:转出
       --btn24:调光
       --btn25:中英文（原：测试）
@@ -189,22 +189,9 @@ void KeyWidget::keyAreaInit(){
     btn10 = new QPushButton(this);//待机
     btn10->setFocusPolicy(Qt::NoFocus);
     btn10->setGeometry(x2, y3 , btnWidth,btnWidth);
-    if(CCdata_int[0] == 0)
-         btn10->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
-    else
-         btn10->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+    btn10->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
     btn10->setText(btnstr_daiji);
     connect(btn10,SIGNAL(clicked()),this,SLOT(btnStandby_clicked()));
-
-    btn27 = new QPushButton(this);//仿真（20160918新增）
-    btn27->setFocusPolicy(Qt::NoFocus);
-    btn27->setGeometry(x3, y3 , btnWidth,btnWidth);
-    if(Run_mode == 1)
-         btn27->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
-    else
-         btn27->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
-    btn27->setText(btnstr_simulation);
-    connect(btn27,SIGNAL(clicked()),this,SLOT(btnSimulate_clicked()));
 
     btn11 = new QPushButton(this);//当前艏向
     btn11->setFocusPolicy(Qt::NoFocus);
@@ -217,12 +204,7 @@ void KeyWidget::keyAreaInit(){
     btn12 = new QPushButton(this);//手操
     btn12->setFocusPolicy(Qt::NoFocus);
     btn12->setGeometry(x2, y4 , btnWidth,btnWidth);
-    if(fbk_StateReady == 1 || fbk_StateSimulation == 1){
-        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
-    }
-    else{
-        btn12->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
-    }
+    btn12->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
     btn12->setText(btnstr_shoucao);
     connect(btn12,SIGNAL(clicked()),this,SLOT(btnManualOperation_clicked()));
 /*
@@ -261,10 +243,7 @@ void KeyWidget::keyAreaInit(){
     btn16 = new QPushButton(this);//自动艏向
     btn16->setFocusPolicy(Qt::NoFocus);
     btn16->setGeometry(x2 , y5 , btnWidth,btnWidth);
-    if(fbk_StateAutoHeading == true)
-        btn16->setStyleSheet("border-image:url(:/images/greenbtn.png);color: rgb(52, 52, 52);");
-    else
-        btn16->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+    btn16->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
     btn16->setText(btnstr_zidongshouxiang);
     connect(btn16,SIGNAL(clicked()),this,SLOT(btnAutoHeading_clicked()));
 
@@ -295,62 +274,39 @@ void KeyWidget::keyAreaInit(){
     btn19 = new QPushButton(this);//船艏
     btn19->setFocusPolicy(Qt::NoFocus);
     btn19->setGeometry(x2 , y6 , btnWidth,btnHeight);
-    if(fbk_rotateCenter == 1)
-    {
-        btn19->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//船shou
-    }
-    else
-    {
-        btn19->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//船shou
-    }
-    //btn19->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+    btn19->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//船shou
     btn19->setText(btnstr_chuanshou);
     connect(btn19,SIGNAL(clicked()),this,SLOT(btnForePivot_clicked()));
 
     btn20 =new QPushButton(this);//船舯
     btn20->setFocusPolicy(Qt::NoFocus);
     btn20->setGeometry(x3, y6 , btnWidth,btnHeight);
-    if(fbk_rotateCenter == 0)
-    {
-        btn20->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//船zhong
-    }
-    else
-    {
-        btn20->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//船zhong
-    }
-    //btn20->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+    btn20->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//船zhong
     btn20->setText(btnstr_chuanzhong);
     connect(btn20,SIGNAL(clicked()),this,SLOT(btnCentrePivot_click()));
 
     btn21 =new QPushButton(this);//船艉
     btn21->setFocusPolicy(Qt::NoFocus);
     btn21->setGeometry(x4 , y6 , btnWidth,btnHeight);
-    if(fbk_rotateCenter == 2)
-    {
-        btn21->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//船wei
-    }
-    else
-    {
-        btn21->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//船wei
-    }
+    btn21->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//船wei
     btn21->setText(btnstr_chuanwei);
     connect(btn21,SIGNAL(clicked()),this,SLOT(btnAftPivot_click()));
 
 //    y += btnHeight + vSpace;
 
-    btn22 = new QPushButton(this);//转入
+    btn22 = new QPushButton(this);//令牌
     btn22->setFocusPolicy(Qt::NoFocus);
     btn22->setGeometry(x1 , y7 , btnWidth,btnWidth);
     btn22->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
-    btn22->setText(btnstr_zhuanru);
-    connect(btn22,SIGNAL(clicked()),this,SLOT(btnTurnIn_clicked()));
+    btn22->setText(btnstr_lingpai);
+    connect(btn22,SIGNAL(clicked()),parent,SLOT(btnTokenManager_clicked() ) );
 
-    btn23 = new QPushButton(this);//转出
-    btn23->setFocusPolicy(Qt::NoFocus);
-    btn23->setGeometry(x2, y7 , btnWidth,btnWidth);
-    btn23->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
-    btn23->setText(btnstr_zhuanchu);
-    connect(btn23,SIGNAL(clicked()),this,SLOT(btnTurnOut_clicked()));
+//    btn23 = new QPushButton(this);//转出
+//    btn23->setFocusPolicy(Qt::NoFocus);
+//    btn23->setGeometry(x2, y7 , btnWidth,btnWidth);
+//    btn23->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+//    btn23->setText(btnstr_zhuanchu);
+//    connect(btn23,SIGNAL(clicked()),this,SLOT(btnTurnOut_clicked()));
 
     //QPushButton *btn24 =new QPushButton(this);//调光
     btn24 =new QPushButton(this);//调光
@@ -364,15 +320,19 @@ void KeyWidget::keyAreaInit(){
     btn25 = new QPushButton(this);//中英文
     btn25->setFocusPolicy(Qt::NoFocus);
     btn25->setGeometry(x4 , y7 , btnWidth,btnWidth);
-//    btn25->setStyleSheet("border-image:url(:/images/whitebtn.png);");
-//    btn9->setText(btnstr_ceshi);
     btn25->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
-  //  btn25->setFont(FONT_2);
     if(State_language == "Chinese")
         btn25->setText("English");
     else
         btn25->setText("中文");
     connect(btn25,SIGNAL(clicked()),parent,SLOT(btnTest_clicked()));
+
+    btn27 = new QPushButton(this);//仿真（20160918新增）
+    btn27->setFocusPolicy(Qt::NoFocus);
+    btn27->setGeometry(x3, y3 , btnWidth,btnWidth);
+    btn27->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+    btn27->setText(btnstr_simulation);
+    connect(btn27,SIGNAL(clicked()),this,SLOT(btnSimulate_clicked()));
 
 
     btn1->setFont(FONT_16);
@@ -397,7 +357,7 @@ void KeyWidget::keyAreaInit(){
     btn20->setFont(FONT_16);
     btn21->setFont(FONT_16);
     btn22->setFont(FONT_16);
-    btn23->setFont(FONT_16);
+//    btn23->setFont(FONT_16);
     btn24->setFont(FONT_16);
     btn27->setFont(FONT_16);
 
@@ -463,7 +423,7 @@ void KeyWidget:: Refresh_keys_title()
       --btn19:船艏
       --btn20:船舯
       --btn21:船艉
-      --btn22:转入
+      --btn22:令牌
       --btn23:转出
       --btn24:调光
       --btn25:中英文（原：测试）
@@ -499,8 +459,8 @@ void KeyWidget:: Refresh_keys_title()
     btn19->setText(btnstr_chuanshou);
     btn20->setText(btnstr_chuanzhong);
     btn21->setText(btnstr_chuanwei);
-    btn22->setText(btnstr_zhuanru);
-    btn23->setText(btnstr_zhuanchu);
+    btn22->setText(btnstr_lingpai);
+//    btn23->setText(btnstr_zhuanchu);
     btn24->setText(btnstr_tiaoguang);
     btn25->setText(btnstr_zhongyingwen);
     btn27->setText(btnstr_simulation);
@@ -527,7 +487,7 @@ void KeyWidget:: Refresh_keys_title()
     btn20->setFont(FONT_16);
     btn21->setFont(FONT_16);
     btn22->setFont(FONT_16);
-    btn23->setFont(FONT_16);
+//    btn23->setFont(FONT_16);
     btn24->setFont(FONT_16);
 //    btn25->setFont(FONT_16);
     btn27->setFont(FONT_16);
@@ -707,7 +667,7 @@ void KeyWidget::btnAutoHorizontal_clicked()//自动横向
 void KeyWidget::modeConfirm(QString msg, int set_mode)
 {
     promptWidget->message =msg;
-    promptWidget->set_mode = set_mode;
+    promptWidget->targetState = set_mode;
     modeCondition(set_mode);
     promptWidget->show();
     this->setEnabled(false);
@@ -725,7 +685,7 @@ void KeyWidget::modeCondition(int set_mode)
         if(State_Gyro == 1)//&& Ready_prop1 == 1 && Ready_prop2 == 1 && Ready_prop3 == 1))
         {
             promptWidget->message = str_nomatch_autohead;//"不符合进入自动艏向模式的条件!"
-            promptWidget->set_mode = -1;
+            promptWidget->targetState = -1;
         }
         break;
     default:
@@ -776,15 +736,14 @@ void KeyWidget::modeCondition(int set_mode)
 //    }
 }
 
-void KeyWidget::btnTurnIn_clicked()//转入
-{
+//void KeyWidget::btnTurnIn_clicked()//转入
+//{
 
-}
+//}
 
-void KeyWidget::btnTurnOut_clicked()//转出
-{
-
-}
+//void KeyWidget::btnTurnOut_clicked()//转出
+//{
+//}
 
 void KeyWidget::btnFullForce_clicked()//全推力
 {
@@ -822,23 +781,23 @@ void KeyWidget::changeMode(bool ok)//改变模式  参数  是否改变
     if(!ok) return;
 
 //    btn9->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//待机
-    btn10->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//待机
+//    btn10->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//待机
 //    btn11->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//当前艏向
-    btn12->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//手操
+//    btn12->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//手操
 //    btn13->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//位置保持
 //    btn14->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//自动舵
-    btn16->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//自动艏向
+//    btn16->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//自动艏向
 //    btn17->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//自动纵向
 //    btn18->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");//自动横向
 
-    if(Operate_mode == READY_MODE)//待机
-    {
-        btn10->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//待机
-    }
-    else if(Operate_mode == MANUAL_MODE)//手操
-    {
-        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//手操
-    }
+//    if(Operate_mode == READY_MODE)//待机
+//    {
+//        btn10->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//待机
+//    }
+//    else if(Operate_mode == MANUAL_MODE)//手操
+//    {
+//        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//手操
+//    }
 //    else if(Operate_mode == KEEPPOS_MODE)//位置保持
 //    {
 //        btn13->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//位置保持
@@ -857,13 +816,13 @@ void KeyWidget::changeMode(bool ok)//改变模式  参数  是否改变
 
 //        set_heading = heading;
 //    }
-    else if(Operate_mode == HEADING_MODE)//自动艏向
-    {
+//    else if(Operate_mode == HEADING_MODE)//自动艏向
+//    {
 //        btn11->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//当前艏向
-        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//手操
-        btn16->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//自动艏向
-        set_heading = heading;
-    }
+//        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//手操
+//        btn16->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//自动艏向
+//        set_heading = heading;
+//    }
 //    else if(Operate_mode == KEEPX_MODE)//自动纵向
 //    {
 //        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");//手操
@@ -1012,4 +971,61 @@ void KeyWidget::refreshData()//按键区刷新
         btn27FlashCount ++;
     }
 
+//待机按钮
+    if(fbk_controlMode == 0)//待机，亮
+    {
+        btn10->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+    }
+    else if(btn10FlashCount%4 >=2 && Operate_mode == READY_MODE)//闪烁亮
+    {
+        btn10->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+        btn10FlashCount ++;
+    }
+    else//闪烁灭或彻底灭
+    {
+        btn10->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+        btn10FlashCount ++;
+    }
+
+//手操按钮
+    if(fbk_controlMode == MANUAL_MODE)//手操，亮
+    {
+        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+    }
+    else if(btn12FlashCount%4 >=2 && Operate_mode == MANUAL_MODE)//闪烁亮
+    {
+        btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+        btn12FlashCount ++;
+    }
+    else//闪烁灭或彻底灭
+    {
+        btn12->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+        btn12FlashCount ++;
+    }
+
+//自动首向
+    if( fbk_StateAutoHeading )//自动首向，亮
+    {
+        btn16->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+    }
+    else if(btn16FlashCount%4 >=2 && Operate_mode == HEADING_MODE)//闪烁亮
+    {
+        btn16->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+        btn16FlashCount ++;
+    }
+    else//闪烁灭或彻底灭
+    {
+        btn16->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+        btn16FlashCount ++;
+    }
+
+//令牌
+    if( stat_master )//令牌，亮
+    {
+        btn22->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
+    }
+    else//彻底灭
+    {
+        btn22->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+    }
 }

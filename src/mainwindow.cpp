@@ -5,7 +5,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtGui/QtGui>
-
+#include <QString>
 #include "serialcomm.h"
 
 QColor cbColor = COLOR_1;
@@ -159,6 +159,10 @@ MainWindow::MainWindow(QWidget *parent) :
     propellerenablewidget->setObjectName("es2");
     propellerenablewidget->setVisible(false);
 
+    tokenWidget = new TokenWidget(this,setAreaRect);//令牌切换
+    tokenWidget->setObjectName("tokenwidget");
+    tokenWidget->setVisible(false);
+
     keyWidget = new KeyWidget(this,keyAreaRect);
     keyWidget->setObjectName("keyWidget");
     keyWidget->setVisible(false);
@@ -193,8 +197,6 @@ MainWindow::MainWindow(QWidget *parent) :
     currentWidget = viewWidget;
 
     connect(pbShowKeyArea,SIGNAL(clicked()),SLOT(showKeyArea()));
-
-    connect(this, SIGNAL(changemode(int)),keyWidget,SLOT(changeMode(int)));
 
 
 //-----------将所有需要中英文切换的字符串赋值-add by xxy---初始化所有不变的文字部分------------------------------------
@@ -287,6 +289,9 @@ void MainWindow::timer2Done(){
 
     if(sensorenablewidget->isVisible()) sensorenablewidget->refreshData();//传感器设置
     if(systemstatuswidget->isVisible()) systemstatuswidget->refreshData();//系统状态视图
+
+
+    if(tokenWidget->isVisible()) tokenWidget->refreshData();//令牌功能刷新
 }
 
 /*改变白天、夜晚模式*/
@@ -324,6 +329,7 @@ void MainWindow::changeDayNightMode()
     adjustingbrightnesswidget->changeDNMode();
     deviceviewwidget->changeDNMode();
     positionReferenceWidget->changeDNMode();
+    tokenWidget->changeDNMode();
 }
 
 
@@ -333,18 +339,20 @@ void MainWindow::showKeyArea(){
     adjustingbrightnesswidget->hideWindow ( false );
 }
 
-void MainWindow::hideKeyArea(){
+void MainWindow::hideKeyArea(bool force){
     QString objName =currentWidget->objectName();
 
     if(objName.startsWith("gs") || objName.startsWith("es")
                || objName.startsWith("ls") || objName.startsWith("as")
-               || objName.startsWith("systemsettingwidget") || objName.startsWith("headingsetpwidget") )
-        return;
-
+               || objName.startsWith("systemsettingwidget") || objName.startsWith("headingsetpwidget")
+               || objName.startsWith("tokenwidget" ) ){
+        if(!force){
+            return;
+        }
+    }
     keyWidget->setVisible(false);
     pbShowKeyArea->setVisible(true);
     adjustingbrightnesswidget->hideWindow ( true );
-
 }
 
 
@@ -399,6 +407,7 @@ void MainWindow::Refresh_all_words()
 
     headingsetpwidget->Refresh_changless_words();
     titleWidget->Refresh_changlese_words();
+    tokenWidget->Refresh_changlese_words();
 
 }
 
@@ -430,12 +439,28 @@ void MainWindow::btnLightDim_clicked()//调光
             else
                 return;
         }
-        hideKeyArea();
+        hideKeyArea(true);
         adjustingbrightnesswidget->attachWindow ();
         adjustingbrightnesswidget->setVisible(true);
 
         previousWidget = currentWidget;
         currentWidget = adjustingbrightnesswidget;
+
+}
+//令牌切换
+void MainWindow::btnTokenManager_clicked(){
+
+    if(currentWidget != NULL)
+    {
+        if(currentWidget->objectName() != tokenWidget->objectName())
+             currentWidget->setVisible(false);
+        else
+            return;
+    }
+    tokenWidget->setVisible(true);
+
+    previousWidget = currentWidget;
+    currentWidget = tokenWidget;
 
 }
 
@@ -500,7 +525,7 @@ void MainWindow::btnView_clicked()//视图
 //        objectName = sensorwidget->objectName();
         currentWidget = powerconsumptionwidget;
     }
-    else
+    else//v1
     {
  //       powerconsumptionwidget->setVisible(false);
         sensorwidget->setVisible(false);

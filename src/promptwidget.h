@@ -1,4 +1,4 @@
-#ifndef PROMPTDIALOGWIDGET_H
+﻿#ifndef PROMPTDIALOGWIDGET_H
 #define PROMPTDIALOGWIDGET_H
 
 #include <qwidget.h>
@@ -33,7 +33,8 @@ protected:
 
 public:
     QString message;//消息
-    int set_mode;//设置模式
+    int targetState;//目标状态
+    unsigned short *statePtr;//修改的状态位
 
     void changeDNMode();
     void Refresh_changless_words();

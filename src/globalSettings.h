@@ -198,6 +198,10 @@ extern bool isWarn_posy;
 //deviceviewwidget.cpp
 #define PicNameD_20 ":/images/设备视图-日.png"
 #define PicNameE_20 ":/images/设备视图-夜.png"
+//tokenWidget.cpp
+#define PicNameD_21 ":/images/令牌管理-日.png"
+#define PicNameE_21 ":/images/令牌管理-夜.png"
+
 
 #define PicBlank ":/images/视图区空背景.png"
 

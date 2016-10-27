@@ -38,8 +38,7 @@
 #include <adjustingbrightnesswidget.h>
 #include <promptwidget.h>
 #include <systemstatuswidget.h>
-
-
+#include "tokenwidget.h"
 #include <globalSettings.h>
 #include <dataCommit.h>
 #include "serialcomm.h"
@@ -66,7 +65,7 @@ public slots:
     void timer2Done();
 
     void showKeyArea();//显示按键区
-    void hideKeyArea();//隐藏按键区
+    void hideKeyArea(bool force =false );//隐藏按键区
     void childWidgetOkSlot(QString);//子控件确定信号处理槽
     void childWidgetCancleSlot(QString);//子控件取消信号处理槽
 
@@ -82,6 +81,7 @@ public slots:
     void btnHeadingSetting_clicked();//艏向设置
     void btnTest_clicked();//测试
     void btnLightDim_clicked();//调光
+    void btnTokenManager_clicked();//令牌切换
 
     //消声
     void noiseElimination_Pressed();
@@ -174,7 +174,7 @@ private:
     AdjustingBrightnessWidget *adjustingbrightnesswidget;//测试，调光按钮
     SystemStatusWidget *systemstatuswidget;//系统状态
     PromptWidget *promptwidget;
-
+    TokenWidget *tokenWidget;
     SerialComm *serialcom;//串口
     CharacterConversion  *character;//字体
 
