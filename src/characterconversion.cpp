@@ -519,8 +519,8 @@ void CharacterConversion::Refresh_character(QString language)
         str_nomatch_headsway = "Don't match run conditions\nof AutoHead&Sway!";
         str_nomatch_surgesway = "Don't match run conditions\nof AutoSurge&Sway!";
 
-        str_take_out = "Station '%1' required\n to take out the control token.";
-        str_give_in = "Station '%1' required\n to give the control token";
+        str_take_out = "Station '%1'\n required to take out the control token.";
+        str_give_in = "Station '%1'\n required to give the control token";
         str_gonglvxiaohao = "Power Consumption";
         str_keyonggonglv = "Avalible Power:";
 
@@ -808,8 +808,8 @@ void CharacterConversion::Refresh_character(QString language)
         str_nomatch_surgesway = "不满足进入自动纵向横向模式的条件!";
 
 
-        str_take_out = "控制站'%1'请求获得控制权。";
-        str_give_in =  "控制站'%1'请求让出控制权。";
+        str_take_out = "控制站'%1'\n请求获得控制权。";
+        str_give_in =  "控制站'%1'\n请求让出控制权。";
         str_gonglvxiaohao = "功率消耗";
         str_keyonggonglv = "可用功率：";
 

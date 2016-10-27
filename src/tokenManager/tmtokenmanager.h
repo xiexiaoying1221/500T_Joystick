@@ -140,11 +140,11 @@ private slots:
 public:
     //token take out
     Q_INVOKABLE int tokenTakeOut(QString target, qint32 overtime=10000);
-    Q_INVOKABLE int tokenTakeOut(int index, qint32 overtime=10000);
+    Q_INVOKABLE int tokenTakeOut(int index = -1, qint32 overtime=10000);
     Q_INVOKABLE int tokenTakeOutCancel();
     //token take in
     Q_INVOKABLE int tokenTakeIn(QString target,qint32 overtime=10000);
-    Q_INVOKABLE int tokenTakeIn(int index,qint32 overtime=10000);
+    Q_INVOKABLE int tokenTakeIn(int index = -1,qint32 overtime=10000);
     Q_INVOKABLE int tokenTakeInCancel();
     //token order out
     Q_INVOKABLE int tokenOrderOutAck();
@@ -203,7 +203,6 @@ public:
 
     bool isStarted();
     bool isIndexValid(int index);
-
 private:
     int setPeer(tmPeer *newone); //网络上peer的信息写入
 

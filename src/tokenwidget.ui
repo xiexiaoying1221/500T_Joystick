@@ -29,8 +29,8 @@
   <widget class="QPushButton" name="pbOk">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>593</y>
+     <x>240</x>
+     <y>400</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -45,8 +45,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
+border-image: url(:/images/按钮-日.png);</string>
    </property>
    <property name="text">
     <string>返回</string>
@@ -71,8 +70,7 @@ border-style:outset;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
+border-image: url(:/images/按钮-日.png);</string>
    </property>
    <property name="text">
     <string>cancel</string>
@@ -97,8 +95,7 @@ border-style:outset;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
+border-image: url(:/images/按钮-日.png);</string>
    </property>
    <property name="text">
     <string>act</string>

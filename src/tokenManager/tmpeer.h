@@ -63,7 +63,7 @@ public:
             case stateTokenOrderOutPending:
                 return QString("被动转出 等待确认");
             case stateTokenOrderInPending:
-                return QString("被动转入 p等待确认");
+                return QString("被动转入 等待确认");
             case stateOffline:
                 return QString("掉线");
             default:

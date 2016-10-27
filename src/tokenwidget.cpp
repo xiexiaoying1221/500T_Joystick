@@ -16,11 +16,11 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
 //处理弹出界面
     int dialogWidth = 317;
     int dialogHeight = 212;
-    promptWidget = new PromptWidget(this->parentWidget(),this,
+    promptWidget = new PromptWidget(0,this,
                                     QRect((WINDOWWIDTH - dialogWidth) / 2 , (WINDOWHEIGHT - dialogHeight)/2 , dialogWidth , dialogHeight));
     promptWidget->statePtr = &promptRes;
     promptWidget->raise();//上层显示
-    promptWidget->raise();//上层显示
+    promptWidget->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     promptWidget->setVisible(false);
     connect(promptWidget,SIGNAL(changemode(bool)),this,SLOT(prompFinished(bool)));
 
@@ -34,6 +34,10 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(_model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->tableView->setColumnWidth(0,90);
+    ui->tableView->setColumnWidth(1,145);
+    ui->tableView->setColumnWidth(2,140);
 
 //处理tokenmanager
     manager = new tmTokenManager();
@@ -58,7 +62,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     manager->moveToThread(_comm);
     _comm->start();
 
-//确定、取消信号-槽（用于推出界面）
+//确定、取消信号-槽（用于退出界面）
     connect(this,SIGNAL(ok_signal(QString)),parent,SLOT(childWidgetOkSlot(QString)));
     connect(this,SIGNAL(cancel_signal(QString)),parent,SLOT(childWidgetCancleSlot(QString)));
 
@@ -78,24 +82,36 @@ TokenWidget::~TokenWidget(){
 void TokenWidget::changeDNMode(){
     QPalette p;
     if(daynight_mode == DAYMODE){
-        p.setColor(QPalette::WindowText,COLOR_15);
+        p.setColor(QPalette::Normal,QPalette::ButtonText,COLOR_15);
         ui->pbAct->setPalette(p);
         ui->pbCancel->setPalette(p);
         ui->pbOk->setPalette(p);
 
         p.setColor(QPalette::Text,COLOR_15);
         ui->tableView->setPalette(p);
-        qDebug()<<"TokenWidget::changeDNMode--white";
+
+//        ui->pbAct->setStyleSheet("background-color: transparent;"
+//                                 "border-image: url(:/images/按钮-日.png);");
+//        ui->pbCancel->setStyleSheet("background-color: transparent;"
+//                                 "border-image: url(:/images/按钮-日.png);");
+//        ui->pbOk->setStyleSheet("background-color: transparent;"
+//                                 "border-image: url(:/images/按钮-日.png);");
     }
     else{
-        p.setColor(QPalette::WindowText,COLOR_23);
-        ui->pbAct->setPalette(p);
-        ui->pbCancel->setPalette(p);
-        ui->pbOk->setPalette(p);
+//        p.setColor(QPalette::Normal,QPalette::ButtonText,COLOR_23);
+//        ui->pbAct->setPalette(p);
+//        ui->pbCancel->setPalette(p);
+//        ui->pbOk->setPalette(p);
 
         p.setColor(QPalette::Text,COLOR_23);
         ui->tableView->setPalette(p);
-        qDebug()<<"TokenWidget::changeDNMode--night";
+
+//        ui->pbAct->setStyleSheet("background-color: transparent;"
+//                                 "border-image: url(:/images/按钮-夜.png);");
+//        ui->pbCancel->setStyleSheet("background-color: transparent;"
+//                                 "border-image: url(:/images/按钮-夜.png);");
+//        ui->pbOk->setStyleSheet("background-color: transparent;"
+//                                 "border-image: url(:/images/按钮-夜.png);");
     }
 }
 
@@ -127,12 +143,7 @@ void TokenWidget::Refresh_changlese_words(){
     }
     else if(state == tmPeer::stateOnlinewithoutToken){
         ui->pbAct->setText(btnstr_zhuanru);
-        if(manager->isIndexValid(index) && index !=0 && manager->getPeer(index)->isWithToken() ){
-            ui->pbAct->setEnabled(true);
-        }
-        else{
-            ui->pbAct->setEnabled(false);
-        }
+        ui->pbAct->setEnabled(true);
         ui->pbCancel->setEnabled(false);
     }
     else if(state == tmPeer::stateTokenTakeOutPending){
@@ -141,7 +152,13 @@ void TokenWidget::Refresh_changlese_words(){
     }
     else if(state == tmPeer::stateTokenTakeInPending){
         ui->pbAct->setText(btnstr_qiangqie);
-        ui->pbAct->setEnabled(true);
+        //本机优先级比较高，才能强切
+        if(manager->getSelfPeer()->getPeerPriority() > manager->getPartner()->getPeerPriority() ){
+            ui->pbAct->setEnabled(true);
+        }
+        else{
+            ui->pbAct->setEnabled(false);
+        }
         ui->pbCancel->setEnabled(true);
     }
     else if(state == tmPeer::stateTokenOrderOutPending){
@@ -161,16 +178,16 @@ void TokenWidget::Refresh_changlese_words(){
 
     it = _model->horizontalHeaderItem(0);
     it->setText( str_zhanminchen );
-    it->setTextAlignment(Qt::AlignLeft);
+    it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     it = _model->horizontalHeaderItem(1);
     it->setText( str_zhanzhuangtai );
-    it->setTextAlignment(Qt::AlignLeft);
+    it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     it = _model->horizontalHeaderItem(2);
     it->setText( str_zhancuowu );
-    it->setTextAlignment(Qt::AlignLeft);
+    it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     it = _model->verticalHeaderItem(0);
     it->setText( str_benji );
-    it->setTextAlignment(Qt::AlignLeft);
+    it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 //更新_model内容的文字
     int i = 0;
     while( manager->isIndexValid(i) ){
@@ -222,11 +239,19 @@ void TokenWidget::updateMasterString(){
 void TokenWidget::selfStateChanged(quint64 state){
     if(state == tmPeer::stateOnlinewithToken){
         stat_master = true;
+        //收起界面
         promptRes = 0;
+        this->parentWidget()->setEnabled(true);
+        promptWidget->setVisible(false);
+        promptWidget->setEnabled(false);
     }
     else if(state == tmPeer::stateOnlinewithoutToken){
         stat_master = false;
+        //收起界面
         promptRes = 0;
+        this->parentWidget()->setEnabled(true);
+        promptWidget->setVisible(false);
+        promptWidget->setEnabled(false);
     }
     else if(state == tmPeer::stateTokenTakeOutPending){
 
@@ -238,19 +263,25 @@ void TokenWidget::selfStateChanged(quint64 state){
         //弹出界面
         promptWidget->targetState = 1;
         promptWidget->message = str_take_out.arg( manager->getPartner()->getName() );
-        promptWidget->setVisible(true);
         this->parentWidget()->setEnabled(false);
+        promptWidget->setVisible(true);
+        promptWidget->setEnabled(true);
     }
     else if(state == tmPeer::stateTokenOrderInPending){
         //弹出界面
         promptWidget->targetState = 2;
         promptWidget->message = str_give_in.arg( manager->getPartner()->getName() );
-        promptWidget->setVisible(true);
         this->parentWidget()->setEnabled(false);
+        promptWidget->setVisible(true);
+        promptWidget->setEnabled(true);
     }
     else{
         stat_master = false;
+        //收起界面
         promptRes = 0;
+        this->parentWidget()->setEnabled(true);
+        promptWidget->setVisible(false);
+        promptWidget->setEnabled(false);
     }
 
     Refresh_changlese_words();
@@ -260,6 +291,7 @@ void TokenWidget::selfStateChanged(quint64 state){
 //处理弹出界面完成
 void TokenWidget::prompFinished(bool ok){
     this->parentWidget()->setEnabled(true);
+    promptWidget->setEnabled(true);
 
     if(promptRes == 1){
         //TokenOrderOut
@@ -292,13 +324,13 @@ void TokenWidget::on_pbAct_clicked()
     int index = ui->tableView->currentIndex().row();
 
     if(state == tmPeer::stateOnlinewithoutToken){
-        manager->tokenTakeIn(index);
+        manager->tokenTakeIn(-1,30000);//30sec超时
     }
     else if(state == tmPeer::stateTokenTakeInPending){
         manager->tokenForceTakeIn();
     }
     else if(state == tmPeer::stateOnlinewithToken){
-        manager->tokenTakeOut(index);
+        manager->tokenTakeOut(index,30000);
     }
     else {
     }
