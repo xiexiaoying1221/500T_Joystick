@@ -28,7 +28,7 @@ public:
 
 private :
     QWidget *parent;
-
+    QWidget *disableCover;
     PromptWidget *promptWidget;
     QPushButton *btn1;//视图
     QPushButton *btn2;//系统

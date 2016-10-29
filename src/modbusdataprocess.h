@@ -17,6 +17,7 @@ private:
     QTimer *recv_timer;
     QTimer *send_timer;
     QTimer *watchDog;
+    QTimer *masterStartDelay;
     ModbusTCPComm modbusdata;
     QThread* dataThread;
 
@@ -26,6 +27,7 @@ private slots:
     void RefreshRecvData();
     void RefreshSendData();
     void RefreshWatchDog();
+    void writeSwitch();
 };
 
 #endif // MODBUSDATAPROCESS_H

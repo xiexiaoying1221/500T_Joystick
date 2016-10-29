@@ -197,12 +197,14 @@ void tmTokenManager::processPendingDatagrams(){
 //      $TMSHB,peer名称(max 255 byte),IP地址(4byte),peer状态(1byte),peer错误状态(1byte),peer令牌优先级(1byte)<CR><LF>
             paraBegin = 7;
             temp_name = datagramReadParameter( datagram , &paraBegin);
-            if( getSelfPeer()->getName() == temp_name ) continue;//本peer自己发的，丢弃该报文
             temp_ip = datagramReadParameter( datagram , &paraBegin).toUInt(&ok, 16);
             temp_state =  datagramReadParameter( datagram , &paraBegin).toLongLong(&ok, 16);
             temp_error =  datagramReadParameter( datagram , &paraBegin).toLongLong(&ok, 16);
             temp_priority = datagramReadParameter( datagram , &paraBegin).toUInt(&ok,16);
-            qDebug()<<"tmTokenManager::processPendingDatagrams()"<<temp_name<<temp_error<<temp_ip<<temp_priority;
+            if( getSelfPeer()->getName() == temp_name
+                    && getSelfPeer()->getPeerIp() == temp_ip
+                    && getSelfPeer()->getPeerPriority() == temp_priority) continue;//本peer自己发的，丢弃该报文
+            //qDebug()<<"tmTokenManager::processPendingDatagrams()"<<temp_name<<temp_error<<temp_ip<<temp_priority;
             newOne.update(temp_name,temp_state,temp_error,temp_priority,temp_ip);
             setPeer(&newOne);
         }
@@ -211,11 +213,14 @@ void tmTokenManager::processPendingDatagrams(){
 //      $TMMHB,peer名称(max 255 byte),IP地址(4byte),peer状态(1byte),peer错误状态(1byte),peer令牌优先级(1byte),状态消息(max 255 byte)<CR><LF>
             paraBegin = 7;
             temp_name = datagramReadParameter( datagram , &paraBegin);
-            if( getSelfPeer()->getName() == temp_name ) continue;//本peer自己发的，丢弃该报文
+
             temp_ip = datagramReadParameter( datagram , &paraBegin).toUInt(&ok, 16);
             temp_state =  datagramReadParameter( datagram , &paraBegin).toLongLong(&ok, 16);
             temp_error =  datagramReadParameter( datagram , &paraBegin).toLongLong(&ok, 16);
             temp_priority = datagramReadParameter( datagram , &paraBegin).toUInt(&ok,16);
+            if( getSelfPeer()->getName() == temp_name
+                    && getSelfPeer()->getPeerIp() == temp_ip
+                    && getSelfPeer()->getPeerPriority() == temp_priority) continue;//本peer自己发的，丢弃该报文
             //qDebug()<<temp_error<<temp_ip<<temp_priority;
             newOne.update(temp_name,temp_state,temp_error,temp_priority,temp_ip);
             setPeer(&newOne);
@@ -783,40 +788,42 @@ bool tmTokenManager::isSelfFirstPriority(){
 
 //检查优先等级，发现相同优先等级且本peer的ip地址最后一段较小，则本peer的优先级++
 void tmTokenManager::checkPriority(){
-    quint32 self= getSelfPeer()->getPeerPriority();
-    qint8 aux1 = (qint8)getSelfPeer()->getPeerIp();
-    qint8 aux2 = (qint8)getSelfPeer()->getName().right(1).toLocal8Bit().toInt();
+    quint32 self = getSelfPeer()->getPeerPriority();
+    quint32 aux1 = getSelfPeer()->getPeerIp();
+    quint32 aux2 = (qint8)getSelfPeer()->getName().right(1).toLocal8Bit().toInt();
     //qDebug()<<"checkPriority";
     int index = 1;
     while(index<pPeersList.size()){
-        if(self == pPeersList.at(index)->getPeerPriority() &&
-                aux1 < (qint8)pPeersList.at(index)->getPeerIp() ){
+        if(self == getPeer(index)->getPeerPriority()
+                && aux1 < (qint8)getPeer(index)->getPeerIp() ){
             self++;
             getSelfPeer()->setPeerPriority(self);
-            return;
         }
-        if(self == pPeersList.at(index)->getPeerPriority() &&
-                aux2 < (qint8)pPeersList.at(index)->getName().right(1).toLocal8Bit().toInt()){
+        if(self == getPeer(index)->getPeerPriority()
+                && aux2 < (qint8)getPeer(index)->getName().right(1).toLocal8Bit().toInt()){
             self++;
             getSelfPeer()->setPeerPriority(self);
-            return;
         }
         index++;
     }
 }
 
 //检查名字，发现相同名字且本peer优先级较小，则本peer的名字+随机码
+//2016.10修改：发现相同名字，且优先级相同，则ip地址比较小的peer的名字+随机码
 void tmTokenManager::checkName(){
     QString self = getSelfPeer()->getName();
-    quint32 aux= getSelfPeer()->getPeerPriority();
+    quint32 aux  = getSelfPeer()->getPeerPriority();
+    quint32 aux1 = getSelfPeer()->getPeerIp();
+    QTime time = QTime::currentTime();
+    qsrand(time.msec());
     int index = 1;
     while(index<pPeersList.size()){
-        if(self == pPeersList.at(index)->getName() &&
-                aux < pPeersList.at(index)->getPeerPriority() ){
-            QTime time = QTime::currentTime();
-            qsrand(time.msec());
-            self += QString::number(qrand());
-            getSelfPeer()->setName( self );
+        if(self == getPeer(index)->getName() ){
+            if(aux < getPeer(index)->getPeerPriority() ||
+                    ( aux == getPeer(index)->getPeerPriority() && aux1 < getPeer(index)->getPeerIp() ) ){
+                self += QString::number(qrand());
+                getSelfPeer()->setName( self );
+            }
         }
         index++;
     }

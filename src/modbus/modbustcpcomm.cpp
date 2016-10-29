@@ -13,6 +13,8 @@ ModbusTCPComm::ModbusTCPComm(){
    memset(writeBuffer, 0, sizeof(uint16_t) * WRBFF_LEN);
    connectOK = false;
    errCount = 0;
+   writeEnable = false;
+   readEnable = true;
 
 }
 
@@ -38,7 +40,6 @@ void ModbusTCPComm::startRoll(){
 }
 
 void ModbusTCPComm::refreshData(){
-
     if(connectOK == false){
         if (modbus_connect (myConnection) != 0){
                 qDebug()<<"modbus connection error!";
@@ -50,21 +51,25 @@ void ModbusTCPComm::refreshData(){
     }
 
     int res;
-    res=modbus_read_input_registers(myConnection, RDBFF_START_ADD, RDBFF_LEN, readBuffer);
-    //qDebug()<<res;
-    if(res <= 0){
-        errCount++;
+    if(readEnable){
+        res=modbus_read_input_registers(myConnection, RDBFF_START_ADD, RDBFF_LEN, readBuffer);
+        //qDebug()<<res;
+        if(res <= 0){
+            errCount++;
+        }
+        else {
+            errCount = 0;
+        }
     }
-    else {
-        errCount = 0;
-    }
-    res=modbus_write_registers(myConnection, WRBFF_START_ADD, WRBFF_LEN, writeBuffer);
-    //qDebug()<<res;
-    if(res <= 0){
-        errCount++;
-    }
-    else {
-        errCount = 0;
+    if(writeEnable){
+        res=modbus_write_registers(myConnection, WRBFF_START_ADD, WRBFF_LEN, writeBuffer);
+        //qDebug()<<res;
+        if(res <= 0){
+            errCount++;
+        }
+        else {
+            errCount = 0;
+        }
     }
     if(errCount >= 10){
         qDebug()<<"modbus connection turn bad...";

@@ -18,6 +18,7 @@ ModbusDataProcess::ModbusDataProcess(QObject *parent) :
       recv_timer = new QTimer();
       send_timer = new QTimer();
       watchDog = new QTimer();
+      masterStartDelay = new QTimer();
 
       connect(recv_timer,SIGNAL(timeout()),this,SLOT( RefreshRecvData()));
       recv_timer->start(500);
@@ -28,6 +29,10 @@ ModbusDataProcess::ModbusDataProcess(QObject *parent) :
       watchDog->start(10 * 1000);
       watchDogOK = false;
       lastHeartBeats = 0;
+
+      connect(masterStartDelay,SIGNAL(timeout()),this,SLOT(writeSwitch()) );
+      masterStartDelay->setSingleShot(true);
+      masterStartDelay->setInterval( 2000 );
 
 }
 ModbusDataProcess::~ModbusDataProcess()
@@ -211,8 +216,22 @@ void ModbusDataProcess::RefreshRecvData()
     CCdata_info[8] = jsReqSwitch;//Joystick模式开关状态
 }
 
+//2016.10.28新增，当有控制权时，延迟2s开始写数据
+void ModbusDataProcess::writeSwitch(){
+    modbusdata.writeEnable = true;
+}
+
 void ModbusDataProcess::RefreshSendData()
 {
+    //2016.10.28新增，当没有控制权时，停止写数据
+    static bool state_old;
+    if(stat_master == true && state_old == false){
+        masterStartDelay->start( 2000 );
+        state_old = true;
+    }
+    else if(stat_master == false){
+        modbusdata.writeEnable = false;
+    }
     //return;
     if(Run_mode == 1)//仿真模式
     {

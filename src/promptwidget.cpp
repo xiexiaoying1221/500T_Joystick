@@ -98,4 +98,3 @@ void PromptWidget::clickCancel(){
     emit changemode(false);
     this->setVisible(false);
 }
-

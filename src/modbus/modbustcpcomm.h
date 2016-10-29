@@ -1,4 +1,4 @@
-#ifndef MODBUSTCPCOMM_H
+﻿#ifndef MODBUSTCPCOMM_H
 #define MODBUSTCPCOMM_H
 
 #define RDBFF_START_ADD 8192
@@ -26,6 +26,8 @@ public:
     void startRoll();
 
     bool    connectOK;//连接正常
+    bool    writeEnable;
+    bool    readEnable;
 
     int   readBool_buff   (bool* value, qint16 add, qint16 offset);
     int   readUint32_buff (quint32* value, qint16 add);

@@ -19,6 +19,13 @@ KeyWidget::KeyWidget(QWidget *parent, QRect keyRect)
     //按键区初始化
     keyAreaInit();
 
+    //2016.10.28新增，遮盖区域。没有控制权时就不能操作该区域按钮
+    disableCover = new QWidget(this);
+    disableCover->setStyleSheet("background-color: rgba(196, 196, 196, 0.6);");
+    disableCover->setGeometry(this->x(), this->y() + 80, this->width() - 20, 420);
+    disableCover->raise();
+    disableCover->show();
+    disableCover->setDisabled(false);
 }
 
 //白天、夜晚模式切换
@@ -27,10 +34,12 @@ void KeyWidget::changeDNMode()
     QPalette p;
     if(daynight_mode == DAYMODE)
     {
+        disableCover->setStyleSheet("background-color: rgba(196, 196, 196, 0.6);");
         p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_7)));//"images/按键区-日.png"
     }
     else
     {
+        disableCover->setStyleSheet("background-color: rgba(35, 35, 35, 0.6);");
         p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameE_7)));//"images/按键区-夜.png"
     }
     this->setPalette(p);
@@ -343,7 +352,7 @@ void KeyWidget::keyAreaInit(){
     btn6->setFont(FONT_16);
     btn7->setFont(FONT_16);
     btn8->setFont(FONT_16);
-//    btn9->setFont(FONT_16);
+    btn9->setFont(FONT_16);
     btn10->setFont(FONT_16);
     btn11->setFont(FONT_16);
     btn12->setFont(FONT_16);
@@ -446,7 +455,7 @@ void KeyWidget:: Refresh_keys_title()
     btn6->setText(btnstr_qiyongshezhi);
     btn7->setText(btnstr_xianzhishezhi);
     btn8->setText(btnstr_xitongshezhi);
-//    btn9->setText(btnstr_quantuili);
+    btn9->setText(btnstr_quantuili);
     btn10->setText(btnstr_daiji);
     btn11->setText(btnstr_dangqianshangxiang);
     btn12->setText(btnstr_shoucao);
@@ -473,7 +482,7 @@ void KeyWidget:: Refresh_keys_title()
     btn6->setFont(FONT_16);
     btn7->setFont(FONT_16);
     btn8->setFont(FONT_16);
-//    btn9->setFont(FONT_16);
+    btn9->setFont(FONT_16);
     btn10->setFont(FONT_16);
     btn11->setFont(FONT_16);
     btn12->setFont(FONT_16);
@@ -1027,5 +1036,13 @@ void KeyWidget::refreshData()//按键区刷新
     else//彻底灭
     {
         btn22->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+    }
+
+//2016.10.28新增，遮盖区域。没有控制权时就不能操作该区域按钮
+    if( stat_master ){
+        disableCover->setHidden( true );
+    }
+    else{
+        disableCover->setHidden( false );
     }
 }

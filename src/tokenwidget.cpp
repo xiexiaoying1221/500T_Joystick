@@ -34,7 +34,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(_model);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     ui->tableView->setColumnWidth(0,90);
     ui->tableView->setColumnWidth(1,145);
     ui->tableView->setColumnWidth(2,140);
@@ -47,14 +47,14 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     connect(manager,SIGNAL(msgMasterPeerMessageUpdated()),this,SLOT(updateMasterString()));
     //设置本机器的参数（名称、IP地址、优先级（数值越高级别越高））
     tmPeer* s = manager->getSelfPeer();
-    s->setName( QString("固定式操作端") );
+    s->setName( QString("移动式操作端") );
     foreach( QHostAddress t, QNetworkInterface::allAddresses()){
         if (t.protocol() == QAbstractSocket::IPv4Protocol && !t.isLoopback()){
             s->setPeerIp( t.toIPv4Address() );
             break;
         }
     }
-    s->setPeerPriority( 2 );
+    s->setPeerPriority( 0 );
     connect(s,SIGNAL(msgStateChanged(quint64)),this,SLOT(selfStateChanged(quint64)));
     //启动manager
     manager->start();
@@ -194,7 +194,7 @@ void TokenWidget::Refresh_changlese_words(){
         updateModel(i);
         i++;
     }
-
+    promptWidget->Refresh_changless_words();
 }
 
 //更新_model
