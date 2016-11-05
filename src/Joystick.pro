@@ -130,4 +130,4 @@ LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
         -lWs2_32\
         -lSusi
 
-include(tokenManager\tokenManager.pri)
+include($PWD/../../lib/tokenManager/src/tokenManager.pri)

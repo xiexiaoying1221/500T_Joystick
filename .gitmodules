@@ -1,0 +1,3 @@
+[submodule "lib/tokenManager"]
+	path = lib/tokenManager
+	url = https://github.com/linbin823/Qt.711.2016.tokenManager.git
