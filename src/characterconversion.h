@@ -209,8 +209,10 @@ extern QString str_nomatch_headsurge;
 extern QString str_nomatch_headsway;
 extern QString str_nomatch_surgesway;
 
-extern QString str_take_out;
-extern QString str_give_in;
+extern QString str_order_out;
+extern QString str_order_in;
+extern QString str_take_in;
+extern QString str_takegive_notice;
 
 extern QString str_gonglvxiaohao;
 extern QString str_keyonggonglv;

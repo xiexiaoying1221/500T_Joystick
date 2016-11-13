@@ -2,6 +2,7 @@
 #pragma execution_character_set("utf-8")
 #endif
 
+#include <QStringList>
 #include "tokenwidget.h"
 #include "ui_tokenwidget.h"
 
@@ -13,12 +14,23 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     this->setAutoFillBackground(true);
     this->setGeometry(rect.x(),  rect.y() + 20, rect.width()-2,rect.height());
 
-//处理弹出界面
+//处理弹出界面(需要同步手柄)
+    int dialogWidthWithSyn =  317;
+    int dialogHeightWithSyn = 450;
+    promptWidgetWithSyn = new PromptWidgetWithSyn(0,this,
+                                    QRect((WINDOWWIDTH - dialogWidthWithSyn) / 2 , (WINDOWHEIGHT - dialogHeightWithSyn)/2 , dialogWidthWithSyn , dialogHeightWithSyn));
+    promptWidgetWithSyn->statePtr = &promptRes;//输出结果是修改promptRes变量
+    promptWidgetWithSyn->raise();//上层显示
+    promptWidgetWithSyn->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    promptWidgetWithSyn->setVisible(false);
+    connect(promptWidgetWithSyn,SIGNAL(changemode(bool)),this,SLOT(prompFinished(bool)));
+
+//处理弹出界面(不需要同步手柄)
     int dialogWidth = 317;
     int dialogHeight = 212;
     promptWidget = new PromptWidget(0,this,
                                     QRect((WINDOWWIDTH - dialogWidth) / 2 , (WINDOWHEIGHT - dialogHeight)/2 , dialogWidth , dialogHeight));
-    promptWidget->statePtr = &promptRes;
+    promptWidget->statePtr = &promptRes;//输出结果是修改promptRes变量
     promptWidget->raise();//上层显示
     promptWidget->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     promptWidget->setVisible(false);
@@ -61,6 +73,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     _comm = new QThread(this);
     manager->moveToThread(_comm);
     _comm->start();
+    //qDebug()<<"TokenWidget::TokenWidget"<<manager->getState()<<manager->getErrorStringList();
 
 //确定、取消信号-槽（用于退出界面）
     connect(this,SIGNAL(ok_signal(QString)),parent,SLOT(childWidgetOkSlot(QString)));
@@ -76,6 +89,7 @@ TokenWidget::~TokenWidget(){
     delete ui;
     delete manager;
     delete _model;
+    delete promptWidgetWithSyn;
     delete promptWidget;
 }
 
@@ -113,10 +127,31 @@ void TokenWidget::changeDNMode(){
 //        ui->pbOk->setStyleSheet("background-color: transparent;"
 //                                 "border-image: url(:/images/按钮-夜.png);");
     }
+    promptWidget->changeDNMode();
+    promptWidgetWithSyn->changeDNMode();
 }
 
 void TokenWidget::refreshData(){
-
+    if(stat_master){
+        QStringList list;
+        list<<QString::number(Run_mode);
+        list<<QString::number(Operate_mode);
+        list<<QString::number(point_rot);
+        list<<QString::number(set_heading);
+        list<<QString::number(set_rot);
+        list<<QString::number(joystick_x);
+        list<<QString::number(joystick_y);
+        list<<QString::number(joystick_z);
+        if(flag_fullprop){
+            list<<QString::number(1);
+        }
+        else{
+            list<<QString::number(0);
+        }
+        QString listString = list.join(";");
+        manager->setMasterPeerMessage( listString );
+    }
+    promptWidgetWithSyn->refreshData();//弹出界面(需要同步手柄)，需要数据刷新功能
 }
 
 void TokenWidget::Refresh_changlese_words(){
@@ -194,6 +229,7 @@ void TokenWidget::Refresh_changlese_words(){
         updateModel(i);
         i++;
     }
+    promptWidgetWithSyn->Refresh_changless_words();
     promptWidget->Refresh_changless_words();
 }
 
@@ -232,7 +268,24 @@ void TokenWidget::updateModel(int index){
 
 //用于处理主站来的数据
 void TokenWidget::updateMasterString(){
-
+    QStringList list = manager->getMasterPeerMessage().split(";");
+    qDebug()<<"TokenWidget::updateMasterString"<<list;
+    if(list.size() != 9) return;
+    bool ok;
+    if(!stat_master){
+        Run_mode        =  list.at(0).toInt(&ok);
+        Operate_mode    =  list.at(1).toInt(&ok);
+        point_rot       =  list.at(2).toInt(&ok);
+        set_heading     =  list.at(3).toFloat(&ok);
+        set_rot         =  list.at(4).toFloat(&ok);
+        masterJoystick_x=  list.at(5).toFloat(&ok);
+        masterJoystick_y=  list.at(6).toFloat(&ok);
+        masterJoystick_z=  list.at(7).toFloat(&ok);
+        if(list.at(8).toInt(&ok)==1){
+            flag_fullprop = true;
+        }
+        else flag_fullprop= false;
+    }
 }
 
 //更新本机的状态
@@ -242,6 +295,8 @@ void TokenWidget::selfStateChanged(quint64 state){
         //收起界面
         promptRes = 0;
         this->parentWidget()->setEnabled(true);
+        promptWidgetWithSyn->setVisible(false);
+        promptWidgetWithSyn->setEnabled(false);
         promptWidget->setVisible(false);
         promptWidget->setEnabled(false);
     }
@@ -250,6 +305,8 @@ void TokenWidget::selfStateChanged(quint64 state){
         //收起界面
         promptRes = 0;
         this->parentWidget()->setEnabled(true);
+        promptWidgetWithSyn->setVisible(false);
+        promptWidgetWithSyn->setEnabled(false);
         promptWidget->setVisible(false);
         promptWidget->setEnabled(false);
     }
@@ -260,26 +317,28 @@ void TokenWidget::selfStateChanged(quint64 state){
 
     }
     else if(state == tmPeer::stateTokenOrderOutPending){
-        //弹出界面
+        //弹出界面，不需要手柄同步
         promptWidget->targetState = 1;
-        promptWidget->message = str_take_out.arg( manager->getPartner()->getName() );
+        promptWidget->message = str_order_out.arg( manager->getPartner()->getName() );
         this->parentWidget()->setEnabled(false);
         promptWidget->setVisible(true);
         promptWidget->setEnabled(true);
     }
     else if(state == tmPeer::stateTokenOrderInPending){
-        //弹出界面
-        promptWidget->targetState = 2;
-        promptWidget->message = str_give_in.arg( manager->getPartner()->getName() );
+        //弹出界面，需要手柄同步
+        promptWidgetWithSyn->targetState = 2;
+        promptWidgetWithSyn->message = str_order_in.arg( manager->getPartner()->getName() );
         this->parentWidget()->setEnabled(false);
-        promptWidget->setVisible(true);
-        promptWidget->setEnabled(true);
+        promptWidgetWithSyn->setVisible(true);
+        promptWidgetWithSyn->setEnabled(true);
     }
     else{
         stat_master = false;
-        //收起界面
+        //所有弹出界面消失
         promptRes = 0;
         this->parentWidget()->setEnabled(true);
+        promptWidgetWithSyn->setVisible(false);
+        promptWidgetWithSyn->setEnabled(false);
         promptWidget->setVisible(false);
         promptWidget->setEnabled(false);
     }
@@ -291,29 +350,22 @@ void TokenWidget::selfStateChanged(quint64 state){
 //处理弹出界面完成
 void TokenWidget::prompFinished(bool ok){
     this->parentWidget()->setEnabled(true);
-    promptWidget->setEnabled(true);
-
-    if(promptRes == 1){
+    if(ok && promptRes == 1){
         //TokenOrderOut
-        if(ok){
-            //确认
-            manager->tokenOrderOutAck();
-        }
-        else{
-            //取消
-            manager->tokenOrderOutCancel();
-        }
+        manager->tokenOrderOutAck();
     }
-    else if(promptRes == 2){
+    else if(ok && promptRes == 2){
         //TokenOrderIn
-        if(ok){
-            //确认
-            manager->tokenOrderInAck();
-        }
-        else{
-            //取消
-            manager->tokenOrderInCancel();
-        }
+        manager->tokenOrderInAck();
+    }
+    else if(ok && promptRes ==3){
+        //TokenTakeIn
+        manager->tokenTakeIn(-1,-1);//无超时
+    }
+    else if(!ok){
+        manager->tokenOrderInCancel();
+        manager->tokenOrderOutCancel();
+        manager->tokenTakeInCancel();
     }
     promptRes = 0;
 }
@@ -324,13 +376,20 @@ void TokenWidget::on_pbAct_clicked()
     int index = ui->tableView->currentIndex().row();
 
     if(state == tmPeer::stateOnlinewithoutToken){
-        manager->tokenTakeIn(-1,30000);//30sec超时
+        //take in 需要同步
+        promptWidgetWithSyn->targetState = 3;
+        promptWidgetWithSyn->message = str_take_in;
+        this->parentWidget()->setEnabled(false);
+        promptWidgetWithSyn->setVisible(true);
+        promptWidgetWithSyn->setEnabled(true);
     }
     else if(state == tmPeer::stateTokenTakeInPending){
+        //force take in 不需要同步，不需要弹出界面
         manager->tokenForceTakeIn();
     }
     else if(state == tmPeer::stateOnlinewithToken){
-        manager->tokenTakeOut(index,30000);
+        //take out 不需要同步，不需要弹出界面
+        manager->tokenTakeOut(index,-1);
     }
     else {
     }

@@ -42,9 +42,9 @@
 #define COLOR_7 QColor(224,176,176)//速度/角速度降低/左转箭头颜色
 #define COLOR_8 QColor(193,231,169)//速度/角速度增加/右转箭头颜色
 //#define COLOR_9 QColor(41,41,102)//设定进度条颜色
-#define COLOR_9 QColor(36,0,252)//设定进度条颜色
+#define COLOR_9 QColor(36,0,252)//设定进度条颜色(蓝)
 //#define COLOR_10 QColor(64,132,75)//反馈进度条颜色
-#define COLOR_10 QColor(1,196,65)//反馈进度条颜色
+#define COLOR_10 QColor(1,196,65)//反馈进度条颜色(绿)
 #define COLOR_11 QColor(162,160,145)//深灰色/提示信息背景区域颜色
 #define COLOR_12 QColor(250,245,230)//浅灰色背景区域颜色
 #define COLOR_13 QColor(177,177,127)//艏向区边框颜色
@@ -201,7 +201,9 @@ extern bool isWarn_posy;
 //tokenWidget.cpp
 #define PicNameD_21 ":/images/令牌管理-日.png"
 #define PicNameE_21 ":/images/令牌管理-夜.png"
-
+//promptwidgetwithsyn.cpp
+#define PicNameD_22 ":/images/对话框长-日.png"
+#define PicNameE_22 ":/images/对话框长-夜.png"
 
 #define PicBlank ":/images/视图区空背景.png"
 

@@ -120,6 +120,11 @@ float set_pos_y = 0.0;
 float joystick_x = 0;//百分比，保留一位小数
 float joystick_y = 0;
 float joystick_z = 0;//范围[-100.0,100.0]
+
+float masterJoystick_x = 0.0;
+float masterJoystick_y = 0.0;
+float masterJoystick_z = 0.0;
+
 short gain_prop = 0;//1-全推力，0-50%推力
 bool flag_fullprop = false;
 short point_rot = 0;//1:船首，0：船舯，-1：船艉

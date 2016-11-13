@@ -133,5 +133,7 @@
         <file>images/总体设置-夜.png</file>
         <file>images/按钮-日.png</file>
         <file>images/按钮-夜.png</file>
+        <file>images/对话框长-日.png</file>
+        <file>images/对话框长-夜.png</file>
     </qresource>
 </RCC>

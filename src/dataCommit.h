@@ -183,6 +183,9 @@ extern float set_pos_y;
 extern float joystick_x;//baifenbi,
 extern float joystick_y;
 extern float joystick_z;//fanwei[-100,100]
+extern float masterJoystick_x;
+extern float masterJoystick_y;
+extern float masterJoystick_z;
 extern short gain_prop;//1-全推力，0-50%推力
 extern bool flag_fullprop;
 extern short point_rot;//1:船首，0：船舯，-1：船艉

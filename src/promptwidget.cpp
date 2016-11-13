@@ -53,13 +53,13 @@ void PromptWidget::changeDNMode()
     QPalette p;
     if(daynight_mode == DAYMODE)
     {
-        p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_13)));
+        p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_13)));//":/images/对话框-日.png"
         this->setPalette(p);
         lblPrompt->setStyleSheet(StyleSheet_DayColor);
     }
     else
     {
-        p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameE_13)));
+        p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameE_13)));//":/images/对话框-夜.png"
         this->setPalette(p);
         lblPrompt->setStyleSheet(StyleSheet_NgtColor);
     }

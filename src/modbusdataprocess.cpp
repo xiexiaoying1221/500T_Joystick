@@ -155,7 +155,7 @@ void ModbusDataProcess::RefreshRecvData()
     modbusdata.readFloat_buff(&mes_heading,     8216);
     modbusdata.readFloat_buff(&heading,         8218);
 
-    modbusdata.readFloat_buff(&speed_r,  8220);
+    modbusdata.readFloat_buff(&speed_r,         8220);
     modbusdata.readFloat_buff(&mes_winddir,     8222);
     modbusdata.readFloat_buff(&mes_windspd,     8224);
 
@@ -218,6 +218,7 @@ void ModbusDataProcess::RefreshRecvData()
 
 //2016.10.28新增，当有控制权时，延迟2s开始写数据
 void ModbusDataProcess::writeSwitch(){
+//    qDebug()<<"ModbusDataProcess::writeSwitch";
     modbusdata.writeEnable = true;
 }
 
@@ -227,11 +228,12 @@ void ModbusDataProcess::RefreshSendData()
     static bool state_old;
     if(stat_master == true && state_old == false){
         masterStartDelay->start( 2000 );
-        state_old = true;
     }
-    else if(stat_master == false){
+    else if(stat_master == false && state_old == true){
         modbusdata.writeEnable = false;
     }
+    state_old = stat_master;
+//    qDebug()<<"ModbusDataProcess::RefreshSendData"<<Run_mode<<fbk_StateSimulation;
     //return;
     if(Run_mode == 1)//仿真模式
     {
@@ -295,9 +297,9 @@ void ModbusDataProcess::RefreshSendData()
     //joystick_y = 0.1;
     //qDebug()<<"----otsend----joystick_y:"<<joystick_y;
     modbusdata.writeFloat_buff(0,24616);//最大允许舵角
-    modbusdata.writeFloat_buff(joystick_y,24626);//手操杆横向力
-    modbusdata.writeFloat_buff(joystick_x,24628);//手操杆纵向力
-    modbusdata.writeFloat_buff(joystick_z,24630);//手操杆扭矩
+    modbusdata.writeFloat_buff(joystick_y,24626);//手操杆横向力 百分比
+    modbusdata.writeFloat_buff(joystick_x,24628);//手操杆纵向力 百分比
+    modbusdata.writeFloat_buff(joystick_z,24630);//手操杆扭矩 百分比
     modbusdata.writeFloat_buff(set_heading,24632);//艏向目标值
     modbusdata.writeFloat_buff(set_rot,24634);//艏向角速度目标值
 

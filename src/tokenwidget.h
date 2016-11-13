@@ -5,9 +5,9 @@
 #include <QDebug>
 #include <QStandardItemModel>
 #include <QThread>
-#include "tokenManager/tmtokenmanager.h"
+#include "tmtokenmanager.h"
+#include "promptwidgetwithsyn.h"
 #include "promptwidget.h"
-
 
 namespace Ui {
 class TokenWidget;
@@ -26,6 +26,7 @@ public:
 
 
     tmTokenManager *manager;
+    PromptWidgetWithSyn *promptWidgetWithSyn;
     PromptWidget *promptWidget;
 
 private slots:

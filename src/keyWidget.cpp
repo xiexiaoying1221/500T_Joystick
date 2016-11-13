@@ -997,7 +997,7 @@ void KeyWidget::refreshData()//按键区刷新
     }
 
 //手操按钮
-    if(fbk_controlMode == MANUAL_MODE)//手操，亮
+    if(fbk_controlMode == MANUAL_MODE && !fbk_StateAutoHeading)//手操，亮
     {
         btn12->setStyleSheet("border-image:url(:/images/greenbtn.png);color:rgb(52, 52, 52);");
     }

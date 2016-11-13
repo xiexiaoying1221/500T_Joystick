@@ -1,13 +1,13 @@
-#ifndef GPIOJOYSTICK_H
+﻿#ifndef GPIOJOYSTICK_H
 #define GPIOJOYSTICK_H
 
 #include <QObject>
 #include <QLibrary>
 #include <QMessageBox>
-#include <windows.h>
+#include <Windows.h>
 #include <tlhelp32.h>
 #include <QDebug>
-
+#include <QTimer>
 #include "gpio/REL_DEBUG.H"
 #include "gpio/REL_ERRDRV.H"
 #include "gpio/REL_ERRLIB.H"
@@ -38,12 +38,10 @@ signals:
 
 private:
     QLibrary* m_lib;
-
     int setbuzzer;
     int setbuzzer_old;
     bool first;
     bool ready;
-
 
 };
 

@@ -17,6 +17,7 @@ HEADERS += mainwindow.h \
     positionWidget.h \
     limitsetwidget.h \
     promptwidget.h \
+    promptwidgetwithsyn.h \
     lineedit.h \
     alarmlistwidget.h \
     positionreferencewidget.h \
@@ -59,7 +60,8 @@ HEADERS += mainwindow.h \
     gpio/REL_SUSI.H \
     gpio/REL_ERRLIB.H \
     gpio/REL_ERRDRV.H \
-    tokenwidget.h
+    tokenwidget.h \
+    buzzergovernor.h
 
 SOURCES += mainwindow.cpp \
     main.cpp \
@@ -71,6 +73,7 @@ SOURCES += mainwindow.cpp \
     positionWidget.cpp \
     limitsetwidget.cpp \
     promptwidget.cpp \
+    promptwidgetwithsyn.cpp \
     lineedit.cpp \
     alarmlistwidget.cpp \
     positionreferencewidget.cpp \
@@ -99,7 +102,8 @@ SOURCES += mainwindow.cpp \
     modbus/modbus-rtu.c \
     modbus/modbus-tcp.c \
     modbusdataprocess.cpp \
-    tokenwidget.cpp
+    tokenwidget.cpp \
+    buzzergovernor.cpp
 
 FORMS += mainwindow.ui \
     limitsetwidget.ui \
@@ -126,6 +130,7 @@ RESOURCES += \
 
 LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
         -luser32\
+        -lGdi32\
         -ladvapi32\
         -lWs2_32\
         -lSusi

@@ -280,7 +280,7 @@ void SerialComm::HandleMyComData()
         joystick_z = 100.0 * joystick_z/fabs(joystick_z);
 
     //qDebug()<<"Joystick x,y,z"<<joystick_x<<joystick_y<<joystick_z;
-
+    //cmd_Fx 牛顿 joystick_x 百分比
     cmd_Fx = SwitchJoy2Force(joystick_x,1);
     cmd_Fy = SwitchJoy2Force(joystick_y,2);
     cmd_Nz = SwitchJoy2Force(joystick_z,3);

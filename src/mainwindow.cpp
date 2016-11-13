@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     systemInfoWidget->setObjectName("s3");
     systemInfoWidget->setVisible(false);
 
-    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,viewAreaRect);
+    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,setAreaRect);
     adjustingbrightnesswidget->setVisible(false);
     adjustingbrightnesswidget->setObjectName("adjustingbrightnesswidget");
 
@@ -291,7 +291,7 @@ void MainWindow::timer2Done(){
     if(systemstatuswidget->isVisible()) systemstatuswidget->refreshData();//系统状态视图
 
 
-    if(tokenWidget->isVisible()) tokenWidget->refreshData();//令牌功能刷新
+    tokenWidget->refreshData();//令牌功能刷新
 }
 
 /*改变白天、夜晚模式*/
@@ -336,7 +336,6 @@ void MainWindow::changeDayNightMode()
 void MainWindow::showKeyArea(){
     keyWidget->setVisible(true);
     pbShowKeyArea->setVisible(false);
-    adjustingbrightnesswidget->hideWindow ( false );
 }
 
 void MainWindow::hideKeyArea(bool force){
@@ -345,14 +344,13 @@ void MainWindow::hideKeyArea(bool force){
     if(objName.startsWith("gs") || objName.startsWith("es")
                || objName.startsWith("ls") || objName.startsWith("as")
                || objName.startsWith("systemsettingwidget") || objName.startsWith("headingsetpwidget")
-               || objName.startsWith("tokenwidget" ) ){
+               || objName.startsWith("tokenwidget" ) || objName.startsWith("adj")){
         if(!force){
             return;
         }
     }
     keyWidget->setVisible(false);
     pbShowKeyArea->setVisible(true);
-    adjustingbrightnesswidget->hideWindow ( true );
 }
 
 
@@ -439,8 +437,6 @@ void MainWindow::btnLightDim_clicked()//调光
             else
                 return;
         }
-        hideKeyArea(true);
-        adjustingbrightnesswidget->attachWindow ();
         adjustingbrightnesswidget->setVisible(true);
 
         previousWidget = currentWidget;
