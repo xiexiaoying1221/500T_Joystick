@@ -75,6 +75,21 @@
 extern float mes_heading;
 extern float mes_winddir;
 extern float mes_windspd;
+//x轴，前后。定义Max为最前，定义Min为最后
+extern float setStickXMax;//前进到底
+extern float setStickXZero;//前后零位
+extern float setStickXMin;//后退到底
+extern float setStickXDeadband;//前后的零位死区
+//y轴，左右。定义Max为最右，定义Min为最左
+extern float setStickYMax;//右移到底
+extern float setStickYZero;//左右零位
+extern float setStickYMin;//左移到底
+extern float setStickYDeadband;//左右的零位死区
+//z轴，左右旋转。定义Max为最右转，定义Min为最左转
+extern float setStickZMax;//右转到底
+extern float setStickZZero;//左右转零位
+extern float setStickZMin;//左转到底
+extern float setStickZDeadband;//左右转的零位死区
 
 extern quint32 cc_hearbeat;
 extern quint32 fbk_rotateCenter;

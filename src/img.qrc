@@ -135,5 +135,19 @@
         <file>images/按钮-夜.png</file>
         <file>images/对话框长-日.png</file>
         <file>images/对话框长-夜.png</file>
+        <file>images/手柄对齐-后移到底-日.png</file>
+        <file>images/手柄对齐-后移到底-夜.png</file>
+        <file>images/手柄对齐-回中-日.png</file>
+        <file>images/手柄对齐-回中-夜.png</file>
+        <file>images/手柄对齐-前移到底-日.png</file>
+        <file>images/手柄对齐-前移到底-夜.png</file>
+        <file>images/手柄对齐-右旋到底-日.png</file>
+        <file>images/手柄对齐-右旋到底-夜.png</file>
+        <file>images/手柄对齐-右移到底-日.png</file>
+        <file>images/手柄对齐-右移到底-夜.png</file>
+        <file>images/手柄对齐-左旋到底-日.png</file>
+        <file>images/手柄对齐-左旋到底-夜.png</file>
+        <file>images/手柄对齐-左移到底-日.png</file>
+        <file>images/手柄对齐-左移到底-夜.png</file>
     </qresource>
 </RCC>

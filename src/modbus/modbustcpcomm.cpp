@@ -35,14 +35,14 @@ void ModbusTCPComm::startRoll(){
     timer->start(rollInterval);
     connect(timer,SIGNAL( timeout() ),this,SLOT( refreshData() ));
 
-    qDebug()<<"startRoll";
+//    qDebug()<<"ModbusTCPComm::startRoll"<<"startRoll";
 
 }
 
 void ModbusTCPComm::refreshData(){
     if(connectOK == false){
         if (modbus_connect (myConnection) != 0){
-                qDebug()<<"modbus connection error!";
+//          qDebug()<<"ModbusTCPComm::refreshData"<<"modbus connection error!";
             return;
         }
         modbus_set_slave(myConnection,1);
@@ -72,10 +72,10 @@ void ModbusTCPComm::refreshData(){
         }
     }
     if(errCount >= 10){
-        qDebug()<<"modbus connection turn bad...";
+//        qDebug()<<"modbus connection turn bad...";
     }
     if(errCount >= 50){
-        qDebug()<<"modbus connection restart...";
+//        qDebug()<<"modbus connection restart...";
         connectOK = false;
         errCount = 11;
     }

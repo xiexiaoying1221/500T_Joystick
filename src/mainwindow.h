@@ -44,7 +44,7 @@
 #include "serialcomm.h"
 #include "AlarmHandle.h"
 #include "characterconversion.h"
-#include "gpiojoystick.h"
+#include "buzzergovernor.h"
 
 
 
@@ -177,8 +177,6 @@ private:
     TokenWidget *tokenWidget;
     SerialComm *serialcom;//串口
     CharacterConversion  *character;//字体
-
-    GpioJoystick *gpiohandle;
 
     QWidget *currentWidget;//当前部件
     QWidget *previousWidget;//上一个部件

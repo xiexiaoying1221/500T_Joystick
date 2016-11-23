@@ -13,6 +13,21 @@ float mes_heading = 0.0;
 float mes_winddir = 0.0;
 float mes_windspd = 0.0;
 
+float setStickXMax;
+float setStickXZero;
+float setStickXMin;
+float setStickXDeadband;
+
+float setStickYMax;
+float setStickYZero;
+float setStickYMin;
+float setStickYDeadband;
+
+float setStickZMax;
+float setStickZZero;
+float setStickZMin;
+float setStickZDeadband;
+
 quint32 cc_hearbeat = 0;
 quint32 fbk_rotateCenter = 0;
 quint32 fbk_controlMode = 0;
@@ -409,6 +424,21 @@ void InitData()
     //qDebug()<<"111Rwind_spd is %f"<<Rwind_spd;
 
     Power_sum = Max_power1 + 2.0 * Max_power23;//单位kW
+
+    setStickXMax = (float)0x0129;//前进到底
+    setStickXMin = (float)0x0020;//后退到底
+    setStickXZero = (setStickXMax - setStickXMin)/2 + setStickXMin;//前后零位
+    setStickXDeadband = (float)0x0010;//前后的零位死区
+
+    setStickYMax = (float)0x0127;//右移到底
+    setStickYMin = (float)0x0020;//左移到底
+    setStickYZero = (setStickYMax - setStickYMin)/2 + setStickYMin;//左右零位
+    setStickYDeadband = (float)0x0010;//左右的零位死区
+
+    setStickZMax = (float)0x00FA;//右转到底
+    setStickZMin = (float)0x004A;//左转到底
+    setStickZZero = (setStickZMax - setStickZMin)/2 + setStickZMin;//左右转零位
+    setStickZDeadband = (float)0x0010;//左右转的零位死区
 
 }
 

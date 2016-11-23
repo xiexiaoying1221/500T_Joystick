@@ -216,16 +216,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //按键区 当前艏向灯灭
 //    connect(this,SIGNAL(changecurrenthead()),keyWidget,SLOT(changeCurrentHead()));
 
-    serialcom = new SerialComm;
+    serialcom = SerialComm::getSerial();
     serialcom->OpenMyCom();
 
     //定时给数据赋值
     timer1 = new QTimer(this);
     connect(timer1,SIGNAL(timeout()),SLOT(timer1Done()));
     timer1->start(500);
-
-    gpiohandle = new GpioJoystick(this);
-    gpiohandle->GpioInit();
 
     //定时刷新各窗体数据
     timer2 = new QTimer(this);
@@ -252,8 +249,8 @@ void MainWindow::changeEvent(QEvent *e)
 
 
 void MainWindow::timer1Done(){
-    serialcom->sendMyCom();
-    serialcom->readMyCom();
+//    serialcom->sendMyCom();
+//    serialcom->readMyCom();
 //    HandleWind();
 //    ControlMain();
 //    RunShipModel();
@@ -261,9 +258,6 @@ void MainWindow::timer1Done(){
     EnableBuzzer();
 
     AlarmListMain();
-
-    gpiohandle->Gpio2Buzzer();
-
 
 }
 

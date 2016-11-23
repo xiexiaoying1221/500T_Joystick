@@ -43,7 +43,6 @@ HEADERS += mainwindow.h \
     headingsetpwidget.h \
     characterconversion.h \
     globalSettings.h \
-    gpiojoystick.h \
     modbus/config.h \
     modbus/modbus.h \
     modbus/modbus-private.h \
@@ -61,7 +60,9 @@ HEADERS += mainwindow.h \
     gpio/REL_ERRLIB.H \
     gpio/REL_ERRDRV.H \
     tokenwidget.h \
-    buzzergovernor.h
+    buzzergovernor.h \
+    gpio/susigpio.h \
+    sticksettingwidget.h
 
 SOURCES += mainwindow.cpp \
     main.cpp \
@@ -95,7 +96,6 @@ SOURCES += mainwindow.cpp \
     systemsettingwidget.cpp \
     AlarmHandle.cpp \
     characterconversion.cpp \
-    gpiojoystick.cpp \
     modbus/modbustcpcomm.cpp \
     modbus/modbus.c \
     modbus/modbus-data.c \
@@ -103,7 +103,9 @@ SOURCES += mainwindow.cpp \
     modbus/modbus-tcp.c \
     modbusdataprocess.cpp \
     tokenwidget.cpp \
-    buzzergovernor.cpp
+    buzzergovernor.cpp \
+    gpio/susigpio.cpp \
+    sticksettingwidget.cpp
 
 FORMS += mainwindow.ui \
     limitsetwidget.ui \

@@ -3,10 +3,7 @@
 #endif
 
 #include "AlarmHandle.h"
-#include<math.h>
-#include<QDebug>
 
-bool Enable_buzzer = false;//使能蜂鸣器，为true时蜂鸣器响。
 
 int run_time = 0;
 
@@ -592,6 +589,8 @@ void Refresh_Alarm_words()
 
 void EnableBuzzer()
 {
+    buzzerGovernor* buzz = buzzerGovernor::getBuzzerGovernor();
+
     int unanswer_num = 0;
     int i = 0;
 
@@ -603,10 +602,10 @@ void EnableBuzzer()
     //qDebug()<<"unanswer num is "<<unanswer_num;
     if(unanswer_num > 0)
     {
-        Enable_buzzer = true;
+        buzz->set1Hz();
     }
     else
-        Enable_buzzer = false;
+        buzz->set1Hz();
 }
 
 

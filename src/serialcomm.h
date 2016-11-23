@@ -4,7 +4,10 @@
 #include <QObject>
 #include <QStringList>
 #include <QRegExp>
-#include  <QSerialPort>
+#include <QSerialPort>
+#include <QTimer>
+#include "globalSettings.h"
+#include "dataCommit.h"
 
 #define MAX_DATA8 6.879
 //#define ZERO_DATA8 4.543
@@ -23,13 +26,17 @@ class SerialComm : public QObject
 {
     Q_OBJECT
 public:
-    explicit SerialComm(QObject *parent = 0);
+
+    float rawX,rawY,rawZ;
+    static SerialComm* getSerial(void);//全局单例模式
 
 signals:
 private:
+    explicit SerialComm(QObject *parent = 0);
+    static SerialComm* _singleton;//全局单例模式
     QString myCom_data;
     QSerialPort * myCom;
-
+    QTimer* _sendTimer;
 public slots:
     void readMyCom();
     void sendMyCom();

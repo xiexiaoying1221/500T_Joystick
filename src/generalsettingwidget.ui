@@ -71,8 +71,8 @@ border-style:outset;</string>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>310</y>
+     <x>200</x>
+     <y>520</y>
      <width>161</width>
      <height>171</height>
     </rect>
@@ -471,6 +471,19 @@ border-style:outset;</string>
    </property>
    <property name="text">
     <string>degree/sec</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>300</y>
+     <width>101</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设置手柄</string>
    </property>
   </widget>
  </widget>

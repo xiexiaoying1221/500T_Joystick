@@ -14,12 +14,13 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     this->setAutoFillBackground(true);
     this->setGeometry(rect.x(),  rect.y() + 20, rect.width()-2,rect.height());
 
+    _buzzer = buzzerGovernor::getBuzzerGovernor();
 //处理弹出界面(需要同步手柄)
     int dialogWidthWithSyn =  317;
     int dialogHeightWithSyn = 450;
     promptWidgetWithSyn = new PromptWidgetWithSyn(0,this,
                                     QRect((WINDOWWIDTH - dialogWidthWithSyn) / 2 , (WINDOWHEIGHT - dialogHeightWithSyn)/2 , dialogWidthWithSyn , dialogHeightWithSyn));
-    promptWidgetWithSyn->statePtr = &promptRes;//输出结果是修改promptRes变量
+    promptWidgetWithSyn->statePtr = &_promptRes;//输出结果是修改_promptRes变量
     promptWidgetWithSyn->raise();//上层显示
     promptWidgetWithSyn->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     promptWidgetWithSyn->setVisible(false);
@@ -30,7 +31,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     int dialogHeight = 212;
     promptWidget = new PromptWidget(0,this,
                                     QRect((WINDOWWIDTH - dialogWidth) / 2 , (WINDOWHEIGHT - dialogHeight)/2 , dialogWidth , dialogHeight));
-    promptWidget->statePtr = &promptRes;//输出结果是修改promptRes变量
+    promptWidget->statePtr = &_promptRes;//输出结果是修改_promptRes变量
     promptWidget->raise();//上层显示
     promptWidget->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     promptWidget->setVisible(false);
@@ -41,7 +42,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     _model->setHorizontalHeaderItem(0, new QStandardItem( QString("操作站名称")));
     _model->setHorizontalHeaderItem(1, new QStandardItem( QString("状态")));
     _model->setHorizontalHeaderItem(2, new QStandardItem( QString("最后错误")));
-    _model->setVerticalHeaderItem(0, new QStandardItem(QString("本机")));
+    _model->setVerticalHeaderItem  (0, new QStandardItem( QString("本机")));
 
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -59,6 +60,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     connect(manager,SIGNAL(msgMasterPeerMessageUpdated()),this,SLOT(updateMasterString()));
     //设置本机器的参数（名称、IP地址、优先级（数值越高级别越高））
     tmPeer* s = manager->getSelfPeer();
+#ifdef PORTABLE_STATION
     s->setName( QString("移动式操作端") );
     foreach( QHostAddress t, QNetworkInterface::allAddresses()){
         if (t.protocol() == QAbstractSocket::IPv4Protocol && !t.isLoopback()){
@@ -67,6 +69,16 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
         }
     }
     s->setPeerPriority( 0 );
+#else
+    s->setName( QString("固定式操作端") );
+    foreach( QHostAddress t, QNetworkInterface::allAddresses()){
+        if (t.protocol() == QAbstractSocket::IPv4Protocol && !t.isLoopback()){
+            s->setPeerIp( t.toIPv4Address() );
+            break;
+        }
+    }
+    s->setPeerPriority( 2 );
+#endif
     connect(s,SIGNAL(msgStateChanged(quint64)),this,SLOT(selfStateChanged(quint64)));
     //启动manager
     manager->start();
@@ -74,6 +86,8 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     manager->moveToThread(_comm);
     _comm->start();
     //qDebug()<<"TokenWidget::TokenWidget"<<manager->getState()<<manager->getErrorStringList();
+    connect(manager,SIGNAL(msgTokenLostShallForceIn()),this,SLOT(lostToken()));
+    connect(manager,SIGNAL(msgTokenDuplicatedShallForceOut()),this,SLOT(multiToken()));
 
 //确定、取消信号-槽（用于退出界面）
     connect(this,SIGNAL(ok_signal(QString)),parent,SLOT(childWidgetOkSlot(QString)));
@@ -82,6 +96,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
 //刷新界面
     changeDNMode();
     Refresh_changlese_words();
+
 }
 
 TokenWidget::~TokenWidget(){
@@ -104,12 +119,6 @@ void TokenWidget::changeDNMode(){
         p.setColor(QPalette::Text,COLOR_15);
         ui->tableView->setPalette(p);
 
-//        ui->pbAct->setStyleSheet("background-color: transparent;"
-//                                 "border-image: url(:/images/按钮-日.png);");
-//        ui->pbCancel->setStyleSheet("background-color: transparent;"
-//                                 "border-image: url(:/images/按钮-日.png);");
-//        ui->pbOk->setStyleSheet("background-color: transparent;"
-//                                 "border-image: url(:/images/按钮-日.png);");
     }
     else{
 //        p.setColor(QPalette::Normal,QPalette::ButtonText,COLOR_23);
@@ -120,12 +129,6 @@ void TokenWidget::changeDNMode(){
         p.setColor(QPalette::Text,COLOR_23);
         ui->tableView->setPalette(p);
 
-//        ui->pbAct->setStyleSheet("background-color: transparent;"
-//                                 "border-image: url(:/images/按钮-夜.png);");
-//        ui->pbCancel->setStyleSheet("background-color: transparent;"
-//                                 "border-image: url(:/images/按钮-夜.png);");
-//        ui->pbOk->setStyleSheet("background-color: transparent;"
-//                                 "border-image: url(:/images/按钮-夜.png);");
     }
     promptWidget->changeDNMode();
     promptWidgetWithSyn->changeDNMode();
@@ -293,22 +296,24 @@ void TokenWidget::selfStateChanged(quint64 state){
     if(state == tmPeer::stateOnlinewithToken){
         stat_master = true;
         //收起界面
-        promptRes = 0;
+        _promptRes = 0;
         this->parentWidget()->setEnabled(true);
         promptWidgetWithSyn->setVisible(false);
         promptWidgetWithSyn->setEnabled(false);
         promptWidget->setVisible(false);
         promptWidget->setEnabled(false);
+        _buzzer->reset2Hz();
     }
     else if(state == tmPeer::stateOnlinewithoutToken){
         stat_master = false;
         //收起界面
-        promptRes = 0;
+        _promptRes = 0;
         this->parentWidget()->setEnabled(true);
         promptWidgetWithSyn->setVisible(false);
         promptWidgetWithSyn->setEnabled(false);
         promptWidget->setVisible(false);
         promptWidget->setEnabled(false);
+        _buzzer->reset2Hz();
     }
     else if(state == tmPeer::stateTokenTakeOutPending){
 
@@ -323,6 +328,7 @@ void TokenWidget::selfStateChanged(quint64 state){
         this->parentWidget()->setEnabled(false);
         promptWidget->setVisible(true);
         promptWidget->setEnabled(true);
+        _buzzer->set2Hz();
     }
     else if(state == tmPeer::stateTokenOrderInPending){
         //弹出界面，需要手柄同步
@@ -331,16 +337,18 @@ void TokenWidget::selfStateChanged(quint64 state){
         this->parentWidget()->setEnabled(false);
         promptWidgetWithSyn->setVisible(true);
         promptWidgetWithSyn->setEnabled(true);
+        _buzzer->set2Hz();
     }
     else{
         stat_master = false;
         //所有弹出界面消失
-        promptRes = 0;
+        _promptRes = 0;
         this->parentWidget()->setEnabled(true);
         promptWidgetWithSyn->setVisible(false);
         promptWidgetWithSyn->setEnabled(false);
         promptWidget->setVisible(false);
         promptWidget->setEnabled(false);
+        _buzzer->reset2Hz();
     }
 
     Refresh_changlese_words();
@@ -350,24 +358,33 @@ void TokenWidget::selfStateChanged(quint64 state){
 //处理弹出界面完成
 void TokenWidget::prompFinished(bool ok){
     this->parentWidget()->setEnabled(true);
-    if(ok && promptRes == 1){
+    _buzzer->reset2Hz();
+    if(ok && _promptRes == 1){
         //TokenOrderOut
         manager->tokenOrderOutAck();
     }
-    else if(ok && promptRes == 2){
+    else if(ok && _promptRes == 2){
         //TokenOrderIn
         manager->tokenOrderInAck();
     }
-    else if(ok && promptRes ==3){
+    else if(ok && _promptRes ==3){
         //TokenTakeIn
         manager->tokenTakeIn(-1,-1);//无超时
+    }
+    else if(ok && _promptRes ==4){
+        //Token lost
+        manager->tokenForceTakeIn();
+    }
+    else if(ok && _promptRes ==5){
+        //Token duplicated
+        manager->tokenForceTakeOut();
     }
     else if(!ok){
         manager->tokenOrderInCancel();
         manager->tokenOrderOutCancel();
         manager->tokenTakeInCancel();
     }
-    promptRes = 0;
+    _promptRes = 0;
 }
 
 void TokenWidget::on_pbAct_clicked()
@@ -382,6 +399,7 @@ void TokenWidget::on_pbAct_clicked()
         this->parentWidget()->setEnabled(false);
         promptWidgetWithSyn->setVisible(true);
         promptWidgetWithSyn->setEnabled(true);
+        _buzzer->set2Hz();
     }
     else if(state == tmPeer::stateTokenTakeInPending){
         //force take in 不需要同步，不需要弹出界面
@@ -395,8 +413,34 @@ void TokenWidget::on_pbAct_clicked()
     }
 }
 
+//处理网络令牌丢失，本机需要获得令牌的故障
+void TokenWidget::lostToken(){
+    //需要同步
+//    if(CCdata_alarm[15]){//控制器通信故障
+//        return;
+//    }
+    promptWidgetWithSyn->targetState = 4;
+    promptWidgetWithSyn->message = str_token_lost;
+    this->parentWidget()->setEnabled(false);
+    promptWidgetWithSyn->setVisible(true);
+    promptWidgetWithSyn->setEnabled(true);
+    _buzzer->set2Hz();
+}
+
+//处理网络令牌重复，本机需要让出令牌的故障
+void TokenWidget::multiToken(){
+    //弹出界面，不需要手柄同步
+    promptWidget->targetState = 5;
+    promptWidget->message = str_token_duplicated;
+    this->parentWidget()->setEnabled(false);
+    promptWidget->setVisible(true);
+    promptWidget->setEnabled(true);
+    _buzzer->set2Hz();
+}
+
 void TokenWidget::on_pbCancel_clicked()
 {
+    _buzzer->reset2Hz();
     quint64 state = manager->getSelfPeer()->getState();
     if(state == tmPeer::stateTokenTakeOutPending){
         manager->tokenTakeOutCancel();

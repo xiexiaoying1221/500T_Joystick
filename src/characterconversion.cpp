@@ -99,6 +99,20 @@ QString str_zhuansu;
 QString str_queding;
 QString str_quxiao;
 
+QString str_shezhi;
+QString str_xiayixiang;
+QString str_shangyixiang;
+
+QString str_yizancun;
+
+QString str_yidongdaoXzuida;
+QString str_yidongdaoXzuixiao;
+QString str_yidongdaoYzuida;
+QString str_yidongdaoYzuixiao;
+QString str_yidongdaoZzuida;
+QString str_yidongdaoZzuixiao;
+QString str_yidongdaolingwei;
+
 QString str_zhanminchen;
 QString str_zhanzhuangtai;
 QString str_zhancuowu;
@@ -222,6 +236,8 @@ QString str_nomatch_surgesway;
 QString str_order_out;
 QString str_order_in;
 QString str_take_in;
+QString str_token_lost;
+QString str_token_duplicated;
 QString str_takegive_notice;
 QString str_gonglvxiaohao;
 QString str_keyonggonglv;
@@ -406,6 +422,21 @@ void CharacterConversion::Refresh_character(QString language)
         str_queding = "Enter";
         str_quxiao = "Cancel";
 
+        str_shezhi  =   "Set";
+        str_xiayixiang  =   "Next";
+        str_shangyixiang    = "Previous";
+
+        str_yizancun    =   "temporary stored";
+
+        str_yidongdaoXzuida =   "Step1: store the X-axis scale.\nMove stick to max forward then press 'Set'";
+        str_yidongdaoXzuixiao = "Step2: store the X-axis scale.\nMove stick to max backward then press 'Set'";
+        str_yidongdaoYzuida =   "Step3: store the Y-axis scale.\nMove stick to max STBD then press 'Set'";
+        str_yidongdaoYzuixiao = "Step4: store the Y-axis scale.\nMove stick to max Port then press 'Set'";
+        str_yidongdaoZzuida =   "Step5: store the Z-axis scale.\nRotate stick max clockwise then press 'Set'";
+        str_yidongdaoZzuixiao = "Step6: store the Z-axis scale.\nRotate stick max counter-clockwise then press 'Set'";
+        str_yidongdaolingwei =  "Step7: store the zero point.\nMove stick to neutral pos. then press 'Set'";
+
+
         str_zhanminchen = "name";
         str_zhanzhuangtai = "state";
         str_zhancuowu = "last error";
@@ -524,6 +555,9 @@ void CharacterConversion::Refresh_character(QString language)
         str_order_out = "Station '%1'\n required to take out the control token.";
         str_order_in = "Station '%1'\n required to give the control token.";
         str_take_in = "make sure the stick is syn. before take in.";
+        str_token_lost = "token lost! \n should take over control.";
+        str_token_duplicated = "token duplicated!\n should give up control.";
+
         str_takegive_notice = "syn. the stick before control token changeover";
         str_gonglvxiaohao = "Power Consumption";
         str_keyonggonglv = "Avalible Power:";
@@ -815,6 +849,8 @@ void CharacterConversion::Refresh_character(QString language)
         str_order_out = "控制站'%1'\n请求获得控制权。";
         str_order_in =  "控制站'%1'\n请求让出控制权。";
         str_take_in =  "获得控制权前先同步手柄";
+        str_token_lost = "网络令牌丢失！\n 需要本站接管控制权";
+        str_token_duplicated = "网络令牌重复！\n需要本站放弃控制权";
         str_takegive_notice = "切换控制权前先同步手柄";
         str_gonglvxiaohao = "功率消耗";
         str_keyonggonglv = "可用功率：";

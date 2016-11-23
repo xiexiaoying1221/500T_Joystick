@@ -15,7 +15,18 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
 {
     ui->setupUi(this);
 
-    m_editPtr = nullptr;
+    //手柄矫正窗口的初始化
+    int dialogWidthWithSyn =  317;
+    int dialogHeightWithSyn = 450;
+    _prompt = new PromptWidgetWithSyn(0,this,
+                                    QRect((WINDOWWIDTH - dialogWidthWithSyn) / 2 , (WINDOWHEIGHT - dialogHeightWithSyn)/2 , dialogWidthWithSyn , dialogHeightWithSyn));
+    _prompt->raise();//上层显示
+    _prompt->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    _prompt->setVisible(false);
+    connect(_prompt,SIGNAL(settingFinished()),this,SLOT(prompFinished(bool)));
+
+    //_editPtr正在修改的控件指针
+    _editPtr = nullptr;
 
     this->setAutoFillBackground(true);
 //    QPalette p;
@@ -179,9 +190,9 @@ void GeneralSettingWidget::leThrusterAlloc_click()
 void GeneralSettingWidget::leRateTurn_click()
 {
     if(ui->groupBox->isVisible () ){
-        m_editPtr->setText ( m_lastValue );
+        _editPtr->setText ( m_lastValue );
     }
-    m_editPtr = ui->leRateTurn_;
+    _editPtr = ui->leRateTurn_;
     ui->groupBox->setVisible(true);
     m_lastValue = ui->leRateTurn_->text ();
     ui->leRateTurn_->setText("");
@@ -217,9 +228,9 @@ void GeneralSettingWidget::leGainLevel_click()
 
 void GeneralSettingWidget::leMaxRudderAngle_click(){
     if(ui->groupBox->isVisible () ){
-        m_editPtr->setText ( m_lastValue );
+        _editPtr->setText ( m_lastValue );
     }
-    m_editPtr = ui->leMaxRudderAngle_;
+    _editPtr = ui->leMaxRudderAngle_;
     ui->groupBox->setVisible(true);
     m_lastValue = ui->leMaxRudderAngle_->text ();
     ui->leMaxRudderAngle_->setText("");
@@ -232,31 +243,31 @@ void GeneralSettingWidget::gbpbNumber_click()
     if(text == "．")
         text = ".";
 
-    if(m_editPtr != nullptr){
-        m_editPtr->setText(m_editPtr->text() + text);
+    if(_editPtr != nullptr){
+        _editPtr->setText(_editPtr->text() + text);
     }
 }
 
 void GeneralSettingWidget::gbpbOK_click()
 {
     QString text;
-    if(m_editPtr != nullptr){
-        text = m_editPtr->text();
+    if(_editPtr != nullptr){
+        text = _editPtr->text();
     }
 
     bool ok;
     double a = text.toDouble(&ok);
     if(!ok || a  > 999)
     {
-        if(m_editPtr != nullptr){
-            m_editPtr->setText( m_lastValue );
+        if(_editPtr != nullptr){
+            _editPtr->setText( m_lastValue );
         }
     }
     ui->groupBox->setVisible(false);
-    if(m_editPtr != nullptr){
-        m_editPtr->setFocus();
+    if(_editPtr != nullptr){
+        _editPtr->setFocus();
     }
-    m_editPtr = nullptr;
+    _editPtr = nullptr;
 }
 
 void GeneralSettingWidget::pbOK_clicked()

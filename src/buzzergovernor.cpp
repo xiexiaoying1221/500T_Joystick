@@ -1,16 +1,28 @@
 ﻿#include "buzzergovernor.h"
 
+buzzerGovernor* buzzerGovernor::_singleton = nullptr;
+
 buzzerGovernor::buzzerGovernor(QObject *parent) : QObject(parent)
 {
     _t05 = new QTimer(this);
     connect(_t05,SIGNAL(timeout()),this,SLOT(process()));
     _t05->start(500);
 
-
+    _gpio = SusiGpio::getGpio();
+    _gpio->init();
+    _gpio->setIODirection(0, 0);
+}
+//全局单例模式
+buzzerGovernor* buzzerGovernor::getBuzzerGovernor( void ){
+    if( _singleton == nullptr ){
+        _singleton = new buzzerGovernor();
+    }
+    return _singleton;
 }
 
 void buzzerGovernor::process(void){
     //方波发生器
+    //0.5Hz方波
     if(_sq05Hz){
         _sq05Hz = false;
     }
@@ -18,6 +30,7 @@ void buzzerGovernor::process(void){
         _sq05Hz = true;
     }
 
+    //1Hz方波
     if(_counterBuzzer1Hz>=2){
         _counterBuzzer1Hz =0;
         if(_sq1Hz){
@@ -31,6 +44,7 @@ void buzzerGovernor::process(void){
         _counterBuzzer1Hz++;
     }
 
+    //2Hz方波
     if(_counterBuzzer2Hz>=4){
         _counterBuzzer2Hz =0;
         if(_sq2Hz){
@@ -72,6 +86,7 @@ void buzzerGovernor::process(void){
 
     //处理输出
     if(controlBits.buzzer05Hz){
+        _buzzer = _sq05Hz;
     }
     else if(controlBits.buzzer1Hz){
         _buzzer = _sq1Hz;
@@ -81,6 +96,15 @@ void buzzerGovernor::process(void){
     }
     else if(controlBits.buzzerContinuous){
         _buzzer = true;
+    }
+
+    //输出到GPIO 0
+    if(_gpio->ready){
+        _gpio->writeIO(0, _buzzer);
+    }
+    else{
+        _gpio->init();
+        _gpio->setIODirection(0, 0);
     }
 }
 

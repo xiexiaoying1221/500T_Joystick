@@ -192,9 +192,9 @@ void PromptWidgetWithSyn::paintEvent(QPaintEvent *event){
     pen2.setWidth(interval2/2 *0.9);
     painter.setPen(pen2);//master值
     QRectF rectangle8(-r2 ,-height*3/4 + interval2 * 3/4 ,2*r2,2*r2);
-
+    //masterJoystick_z是主站的手柄z值，是跟踪值
     spanAngle7 = fabs(masterJoystick_z) * 23.40 / 100.0;/*最大跨度 23.40*/
-
+    //drawArc：3点钟方向为0度，顺时针span为负，逆时针span为正
      if(masterJoystick_z < 0)
      {
          startAngle7 = 90;
@@ -267,8 +267,8 @@ void PromptWidgetWithSyn::paintEvent(QPaintEvent *event){
     painter.setPen(pen2);
     beginX = fbkfx > 0 ? -2*interval : 2*interval;
     beginY = fbkfy > 0 ? 2*interval : -2*interval;
-    painter.drawLine(rectW/2,beginX, rectW/2,beginX-fbkfx);//fbk-fx
-    painter.drawLine(beginY, rectW/2,beginY + fbkfy,rectW/2);//fbk-fy
+    painter.drawLine(rectW/2,beginX, rectW/2,beginX-fbkfx);//fbk-fx,前后,前负后正
+    painter.drawLine(beginY, rectW/2,beginY + fbkfy,rectW/2);//fbk-fy,左右,左负右正
 
 
 //    QWidget::paintEvent(event);

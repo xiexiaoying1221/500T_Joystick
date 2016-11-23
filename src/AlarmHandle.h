@@ -1,15 +1,15 @@
-#ifndef ALARMHANDLE_H
+﻿#ifndef ALARMHANDLE_H
 #define ALARMHANDLE_H
 
 #include <QTime>
-
+#include<math.h>
+#include<QDebug>
 #include "dataCommit.h"
 #include "globalSettings.h"
+#include "buzzergovernor.h"
 
 #define STARTTIME 20
 #define ALM_LINE 20
-
-extern bool Enable_buzzer;
 
 extern int run_time;
 extern int atlen;

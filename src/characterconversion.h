@@ -56,6 +56,20 @@ extern QString str_xianzhi;
 extern QString str_queding;
 extern QString str_quxiao;
 
+extern QString str_shezhi;
+extern QString str_xiayixiang;
+extern QString str_shangyixiang;
+
+extern QString str_yizancun;
+
+extern QString str_yidongdaoXzuida;
+extern QString str_yidongdaoXzuixiao;
+extern QString str_yidongdaoYzuida;
+extern QString str_yidongdaoYzuixiao;
+extern QString str_yidongdaoZzuida;
+extern QString str_yidongdaoZzuixiao;
+extern QString str_yidongdaolingwei;
+
 extern QString str_zhanminchen;
 extern QString str_zhanzhuangtai;
 extern QString str_zhancuowu;
@@ -212,6 +226,8 @@ extern QString str_nomatch_surgesway;
 extern QString str_order_out;
 extern QString str_order_in;
 extern QString str_take_in;
+extern QString str_token_lost;
+extern QString str_token_duplicated;
 extern QString str_takegive_notice;
 
 extern QString str_gonglvxiaohao;

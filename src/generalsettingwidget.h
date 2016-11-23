@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <qchar.h>
 #include <QPushButton>
+#include "sticksettingwidget.h"
 #include "dataCommit.h"
 #include "globalSettings.h"
 
@@ -25,9 +26,9 @@ public:
 
 private:
     Ui::GeneralSettingWidget *ui;
-    QPushButton * m_editPtr;
+    QPushButton * _editPtr;
     QString m_lastValue;
-
+    StickSettingWidget* _prompt;
 //    QLineEdit *leThrusterAlloc;
 //    QLineEdit *leRateTurn;
 //    QLineEdit *leDraughtType;
