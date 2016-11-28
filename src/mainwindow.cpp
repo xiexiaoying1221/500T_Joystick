@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     systemInfoWidget->setObjectName("s3");
     systemInfoWidget->setVisible(false);
 
-    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,setAreaRect);
+    adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,viewAreaRect);
     adjustingbrightnesswidget->setVisible(false);
     adjustingbrightnesswidget->setObjectName("adjustingbrightnesswidget");
 
@@ -338,13 +338,14 @@ void MainWindow::hideKeyArea(bool force){
     if(objName.startsWith("gs") || objName.startsWith("es")
                || objName.startsWith("ls") || objName.startsWith("as")
                || objName.startsWith("systemsettingwidget") || objName.startsWith("headingsetpwidget")
-               || objName.startsWith("tokenwidget" ) || objName.startsWith("adj")){
+               || objName.startsWith("tokenwidget" )){
         if(!force){
             return;
         }
     }
     keyWidget->setVisible(false);
     pbShowKeyArea->setVisible(true);
+    adjustingbrightnesswidget->hideWindow(true);
 }
 
 
@@ -431,6 +432,9 @@ void MainWindow::btnLightDim_clicked()//调光
             else
                 return;
         }
+
+        hideKeyArea(true);
+        adjustingbrightnesswidget->attachWindow ();
         adjustingbrightnesswidget->setVisible(true);
 
         previousWidget = currentWidget;

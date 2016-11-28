@@ -2,10 +2,13 @@
 #define ADJUSTINGBRIGHTNESSWIDGET_H
 
 #include <QWidget>
-
+#include <QDebug>
+#include <QProcess>
 #include <windows.h>
 #include <windowsx.h>
-#include <WinGDI.h>
+#include <WinUser.h>
+#include <QWindow>
+
 #include "dataCommit.h"
 #include "globalSettings.h"
 
@@ -21,36 +24,40 @@ public:
     explicit AdjustingBrightnessWidget(QWidget *parent = 0,QRect rect = QRect(0,0,0,0));
     ~AdjustingBrightnessWidget();
 
-    int GetGamma();
-    int SetGamma(int);
+//    int GetGamma();
+//    int SetGamma(int);
     void changeDNMode();
     void Refresh_changless_words();
+    void attachWindow(void);
+    void hideWindow( bool visible );
 
 private:
     Ui::AdjustingBrightnessWidget *ui;
 
-    int maxBright;//最大亮度
-    int nowBright;//当前亮度
-    int tempRight;//临时
-    int lastBright;
+//    int maxBright;//最大亮度
+//    int nowBright;//当前亮度
+//    int tempRight;//临时
+//    int lastBright;
 
-    //亮度lbl 位置 大小
-    int lblx;
-    int lbly;
-    int lblw;
-    int lblh;
+//    //亮度lbl 位置 大小
+//    int lblx;
+//    int lbly;
+//    int lblw;
+//    int lblh;
 
-
+    QProcess* m_dimProg;
+    QWindow* m_window;
+    QWidget* m_widget;
 signals:
-    void ok_signal(QString);
-    void cancel_signal(QString);
+//    void ok_signal(QString);
+//    void cancel_signal(QString);
 
 
 private slots:
-    void pbOk_clicked();
-    void pbCancel_clicked();
-    void pbAdd_clicked();
-    void pbReduce_clicked();
+//    void pbOk_clicked();
+//    void pbCancel_clicked();
+//    void pbAdd_clicked();
+//    void pbReduce_clicked();
 
 };
 
