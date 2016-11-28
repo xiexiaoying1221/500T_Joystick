@@ -16,14 +16,14 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
     ui->setupUi(this);
 
     //手柄矫正窗口的初始化
-    int dialogWidthWithSyn =  317;
-    int dialogHeightWithSyn = 450;
-    _prompt = new PromptWidgetWithSyn(0,this,
+    int dialogWidthWithSyn =  450;
+    int dialogHeightWithSyn = 639;
+    _prompt = new StickSettingWidget(0,
                                     QRect((WINDOWWIDTH - dialogWidthWithSyn) / 2 , (WINDOWHEIGHT - dialogHeightWithSyn)/2 , dialogWidthWithSyn , dialogHeightWithSyn));
     _prompt->raise();//上层显示
     _prompt->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     _prompt->setVisible(false);
-    connect(_prompt,SIGNAL(settingFinished()),this,SLOT(prompFinished(bool)));
+    connect(_prompt,SIGNAL(settingFinished()),this,SLOT(prompSettingFinished()));
 
     //_editPtr正在修改的控件指针
     _editPtr = nullptr;
@@ -155,6 +155,7 @@ void GeneralSettingWidget::changeDNMode()
         ui->leWindComp_->setPalette(p);
         ui->leGainLevel_->setPalette(p);
         ui->leMaxRudderAngle_->setPalette (p);
+        ui->pbStickSetting->setPalette(p);
     }
     else
     {
@@ -176,6 +177,7 @@ void GeneralSettingWidget::changeDNMode()
         ui->leWindComp_->setPalette(p);
         ui->leGainLevel_->setPalette(p);
         ui->leMaxRudderAngle_->setPalette (p);
+        ui->pbStickSetting->setPalette(p);
     }
 }
 
@@ -338,6 +340,9 @@ void GeneralSettingWidget::Refresh_changless_words()
 
     ui->leDraughtType_->setFont(FONT_3);
 
+    ui->pbStickSetting->setFont(FONT_3);
+    ui->pbStickSetting->setText(str_shezhishoubing);
+
     if(ui->leDraughtType_->text() == "Mode 1" || ui->leDraughtType_->text() == "模式一")
         ui->leDraughtType_->setText(str_moshi1);
     else if(ui->leDraughtType_->text() == "Mode 2" || ui->leDraughtType_->text() == "模式二")
@@ -379,4 +384,14 @@ void GeneralSettingWidget::pbCancel_clicked()
 GeneralSettingWidget::~GeneralSettingWidget()
 {
     delete ui;
+}
+
+void GeneralSettingWidget::on_pbStickSetting_clicked()
+{
+    this->parentWidget()->setEnabled(false);
+    _prompt->show();
+}
+
+void GeneralSettingWidget::prompSettingFinished(){
+   this->parentWidget()->setEnabled(true);
 }

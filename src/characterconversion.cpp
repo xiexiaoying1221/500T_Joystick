@@ -99,6 +99,7 @@ QString str_zhuansu;
 QString str_queding;
 QString str_quxiao;
 
+QString str_shezhishoubing;
 QString str_shezhi;
 QString str_xiayixiang;
 QString str_shangyixiang;
@@ -422,6 +423,7 @@ void CharacterConversion::Refresh_character(QString language)
         str_queding = "Enter";
         str_quxiao = "Cancel";
 
+        str_shezhishoubing = "Stick config";
         str_shezhi  =   "Set";
         str_xiayixiang  =   "Next";
         str_shangyixiang    = "Previous";
@@ -730,6 +732,22 @@ void CharacterConversion::Refresh_character(QString language)
 
         str_queding = "确定";
         str_quxiao = "取消";
+
+        str_shezhishoubing = "设置手柄";
+        str_shezhi  =   "设置";
+        str_xiayixiang  =   "下一项";
+        str_shangyixiang    = "上一项";
+
+        str_yizancun    =   "已暂存";
+
+        str_yidongdaoXzuida =   "第一步： 设置X轴范围\n移动手柄向前到底，按下“设置”按键";
+        str_yidongdaoXzuixiao = "第二步： 设置X轴范围\n移动手柄向后到底，按下“设置”按键";
+        str_yidongdaoYzuida =   "第三步： 设置Y轴范围\n移动手柄向右到底，按下“设置”按键";
+        str_yidongdaoYzuixiao = "第四步： 设置Y轴范围\n移动手柄向左到底，按下“设置”按键";
+        str_yidongdaoZzuida =   "第五步： 设置Z轴范围\n转动手柄顺时针到底，按下“设置”按键";
+        str_yidongdaoZzuixiao = "第六步： 设置Z轴范围\n转动手柄逆时针到底，按下“设置”按键";
+        str_yidongdaolingwei =  "第七步： 设置零位\n手柄回到中间位置，按下“设置”按键";
+
 
         str_zhanminchen = "站名称";
         str_zhanzhuangtai = "状态";

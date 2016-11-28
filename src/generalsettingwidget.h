@@ -1,5 +1,4 @@
-﻿void on_gbpbOK_clicked();
-#ifndef GENERALSETTINGWIDGET_H
+﻿#ifndef GENERALSETTINGWIDGET_H
 #define GENERALSETTINGWIDGET_H
 
 #include <QWidget>
@@ -50,6 +49,9 @@ private slots:
     //确定按钮
     void pbOK_clicked();
     void pbCancel_clicked();
+
+    void on_pbStickSetting_clicked();
+    void prompSettingFinished();
 
 signals:
     void ok_signal(QString);

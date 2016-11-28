@@ -56,6 +56,7 @@ extern QString str_xianzhi;
 extern QString str_queding;
 extern QString str_quxiao;
 
+extern QString str_shezhishoubing;
 extern QString str_shezhi;
 extern QString str_xiayixiang;
 extern QString str_shangyixiang;

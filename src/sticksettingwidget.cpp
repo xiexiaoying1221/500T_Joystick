@@ -1,7 +1,8 @@
 ﻿#if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
 #endif
-
+#include <QStyleOption>
+#include <QDebug>
 #include "sticksettingwidget.h"
 
 StickSettingWidget::StickSettingWidget(QWidget *parent,QRect viewRect)
@@ -10,7 +11,6 @@ StickSettingWidget::StickSettingWidget(QWidget *parent,QRect viewRect)
     _comm = SerialComm::getSerial();
 
     this->setAutoFillBackground(true);
-
     this->setGeometry(viewRect.x(),  viewRect.y(), viewRect.width(),viewRect.height());
 
     int w = this->geometry().width();
@@ -21,16 +21,16 @@ StickSettingWidget::StickSettingWidget(QWidget *parent,QRect viewRect)
     _lblDirection = new QLabel(this);
     _lblDirection->setAlignment(Qt::AlignCenter);
     _lblDirection->setFont(font);
-    _lblDirection->setGeometry(10,40,w-20,60);
+    _lblDirection->setGeometry(10,60,w-20,60);
 
     _lblState = new QLabel(this);
     _lblState->setAlignment(Qt::AlignCenter);
     _lblState->setFont(font);
-    _lblState->setGeometry(10,300,w-20,30);
+    _lblState->setGeometry(10,h-160,w-20,30);
 
     _pbSet = new QPushButton(this);
     _pbSet->setFocusPolicy(Qt::NoFocus);
-    _pbSet->setGeometry(w/2-24, h-120 ,84,37);
+    _pbSet->setGeometry(w/2-24, h-120 ,48,26);
     _pbSet->setStyleSheet("background-color: transparent;"
                           "border-image: url(:/images/按钮-日.png);");
     _pbSet->setText(str_shezhi);
@@ -48,9 +48,17 @@ StickSettingWidget::StickSettingWidget(QWidget *parent,QRect viewRect)
     _pbPrevious->setFocusPolicy(Qt::NoFocus);
     _pbPrevious->setGeometry(w/2-83, h-60 ,48,26);
     _pbPrevious->setStyleSheet("background-color: transparent;"
-                        "border-image: url(:/images/按钮-日.png);");
+                               "border-image: url(:/images/按钮-日.png);");
     _pbPrevious->setText(str_shangyixiang);
     _pbPrevious->setFont(FONT_7);
+
+    _pbCancel = new QPushButton(this);
+    _pbCancel->setFocusPolicy(Qt::NoFocus);
+    _pbCancel->setGeometry(w/2-24, h-60 ,48,26);
+    _pbCancel->setStyleSheet("background-color: transparent;"
+                             "border-image: url(:/images/按钮-日.png);");
+    _pbCancel->setText(str_quxiao);
+    _pbCancel->setFont(FONT_7);
 
     changeDNMode();
     connect(_pbSet,SIGNAL(clicked()),this,SLOT(clickSet()));
@@ -75,11 +83,16 @@ void StickSettingWidget::changeDNMode()
 }
 
 void StickSettingWidget::paintEvent(QPaintEvent *){
-
+    //
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget,&opt,&p,this);
 }
 
 void StickSettingWidget::showEvent(QShowEvent *)
 {
+    QPalette p;
     _state = 1;
     _lblDirection->setText(str_yidongdaoXzuida);
     _lblState->setText(QString::null);
@@ -88,11 +101,12 @@ void StickSettingWidget::showEvent(QShowEvent *)
     _pbPrevious->setText(str_shangyixiang);
     _pbPrevious->setEnabled(false);
     if(daynight_mode == DAYMODE){
-        this->setStyleSheet("background-image: url(:/images/手柄对齐-前移到底-日.png);");
+        p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-前移到底-日.png")));
     }
     else{
-        this->setStyleSheet("background-image: url(:/images/手柄对齐-前移到底-夜.png);");
+        p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-前移到底-夜.png")));
     }
+    this->setPalette(p);
 }
 
 void StickSettingWidget::Refresh_changless_words()
@@ -100,6 +114,7 @@ void StickSettingWidget::Refresh_changless_words()
     _pbSet->setText(str_shezhi);
     _pbNext->setText(str_xiayixiang);
     _pbPrevious->setText(str_shangyixiang);
+    _pbCancel->setText(str_quxiao);
 }
 
 void StickSettingWidget::clickSet(){
@@ -149,6 +164,7 @@ void StickSettingWidget::clickSet(){
 
 void StickSettingWidget::clickNext(){
     //步骤，1-XMax，2-XMin，3-YMax，4—YMin，5-ZMax，6-ZMin，7-AllZero，8-finished！
+    QPalette p;
     switch(_state){
     case 1:
         _state = 2;
@@ -159,10 +175,10 @@ void StickSettingWidget::clickNext(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-后移到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-后移到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-后移到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-后移到底-夜.png")));
         }
         break;
     case 2:
@@ -174,10 +190,10 @@ void StickSettingWidget::clickNext(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右移到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右移到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右移到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右移到底-夜.png")));
         }
         break;
     case 3:
@@ -189,10 +205,10 @@ void StickSettingWidget::clickNext(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左移到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左移到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左移到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左移到底-夜.png")));
         }
         break;
     case 4:
@@ -204,10 +220,10 @@ void StickSettingWidget::clickNext(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右旋到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右旋到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右旋到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右旋到底-夜.png")));
         }
         break;
     case 5:
@@ -219,10 +235,10 @@ void StickSettingWidget::clickNext(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左旋到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左旋到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左旋到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左旋到底-夜.png")));
         }
         break;
     case 6:
@@ -234,10 +250,10 @@ void StickSettingWidget::clickNext(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-回中-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-回中-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-回中-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-回中-夜.png")));
         }
         break;
     case 7:
@@ -248,11 +264,12 @@ void StickSettingWidget::clickNext(){
         _pbNext->setEnabled(true);
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
+        _pbSet->setVisible(false);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/对话框长-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-空-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/对话框长-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-空-夜.png")));
         }
         break;
     case 8:
@@ -270,9 +287,11 @@ void StickSettingWidget::clickNext(){
     default:
         break;
     }
+    this->setPalette(p);
 }
 void StickSettingWidget::clickPrevious(){
     //步骤，1-XMax，2-XMin，3-YMax，4—YMin，5-ZMax，6-ZMin，7-AllZero，8-finished！
+    QPalette p;
     switch(_state){
     case 1:
         break;
@@ -285,11 +304,12 @@ void StickSettingWidget::clickPrevious(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(false);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-前移到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-前移到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-前移到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-前移到底-夜.png")));
         }
+        break;
     case 3:
         _state = 2;
         _lblDirection->setText(str_yidongdaoXzuixiao);
@@ -299,10 +319,10 @@ void StickSettingWidget::clickPrevious(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-后移到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-后移到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-后移到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-后移到底-夜.png")));
         }
         break;
     case 4:
@@ -314,10 +334,10 @@ void StickSettingWidget::clickPrevious(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右移到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右移到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右移到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右移到底-夜.png")));
         }
         break;
     case 5:
@@ -329,10 +349,10 @@ void StickSettingWidget::clickPrevious(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左移到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左移到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左移到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左移到底-夜.png")));
         }
         break;
     case 6:
@@ -344,10 +364,10 @@ void StickSettingWidget::clickPrevious(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右旋到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右旋到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-右旋到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-右旋到底-夜.png")));
         }
         break;
     case 7:
@@ -359,10 +379,10 @@ void StickSettingWidget::clickPrevious(){
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左旋到底-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左旋到底-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-左旋到底-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-左旋到底-夜.png")));
         }
         break;
     case 8:
@@ -373,16 +393,18 @@ void StickSettingWidget::clickPrevious(){
         _pbNext->setEnabled(true);
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(true);
+        _pbSet->setVisible(true);
         if(daynight_mode == DAYMODE){
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-回中-日.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-回中-日.png")));
         }
         else{
-            this->setStyleSheet("background-image: url(:/images/手柄对齐-回中-夜.png);");
+            p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-回中-夜.png")));
         }
         break;
     default:
         break;
     }
+    this->setPalette(p);
 }
 
 void StickSettingWidget::clickCancel(){

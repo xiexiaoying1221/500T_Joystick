@@ -149,5 +149,7 @@
         <file>images/手柄对齐-左旋到底-夜.png</file>
         <file>images/手柄对齐-左移到底-日.png</file>
         <file>images/手柄对齐-左移到底-夜.png</file>
+        <file>images/手柄对齐-空-日.png</file>
+        <file>images/手柄对齐-空-夜.png</file>
     </qresource>
 </RCC>
