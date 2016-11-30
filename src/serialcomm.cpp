@@ -6,8 +6,6 @@
 #include "dataCommit.h"
 #include <QDebug>
 #include <math.h>
-//仿真开关
-//#define SIMULATION
 
 
 long error_count = 0;
@@ -37,7 +35,7 @@ void SerialComm::OpenMyCom()
     myCom = new QSerialPort(this);
 #ifdef PORTABLE_STATION
     //便携式串口
-    myCom->setPortName("COM2");
+    myCom->setPortName("COM1");
     //数据位设置，我们设置为8位数据位
     myCom->setDataBits(QSerialPort::Data8);
     //停止位设置，我们设置为1位停止位
@@ -50,7 +48,7 @@ void SerialComm::OpenMyCom()
     myCom->setBaudRate(9600);
 #else
     //固定式串口
-    myCom->setPortName("COM1");
+    myCom->setPortName("COM2");
     //数据位设置，我们设置为8位数据位
     myCom->setDataBits(QSerialPort::Data8);
     //停止位设置，我们设置为1位停止位
@@ -138,7 +136,7 @@ void SerialComm::readMyCom()
 #else
 
     len = temp_data.size();
-    //qDebug()<<len<<temp_data;
+//    qDebug()<<len<<temp_data;
     //qDebug()<<"serial rcv len = "<<len;
 
     if(len == 0)
@@ -158,7 +156,7 @@ void SerialComm::readMyCom()
     }
     if(num >= 55)
     {
-        //qDebug()<<"SerialComm::readMyCom"<<myCom_data;
+//        qDebug()<<"SerialComm::readMyCom"<<myCom_data;
         newdata_flag = false;
         HandleMyComData();
         num = 0;
@@ -189,7 +187,7 @@ void SerialComm::HandleMyComData()
 #ifdef PORTABLE_STATION
     //移动式终端的取值
     QStringList list = myCom_data.split(",");
-//    qDebug()<<"SerialComm::HandleMyComData"<<list;
+    qDebug()<<"SerialComm::HandleMyComData"<<list;
     rawX = (float)list[1].toInt();
     rawY = (float)list[2].toInt();
     rawZ = (float)list[3].toInt();
@@ -206,7 +204,7 @@ void SerialComm::HandleMyComData()
     int pos = rx.indexIn(myCom_data);
     QStringList list = rx.capturedTexts();
     //qDebug()<<rx.errorString()<<pos<<list;
-    //qDebug()<<list[6]<<list[7]<<list[8]<<pos;
+//    qDebug()<<list[6]<<list[7]<<list[8]<<pos;
     rawX = list[6].toFloat();
     rawY = list[7].toFloat();
     rawZ = list[8].toFloat();
@@ -348,7 +346,12 @@ void SerialComm::HandleMyComData()
         joystick_y /= 2;
         joystick_z /= 2;
     }
-
+//第一次启动时，所有设置都为0，此时的输出值也为0
+    if(setStickXMax ==0 && setStickXMin ==0 && setStickXZero ==0){
+        joystick_x = 0;
+        joystick_y = 0;
+        joystick_z = 0;
+    }
 //限幅
     if(fabs(joystick_x)>100)
         joystick_x = 100.0 * joystick_x/fabs(joystick_x);
@@ -357,7 +360,7 @@ void SerialComm::HandleMyComData()
     if(fabs(joystick_z)>100)
         joystick_z = 100.0 * joystick_z/fabs(joystick_z);
 
-    //qDebug()<<"Joystick x,y,z"<<joystick_x<<joystick_y<<joystick_z;
+//    qDebug()<<"Joystick x,y,z"<<joystick_x<<joystick_y<<joystick_z;
     //cmd_Fx 牛顿 joystick_x 百分比
     cmd_Fx = SwitchJoy2Force(joystick_x,1);
     cmd_Fy = SwitchJoy2Force(joystick_y,2);

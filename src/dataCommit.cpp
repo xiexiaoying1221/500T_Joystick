@@ -3,11 +3,6 @@
 #endif
 
 #include "dataCommit.h"
-#include <qmath.h>
-#include <iostream>
-#include <math.h>
-#include <QtDebug>
-#include <QString>
 
 float mes_heading = 0.0;
 float mes_winddir = 0.0;
@@ -389,57 +384,152 @@ char qLOBYTE(short data)
 }
 
 
-void InitData()
+void InitData(bool forced)
 {
+    int ret = loadParameters();
 
-    //初始化环境力-初始化传感器数据
-    mode_GPS = 65;//A=自主定位，D=差分，E=估算，M=手工输入，S=仿真，N=数据无效
-    latitude = 31.1294444;//北纬31 7 46;
-    semi_latitude = 0;//0-北纬，1-南纬
-    longitude = 121.3736111;//东经121 22 25;
-    semi_longitude = 0;//0-东经，1-西经
-    speed = 0.0;//速度--北东坐标系
-    speed_u = 0.0;//纵向速度--船体坐标系
-    speed_v = 0.0;//横向速度--船体坐标系
-    speed_r = 0.0;//回转率--船体坐标系
-    T_heading = 0.0;//正北
-    set_rot = 0.3;
+    if(ret!=0  || forced){
+
+        //初始化环境力-初始化传感器数据
+        mode_GPS = 65;//A=自主定位，D=差分，E=估算，M=手工输入，S=仿真，N=数据无效
+        latitude = 31.1294444;//北纬31 7 46;
+        semi_latitude = 0;//0-北纬，1-南纬
+        longitude = 121.3736111;//东经121 22 25;
+        semi_longitude = 0;//0-东经，1-西经
+        speed = 0.0;//速度--北东坐标系
+        speed_u = 0.0;//纵向速度--船体坐标系
+        speed_v = 0.0;//横向速度--船体坐标系
+        speed_r = 0.0;//回转率--船体坐标系
+        T_heading = 0.0;//正北
+        set_rot = 0.3;
 
 
-    Twind_dir = 10.5;//设定绝对风向为10度
-    Rwind_dir = 10.5;//相对风向，与船舶艏向角有关
-    Rwind_spd = 5.0;//相对风速，为10m/s
+        Twind_dir = 10.5;//设定绝对风向为10度
+        Rwind_dir = 10.5;//相对风向，与船舶艏向角有关
+        Rwind_spd = 5.0;//相对风速，为10m/s
 
-    heading = 0.0;//艏向角
-    pos_north = 0.0;
-    pos_east = 0.0;
+        heading = 0.0;//艏向角
+        pos_north = 0.0;
+        pos_east = 0.0;
 
-    MAX_Fsum = 15.0;//船舶推力最大合力-粗略值
-    MAX_Nsum = 6.0;//船舶推力最大合力矩-粗略值
+        MAX_Fsum = 15.0;//船舶推力最大合力-粗略值
+        MAX_Nsum = 6.0;//船舶推力最大合力矩-粗略值
 
-    point_rot = 0;//1:船首，0：船舯，2：船艉
+        point_rot = 0;//1:船首，0：船舯，2：船艉
 
-    Operate_mode = READY_MODE;//开机第一次运行，待机模式
-    //isReady_first = true;
-    //qDebug()<<"111Rwind_spd is %f"<<Rwind_spd;
+        Operate_mode = READY_MODE;//开机第一次运行，待机模式
+        //isReady_first = true;
+        //qDebug()<<"111Rwind_spd is %f"<<Rwind_spd;
 
-    Power_sum = Max_power1 + 2.0 * Max_power23;//单位kW
+        Power_sum = Max_power1 + 2.0 * Max_power23;//单位kW
+#ifdef PORTABLE_STATION
+        setStickXMax = (float)0x0129;//前进到底
+        setStickXMin = (float)0x0020;//后退到底
+        setStickXZero = (setStickXMax - setStickXMin)/2 + setStickXMin;//前后零位
+        setStickXDeadband = (float)0x0010;//前后的零位死区
 
-    setStickXMax = (float)0x0129;//前进到底
-    setStickXMin = (float)0x0020;//后退到底
-    setStickXZero = (setStickXMax - setStickXMin)/2 + setStickXMin;//前后零位
-    setStickXDeadband = (float)0x0010;//前后的零位死区
+        setStickYMax = (float)0x0127;//右移到底
+        setStickYMin = (float)0x0020;//左移到底
+        setStickYZero = (setStickYMax - setStickYMin)/2 + setStickYMin;//左右零位
+        setStickYDeadband = (float)0x0010;//左右的零位死区
 
-    setStickYMax = (float)0x0127;//右移到底
-    setStickYMin = (float)0x0020;//左移到底
-    setStickYZero = (setStickYMax - setStickYMin)/2 + setStickYMin;//左右零位
-    setStickYDeadband = (float)0x0010;//左右的零位死区
+        setStickZMax = (float)0x00FA;//右转到底
+        setStickZMin = (float)0x004A;//左转到底
+        setStickZZero = (setStickZMax - setStickZMin)/2 + setStickZMin;//左右转零位
+        setStickZDeadband = (float)0x0010;//左右转的零位死区
+#else
+        setStickXMax = 8.089;//前进到底
+        setStickXMin = 0.976;//后退到底
+        setStickXZero = (setStickXMax - setStickXMin)/2 + setStickXMin;//前后零位
+        setStickXDeadband = 0.2;//前后的零位死区
 
-    setStickZMax = (float)0x00FA;//右转到底
-    setStickZMin = (float)0x004A;//左转到底
-    setStickZZero = (setStickZMax - setStickZMin)/2 + setStickZMin;//左右转零位
-    setStickZDeadband = (float)0x0010;//左右转的零位死区
+        setStickYMax = 8.089;//右移到底
+        setStickYMin = 0.976;//左移到底
+        setStickYZero = (setStickYMax - setStickYMin)/2 + setStickYMin;//左右零位
+        setStickYDeadband = 0.2;//左右的零位死区
 
+        setStickZMax = 8.089;//右转到底
+        setStickZMin = 0.976;//左转到底
+        setStickZZero = (setStickZMax - setStickZMin)/2 + setStickZMin;//左右转零位
+        setStickZDeadband = 0.2;//左右转的零位死区
+#endif
+        saveParameters();
+    }
+}
+int saveParameters(void){
+    int ret;
+    iLoadSaveProcessor* processor;
+    processor = new loadSaveProcessorXml(0,false);
+    ret = processor->transactionStart();
+    if(ret != 0){
+        delete processor;
+        return -1;
+    }
+    processor->saveParameters("setStickXMax",       QString::number(setStickXMax));
+    processor->saveParameters("setStickXMin",       QString::number(setStickXMin));
+    processor->saveParameters("setStickXZero",      QString::number(setStickXZero));
+    processor->saveParameters("setStickXDeadband",  QString::number(setStickXDeadband));
+    processor->saveParameters("setStickYMax",       QString::number(setStickYMax));
+    processor->saveParameters("setStickYMin",       QString::number(setStickYMin));
+    processor->saveParameters("setStickYZero",      QString::number(setStickYZero));
+    processor->saveParameters("setStickYDeadband",  QString::number(setStickYDeadband));
+    processor->saveParameters("setStickZMax",       QString::number(setStickZMax));
+    processor->saveParameters("setStickZMin",       QString::number(setStickZMin));
+    processor->saveParameters("setStickZZero",      QString::number(setStickZZero));
+    processor->saveParameters("setStickZDeadband",  QString::number(setStickZDeadband));
+
+    ret = processor->saveFile("jsParameter.xml");
+    if(ret != 0){
+        delete processor;
+        return -1;
+    }
+    delete processor;
+    return 0;
+}
+
+int loadParameters(void){
+    int ret;
+    QString temp;
+    iLoadSaveProcessor* processor;
+    processor = new loadSaveProcessorXml(0,false);
+    ret = processor->transactionStart();
+    if(ret != 0){
+        delete processor;
+        return -1;
+    }
+    ret = processor->loadFile("jsParameter.xml");
+    if(ret != 0){
+        delete processor;
+        return -1;
+    }
+    processor->loadParameters("setStickXMax",&temp);
+    setStickXMax = temp.toFloat();
+    processor->loadParameters("setStickXMin",&temp);
+    setStickXMin = temp.toFloat();
+    processor->loadParameters("setStickXZero",&temp);
+    setStickXZero = temp.toFloat();
+    processor->loadParameters("setStickXDeadband",&temp);
+    setStickXDeadband = temp.toFloat();
+    processor->loadParameters("setStickYMax",&temp);
+    setStickYMax = temp.toFloat();
+    processor->loadParameters("setStickYMin",&temp);
+    setStickYMin = temp.toFloat();
+    processor->loadParameters("setStickYZero",&temp);
+    setStickYZero = temp.toFloat();
+    processor->loadParameters("setStickYDeadband",&temp);
+    setStickYDeadband = temp.toFloat();
+    processor->loadParameters("setStickZMax",&temp);
+    setStickZMax = temp.toFloat();
+    processor->loadParameters("setStickZMin",&temp);
+    setStickZMin = temp.toFloat();
+    processor->loadParameters("setStickZZero",&temp);
+    setStickZZero = temp.toFloat();
+    processor->loadParameters("setStickZDeadband",&temp);
+    setStickZDeadband = temp.toFloat();
+
+
+    delete processor;
+    return 0;
 }
 
 void RefreshData()

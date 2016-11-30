@@ -3,8 +3,11 @@
 #pragma execution_character_set("utf-8")
 #endif
 
-#include "modbusdataprocess.h"
 #include <QApplication>
+
+
+#include "modbusdataprocess.h"
+#include "dataCommit.h"
 #include "mainwindow.h"
 #include "globalSettings.h"
 #include "softwareoperationwidget.h"
@@ -22,7 +25,6 @@
 #include "headingsetpwidget.h"
 #include "adjustingbrightnesswidget.h"
 #include "mainViewWidget.h"
-#include "dataCommit.h"
 
 
 int main(int argc, char *argv[]){

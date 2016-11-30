@@ -1,7 +1,14 @@
 ﻿#ifndef DATACOMMIT_H
 #define DATACOMMIT_H
 
-#include <QString>
+//#include <QString>
+//#include <QtDebug>
+//#include <QtMath>
+//#include <iostream>
+//#include <math.h>
+
+#include "loadsaveprocessorxml.h"
+#include "globalSettings.h"
 
 #define SHIP_CZ 0
 #define SHIP_JD 1
@@ -396,11 +403,13 @@ extern float pos_y;
 
 
 float SwitchJoy2Force(float joyvalue,short dim);
-extern void InitData();
+extern void InitData(bool forced = false);
 void HandleWind();
 void ControlMain();
 void RunShipModel();
 
+extern int saveParameters(void);
+extern int loadParameters(void);
 
 extern short qHIWORD(int data);
 extern short qLOWORD(int data);

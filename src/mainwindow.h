@@ -1,6 +1,8 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
+#include <dataCommit.h>
 #include <QMainWindow>
 #include <qlayout.h>
 #include <qlabel.h>
@@ -40,7 +42,6 @@
 #include <systemstatuswidget.h>
 #include "tokenwidget.h"
 #include <globalSettings.h>
-#include <dataCommit.h>
 #include "serialcomm.h"
 #include "AlarmHandle.h"
 #include "characterconversion.h"

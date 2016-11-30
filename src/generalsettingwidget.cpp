@@ -305,6 +305,8 @@ void GeneralSettingWidget::pbOK_clicked()
         gainlevel = 3;
 
     emit ok_signal(this->objectName());
+    //20161130增加，保存为文件
+    saveParameters();
 }
 void GeneralSettingWidget::Refresh_changless_words()
 {

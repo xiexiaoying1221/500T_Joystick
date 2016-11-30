@@ -100,6 +100,7 @@ void StickSettingWidget::showEvent(QShowEvent *)
     _pbNext->setEnabled(false);
     _pbPrevious->setText(str_shangyixiang);
     _pbPrevious->setEnabled(false);
+    _pbSet->setVisible (true);
     if(daynight_mode == DAYMODE){
         p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-前移到底-日.png")));
     }
@@ -303,6 +304,7 @@ void StickSettingWidget::clickPrevious(){
         _pbNext->setEnabled(true);
         _pbPrevious->setText(str_shangyixiang);
         _pbPrevious->setEnabled(false);
+        _pbSet->setVisible (true);
         if(daynight_mode == DAYMODE){
             p.setBrush(QPalette::Window,QBrush(QPixmap(":/images/手柄对齐-前移到底-日.png")));
         }
