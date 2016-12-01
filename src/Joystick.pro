@@ -62,7 +62,8 @@ HEADERS += mainwindow.h \
     tokenwidget.h \
     buzzergovernor.h \
     gpio/susigpio.h \
-    sticksettingwidget.h
+    sticksettingwidget.h \
+    usrmanagewidget.h
 
 SOURCES += mainwindow.cpp \
     main.cpp \
@@ -105,7 +106,8 @@ SOURCES += mainwindow.cpp \
     tokenwidget.cpp \
     buzzergovernor.cpp \
     gpio/susigpio.cpp \
-    sticksettingwidget.cpp
+    sticksettingwidget.cpp \
+    usrmanagewidget.cpp
 
 FORMS += mainwindow.ui \
     limitsetwidget.ui \
@@ -138,3 +140,4 @@ LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
         -lSusi
 
 include($PWD/../../lib/tokenManager/src/tokenManager.pri)
+include($PWD/../../lib/usrManager/src/usrmanager.pri)
