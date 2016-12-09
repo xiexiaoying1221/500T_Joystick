@@ -28,7 +28,7 @@ public:
     bool ready;
 
     //全局单例模式
-    static buzzerGovernor* getBuzzerGovernor( void );
+    static buzzerGovernor* Instance( void );
 
 signals:
 

@@ -76,6 +76,25 @@ extern QString str_zhanzhuangtai;
 extern QString str_zhancuowu;
 extern QString str_benji;
 
+extern QString str_yonghuming;
+extern QString str_jiuyonghuming;
+extern QString str_xinyonghuming;
+extern QString str_mima;
+extern QString str_mimachongfu;
+extern QString str_jiumima;
+extern QString str_xinmima;
+extern QString str_yonghudengji;
+extern QString str_denglushibai;
+extern QString str_mimacuowu;
+extern QString str_zidongdengchu;
+extern QString str_yanshifenzhong;
+extern QString str_denglu;
+extern QString str_dengchu;
+extern QString str_xiugaiyonghuming;
+extern QString str_xiugaimima;
+extern QString str_xinyonghu;
+extern QString str_shanchuyonghu;
+
 //按键的键名字符串
 extern QString btnstr_shitu;
 extern QString btnstr_xitong;
@@ -90,6 +109,7 @@ extern QString btnstr_quantuili;
 extern QString btnstr_shouxiangshezhi;
 extern QString btnstr_daiji;
 extern QString btnstr_simulation;
+extern QString btnstr_usrmanager;
 extern QString btnstr_dangqianshangxiang;
 extern QString btnstr_shoucao;
 extern QString btnstr_weizhibaochi;

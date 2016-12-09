@@ -18,7 +18,7 @@ class SerialComm : public QObject
 public:
 
     float rawX,rawY,rawZ;
-    static SerialComm* getSerial(void);//全局单例模式
+    static SerialComm* Instance(void);//全局单例模式
 
 signals:
 private:

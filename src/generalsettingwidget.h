@@ -51,7 +51,7 @@ private slots:
     void pbCancel_clicked();
 
     void on_pbStickSetting_clicked();
-    void prompSettingFinished();
+    void promptFinished();
 
 signals:
     void ok_signal(QString);

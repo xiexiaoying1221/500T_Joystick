@@ -5,31 +5,12 @@
 
 #include <QApplication>
 
-
-#include "modbusdataprocess.h"
-#include "dataCommit.h"
 #include "mainwindow.h"
-#include "globalSettings.h"
-#include "softwareoperationwidget.h"
-#include "positionreferencewidget.h"
-#include "powerconsumptionwidget.h"
-#include "generalsettingwidget.h"
-#include "sensorenablewidget.h"
-#include "propellerenablewidget.h"
-#include "limitsetwidget.h"
-#include "autoruddersettingwidget.h"
-#include "deviceviewwidget.h"
-#include "systemsettingwidget.h"
-#include "softwareoperationwidget.h"
-#include "alarmlistwidget.h"
-#include "headingsetpwidget.h"
-#include "adjustingbrightnesswidget.h"
-#include "mainViewWidget.h"
+#include "modbusdataprocess.h"
 
 
 int main(int argc, char *argv[]){
     QApplication app(argc, argv);
-
     InitData();
 
     MainWindow * mw= new MainWindow;
@@ -37,9 +18,7 @@ int main(int argc, char *argv[]){
     mw->show();
     Sleep(3000);
 
-
     ModbusDataProcess mdata;
-
 
     Sleep(2 * 1000);
 

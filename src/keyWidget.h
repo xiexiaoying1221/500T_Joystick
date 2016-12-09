@@ -1,16 +1,18 @@
 ﻿#ifndef KEYWIDGET_H
 #define KEYWIDGET_H
 
-#include "qwidget.h"
-#include "qpushbutton.h"
-#include "qlabel.h"
-#include "qrect.h"
-#include "qpainter.h"
+#include <QWidget>
+#include <QTimer>
+#include <QPushButton>
+#include <QLabel>
+#include <QRect>
+#include <QPainter>
+#include <QDebug>
+#include "usrmanager.h"
 #include "globalSettings.h"
-#include "promptwidget.h"
-#include "qtimer.h"
+#include "promptwidgets/promptwidget.h"
 #include "characterconversion.h"
-#include "QDebug"
+
 
 
 class KeyWidget : public QWidget{
@@ -29,6 +31,7 @@ public:
 private :
     QWidget *parent;
     QWidget *disableCover;
+    QWidget *disableCover2;
     PromptWidget *promptWidget;
     QPushButton *btn1;//视图
     QPushButton *btn2;//系统
@@ -60,6 +63,7 @@ private :
 
     QPushButton *btn26;//隐藏按键区
     QPushButton *btn27;//仿真（20160918新增）
+    QPushButton *btn28;//用户管理(20161201新增)
 
     int btn10FlashCount;//btn10闪烁计数器
     int btn12FlashCount;//btn12闪烁计数器
@@ -69,7 +73,7 @@ private :
     int btn21FlashCount;//btn21闪烁计数器
     int btn22FlashCount;//btn22闪烁计数器
     int btn27FlashCount;//btn27闪烁计数器
-
+    UsrManager* _manager;
 private slots:
     void btnFullForce_clicked();//全推力
     void btnStandby_clicked();//待机
@@ -89,7 +93,7 @@ private slots:
 
 
 //    void btnTest_clicked();
-
+    void currentUsrChanged();//处理用户登录事件
 public slots:
     void changeMode(bool);
 

@@ -16,16 +16,27 @@ KeyWidget::KeyWidget(QWidget *parent, QRect keyRect)
     this->setPalette(p);
     this->setAutoFillBackground(true);
 
+    _manager = UsrManager::Instance();
+    connect(_manager,SIGNAL(msgCurrentUsrChanged()),this,SLOT(currentUsrChanged()));
+
     //按键区初始化
     keyAreaInit();
 
     //2016.10.28新增，遮盖区域。没有控制权时就不能操作该区域按钮
     disableCover = new QWidget(this);
-    disableCover->setStyleSheet("background-color: rgba(196, 196, 196, 0.6);");
-    disableCover->setGeometry(this->x(), this->y() + 80, this->width() - 20, 420);
+    disableCover->setStyleSheet("background-color: rgba(196, 196, 196, 0.5);");
+    disableCover->setGeometry(this->x(), this->y() + 160, this->width() - 20, 340);
     disableCover->raise();
     disableCover->show();
-    disableCover->setDisabled(false);
+    disableCover->setVisible(true);
+
+    //2016.12.09新增，遮盖区域。用户未登录时就不能设置
+    disableCover2 = new QWidget(this);
+    disableCover2->setStyleSheet("background-color: rgba(196, 196, 196, 0.5);");
+    disableCover2->setGeometry(this->x(), this->y() + 80, this->width() - 20, 80);
+    disableCover2->raise();
+    disableCover2->show();
+    disableCover2->setVisible(true);
 }
 
 //白天、夜晚模式切换
@@ -34,12 +45,14 @@ void KeyWidget::changeDNMode()
     QPalette p;
     if(daynight_mode == DAYMODE)
     {
-        disableCover->setStyleSheet("background-color: rgba(196, 196, 196, 0.6);");
+        disableCover->setStyleSheet("background-color: rgba(196, 196, 196, 0.5);");
+        disableCover2->setStyleSheet("background-color: rgba(196, 196, 196, 0.5);");
         p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_7)));//"images/按键区-日.png"
     }
     else
     {
-        disableCover->setStyleSheet("background-color: rgba(35, 35, 35, 0.6);");
+        disableCover->setStyleSheet("background-color: rgba(35, 35, 35, 0.5);");
+        disableCover2->setStyleSheet("background-color: rgba(35, 35, 35, 0.5);");
         p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameE_7)));//"images/按键区-夜.png"
     }
     this->setPalette(p);
@@ -109,7 +122,7 @@ void KeyWidget::keyAreaInit(){
       --btn25:中英文（原：测试）
       --btn26:隐藏按键区
       --btn27:仿真（20160918新增）
-      --btn28:
+      --btn28:用户管理（20161202新增）
       --btn29:
       --btn30:
       --btn31:
@@ -317,13 +330,16 @@ void KeyWidget::keyAreaInit(){
 //    btn23->setText(btnstr_zhuanchu);
 //    connect(btn23,SIGNAL(clicked()),this,SLOT(btnTurnOut_clicked()));
 
-    //QPushButton *btn24 =new QPushButton(this);//调光
+    //QPushButton *btn24 =new QPushButton(this);//调光，移动端取消
+#ifdef PORTABLE_STATION
+#else
     btn24 =new QPushButton(this);//调光
     btn24->setFocusPolicy(Qt::NoFocus);
     btn24->setGeometry(x3 , y7 , btnWidth,btnHeight);
     btn24->setStyleSheet("border-image:url(:/images/whitebtn.png); color: rgb(52, 52, 52);");
     btn24->setText(btnstr_tiaoguang);
     connect(btn24,SIGNAL(clicked()),parent,SLOT(btnLightDim_clicked()));
+#endif
 
     //QPushButton *btn25 = new QPushButton(this);//中英文
     btn25 = new QPushButton(this);//中英文
@@ -343,6 +359,12 @@ void KeyWidget::keyAreaInit(){
     btn27->setText(btnstr_simulation);
     connect(btn27,SIGNAL(clicked()),this,SLOT(btnSimulate_clicked()));
 
+    btn28 = new QPushButton(this);//用户管理（20161202新增）
+    btn28->setFocusPolicy(Qt::NoFocus);
+    btn28->setGeometry(x2, y7 , btnWidth,btnWidth);
+    btn28->setStyleSheet("border-image:url(:/images/whitebtn.png);color: rgb(52, 52, 52);");
+    btn28->setText(btnstr_usrmanager);
+    connect(btn28,SIGNAL(clicked()),parent,SLOT(btnUsrManage_clicked()));
 
     btn1->setFont(FONT_16);
     btn2->setFont(FONT_16);
@@ -367,8 +389,12 @@ void KeyWidget::keyAreaInit(){
     btn21->setFont(FONT_16);
     btn22->setFont(FONT_16);
 //    btn23->setFont(FONT_16);
+#ifdef PORTABLE_STATION
+#else
     btn24->setFont(FONT_16);
+#endif
     btn27->setFont(FONT_16);
+    btn28->setFont(FONT_16);
 
     if(State_language == "Chinese")
     {
@@ -438,6 +464,7 @@ void KeyWidget:: Refresh_keys_title()
       --btn25:中英文（原：测试）
       --btn26:隐藏按键区
       --btn27:仿真（20160918新增）
+      --btn28:用户管理（20161202新增）
       -------------------------------------*/
     btn1->setText(btnstr_shitu);
     btn2->setText(btnstr_xitong);
@@ -470,9 +497,13 @@ void KeyWidget:: Refresh_keys_title()
     btn21->setText(btnstr_chuanwei);
     btn22->setText(btnstr_lingpai);
 //    btn23->setText(btnstr_zhuanchu);
+#ifdef PORTABLE_STATION
+#else
     btn24->setText(btnstr_tiaoguang);
+#endif
     btn25->setText(btnstr_zhongyingwen);
     btn27->setText(btnstr_simulation);
+    btn28->setText(btnstr_usrmanager);
 
     btn1->setFont(FONT_16);
     btn2->setFont(FONT_16);
@@ -497,10 +528,13 @@ void KeyWidget:: Refresh_keys_title()
     btn21->setFont(FONT_16);
     btn22->setFont(FONT_16);
 //    btn23->setFont(FONT_16);
+#ifdef PORTABLE_STATION
+#else
     btn24->setFont(FONT_16);
+#endif
 //    btn25->setFont(FONT_16);
     btn27->setFont(FONT_16);
-
+    btn28->setFont(FONT_16);
     if(State_language == "Chinese")
     {
         //FONT_1 = QFont();
@@ -756,15 +790,11 @@ void KeyWidget::modeCondition(int set_mode)
 
 void KeyWidget::btnFullForce_clicked()//全推力
 {
-    if(flag_fullprop == true)
-    {
+    if(flag_fullprop == true){
         flag_fullprop = false;
-        btn9->setStyleSheet("border-image:url(:/images/whitebtn.png);");
     }
-    else
-    {
+    else{
         flag_fullprop = true;
-        btn9->setStyleSheet("border-image:url(:/images/greenbtn.png);");
     }
 }
 
@@ -1040,9 +1070,30 @@ void KeyWidget::refreshData()//按键区刷新
 
 //2016.10.28新增，遮盖区域。没有控制权时就不能操作该区域按钮
     if( stat_master ){
-        disableCover->setHidden( true );
+        disableCover->setVisible( false );
     }
     else{
-        disableCover->setHidden( false );
+        disableCover->setVisible( true );
+    }
+
+//全推力按钮
+    if(flag_fullprop == false)
+    {
+        btn9->setStyleSheet("border-image:url(:/images/whitebtn.png);");
+    }
+    else
+    {
+        btn9->setStyleSheet("border-image:url(:/images/greenbtn.png);");
+    }
+}
+
+void KeyWidget::currentUsrChanged(){
+    quint8 level;
+    _manager->getNameAndLevel(0,&level);
+    if(level>0){
+        disableCover2->setVisible(false);
+    }
+    else{
+        disableCover2->setVisible(true);
     }
 }

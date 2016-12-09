@@ -117,7 +117,6 @@ void PromptWidgetWithSyn::paintEvent(QPaintEvent *event){
     if( all_syn ){
         this->lblConst->setVisible( false );
         this->pbOK->setEnabled( true );
-        clickOk();
     }
     else{
         this->lblConst->setVisible( true );

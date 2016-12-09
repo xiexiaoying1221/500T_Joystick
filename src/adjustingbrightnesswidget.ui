@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>438</width>
+    <width>959</width>
     <height>710</height>
    </rect>
   </property>
@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="pbOk">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>280</x>
      <y>594</y>
      <width>91</width>
      <height>37</height>
@@ -39,7 +39,7 @@ border-style:outset;</string>
   <widget class="QPushButton" name="pbCancel">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>400</x>
      <y>594</y>
      <width>95</width>
      <height>37</height>

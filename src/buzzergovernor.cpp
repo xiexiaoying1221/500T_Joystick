@@ -8,12 +8,12 @@ buzzerGovernor::buzzerGovernor(QObject *parent) : QObject(parent)
     connect(_t05,SIGNAL(timeout()),this,SLOT(process()));
     _t05->start(500);
 
-    _gpio = SusiGpio::getGpio();
+    _gpio = SusiGpio::Instance();
     _gpio->init();
     _gpio->setIODirection(0, 0);
 }
 //全局单例模式
-buzzerGovernor* buzzerGovernor::getBuzzerGovernor( void ){
+buzzerGovernor* buzzerGovernor::Instance( void ){
     if( _singleton == nullptr ){
         _singleton = new buzzerGovernor();
     }

@@ -207,6 +207,11 @@ extern bool isWarn_posy;
 #define PicNameD_22 ":/images/对话框长-日.png"
 #define PicNameE_22 ":/images/对话框长-夜.png"
 
+//biggest prompt widget
+#define PicNameD_23 ":/images/手柄对齐-空-日.png"
+#define PicNameE_23 ":/images/手柄对齐-空-夜.png"
+
+
 #define PicBlank ":/images/视图区空背景.png"
 
 #define StyleSheet_DayColor "color: rgb(65, 65, 65);"

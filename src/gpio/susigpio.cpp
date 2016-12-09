@@ -30,7 +30,7 @@ SusiGpio::SusiGpio(QObject *parent) :
     ready = false;
 }
 //全局单例模式
-SusiGpio* SusiGpio::getGpio( void ){
+SusiGpio* SusiGpio::Instance( void ){
     if( _singleton == nullptr ){
         _singleton = new SusiGpio();
     }

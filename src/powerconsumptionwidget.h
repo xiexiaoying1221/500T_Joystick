@@ -1,8 +1,8 @@
-#ifndef POWERCONSUMPTIONWIDGET_H
+﻿#ifndef POWERCONSUMPTIONWIDGET_H
 #define POWERCONSUMPTIONWIDGET_H
 
 #include <QWidget>
-#include <qpainter.h>
+#include <QPainter>
 #include "globalSettings.h"
 #include "dataCommit.h"
 

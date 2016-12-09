@@ -8,7 +8,7 @@
 StickSettingWidget::StickSettingWidget(QWidget *parent,QRect viewRect)
     :QWidget(parent, Qt::FramelessWindowHint)//Popup
 {
-    _comm = SerialComm::getSerial();
+    _comm = SerialComm::Instance();
 
     this->setAutoFillBackground(true);
     this->setGeometry(viewRect.x(),  viewRect.y(), viewRect.width(),viewRect.height());
@@ -283,7 +283,7 @@ void StickSettingWidget::clickNext(){
         setStickZMax = _stickZMax;
         setStickZZero = _stickZZero;
         setStickZMin = _stickZMin;
-        emit settingFinished();
+        emit promptFinished();
         this->setVisible(false);
     default:
         break;
@@ -410,6 +410,6 @@ void StickSettingWidget::clickPrevious(){
 }
 
 void StickSettingWidget::clickCancel(){
-    emit settingFinished();
+    emit promptFinished();
     this->setVisible(false);
 }

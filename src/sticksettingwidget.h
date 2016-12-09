@@ -43,7 +43,7 @@ protected:
     void paintEvent(QPaintEvent *);
     void showEvent(QShowEvent *);
 signals:
-    void settingFinished(void);
+    void promptFinished(void);
 
 public:
     void changeDNMode();

@@ -14,7 +14,7 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     this->setAutoFillBackground(true);
     this->setGeometry(rect.x(),  rect.y() + 20, rect.width()-2,rect.height());
 
-    _buzzer = buzzerGovernor::getBuzzerGovernor();
+    _buzzer = buzzerGovernor::Instance();
 //处理弹出界面(需要同步手柄)
     int dialogWidthWithSyn =  317;
     int dialogHeightWithSyn = 450;
@@ -41,17 +41,15 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     _model = new QStandardItemModel(this);
     _model->setHorizontalHeaderItem(0, new QStandardItem( QString("操作站名称")));
     _model->setHorizontalHeaderItem(1, new QStandardItem( QString("状态")));
-    _model->setHorizontalHeaderItem(2, new QStandardItem( QString("最后错误")));
     _model->setVerticalHeaderItem  (0, new QStandardItem( QString("本机")));
 
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(_model);
-//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-    ui->tableView->setColumnWidth(0,90);
-    ui->tableView->setColumnWidth(1,145);
-    ui->tableView->setColumnWidth(2,140);
-
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->tableView->setColumnWidth(0,180);
+    ui->tableView->setColumnWidth(1,180);
+    ui->tableView->setFont(FONT_3);
 //处理tokenmanager
     manager = new tmTokenManager();
     //设备列表有更新
@@ -85,7 +83,6 @@ TokenWidget::TokenWidget(QWidget *parent, QRect rect) : QWidget(parent),
     _comm = new QThread(this);
     manager->moveToThread(_comm);
     _comm->start();
-    //qDebug()<<"TokenWidget::TokenWidget"<<manager->getState()<<manager->getErrorStringList();
     connect(manager,SIGNAL(msgTokenLostShallForceIn()),this,SLOT(lostToken()));
     connect(manager,SIGNAL(msgTokenDuplicatedShallForceOut()),this,SLOT(multiToken()));
 
@@ -145,12 +142,7 @@ void TokenWidget::refreshData(){
         list<<QString::number(joystick_x);
         list<<QString::number(joystick_y);
         list<<QString::number(joystick_z);
-        if(flag_fullprop){
-            list<<QString::number(1);
-        }
-        else{
-            list<<QString::number(0);
-        }
+        list<<QString::number(flag_fullprop);
         QString listString = list.join(";");
         manager->setMasterPeerMessage( listString );
     }
@@ -216,15 +208,15 @@ void TokenWidget::Refresh_changlese_words(){
 
     it = _model->horizontalHeaderItem(0);
     it->setText( str_zhanminchen );
+    it->setFont(FONT_3);
     it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     it = _model->horizontalHeaderItem(1);
     it->setText( str_zhanzhuangtai );
-    it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    it = _model->horizontalHeaderItem(2);
-    it->setText( str_zhancuowu );
+    it->setFont(FONT_3);
     it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     it = _model->verticalHeaderItem(0);
     it->setText( str_benji );
+    it->setFont(FONT_3);
     it->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 //更新_model内容的文字
     int i = 0;
@@ -263,10 +255,6 @@ void TokenWidget::updateModel(int index){
     if(it)  it->setText( t->getStateString( lang ) );
     else  _model->setItem(index,1,new QStandardItem( t->getStateString( lang ) ) );
 
-    it = _model->item(index, 2);
-    if(it)  it->setText( t->getErrorStringList( lang ).join(";") );
-    else  _model->setItem(index,2,new QStandardItem( t->getErrorStringList( lang ).join(";") ) );
-    ui->tableView->setCurrentIndex(temp);
 }
 
 //用于处理主站来的数据
@@ -284,15 +272,14 @@ void TokenWidget::updateMasterString(){
         masterJoystick_x=  list.at(5).toFloat(&ok);
         masterJoystick_y=  list.at(6).toFloat(&ok);
         masterJoystick_z=  list.at(7).toFloat(&ok);
-        if(list.at(8).toInt(&ok)==1){
-            flag_fullprop = true;
-        }
-        else flag_fullprop= false;
+        flag_fullprop   =  list.at(8).toInt(&ok);
     }
 }
 
 //更新本机的状态
 void TokenWidget::selfStateChanged(quint64 state){
+
+    qDebug()<<"TokenWidget::selfStateChanged"<<state;
     if(state == tmPeer::stateOnlinewithToken){
         stat_master = true;
         //收起界面

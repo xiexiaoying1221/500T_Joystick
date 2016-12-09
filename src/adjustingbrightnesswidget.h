@@ -49,16 +49,13 @@ private:
     QWindow* m_window;
     QWidget* m_widget;
 signals:
-//    void ok_signal(QString);
-//    void cancel_signal(QString);
+    void ok_signal(QString);
+    void cancel_signal(QString);
 
 
 private slots:
-//    void pbOk_clicked();
-//    void pbCancel_clicked();
-//    void pbAdd_clicked();
-//    void pbReduce_clicked();
-
+    void on_pbOk_clicked();
+    void on_pbCancel_clicked();
 };
 
 #endif // ADJUSTINGBRIGHTNESSWIDGET_H

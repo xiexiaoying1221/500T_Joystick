@@ -33,7 +33,7 @@ private:
 public:
 
     //全局单例模式
-    static SusiGpio* getGpio( void );
+    static SusiGpio* Instance( void );
 
     void init();
     bool setIODirection(int pinNum, int direction);

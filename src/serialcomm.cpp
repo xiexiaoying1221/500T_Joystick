@@ -19,7 +19,7 @@ SerialComm::SerialComm(QObject *parent) :
 }
 
 //全局单例模式
-SerialComm* SerialComm::getSerial( void ){
+SerialComm* SerialComm::Instance( void ){
     if( _singleton == nullptr ){
         _singleton = new SerialComm();
     }
@@ -367,6 +367,12 @@ void SerialComm::HandleMyComData()
     cmd_Nz = SwitchJoy2Force(joystick_z,3);
 
     //qDebug()<<"cmd_Fx,y,z"<<cmd_Fx<<cmd_Fy<<cmd_Nz;
+    //如果本机是主站，masterJoystick跟踪本站数值
+    if( stat_master ){
+        masterJoystick_x = joystick_x;
+        masterJoystick_y = joystick_y;
+        masterJoystick_z = joystick_z;
+    }
 }
 
 void SerialComm::sendMyCom()  //发送数据

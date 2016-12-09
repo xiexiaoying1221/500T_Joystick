@@ -44,6 +44,7 @@ QString btnstr_quantuili;
 QString btnstr_shouxiangshezhi;
 QString btnstr_daiji;
 QString btnstr_simulation;
+QString btnstr_usrmanager;
 QString btnstr_dangqianshangxiang;
 QString btnstr_shoucao;
 QString btnstr_weizhibaochi;
@@ -118,6 +119,25 @@ QString str_zhanminchen;
 QString str_zhanzhuangtai;
 QString str_zhancuowu;
 QString str_benji;
+
+QString str_yonghuming;
+QString str_jiuyonghuming;
+QString str_xinyonghuming;
+QString str_mima;
+QString str_mimachongfu;
+QString str_jiumima;
+QString str_xinmima;
+QString str_yonghudengji;
+QString str_denglushibai;
+QString str_mimacuowu;
+QString str_zidongdengchu;
+QString str_yanshifenzhong;
+QString str_denglu;
+QString str_dengchu;
+QString str_xiugaiyonghuming;
+QString str_xiugaimima;
+QString str_xinyonghu;
+QString str_shanchuyonghu;
 
 QString danwei_jie = "节";
 QString danwei_du = "°";
@@ -383,6 +403,7 @@ void CharacterConversion::Refresh_character(QString language)
         btnstr_shouxiangshezhi = "Head.\nsetup";
         btnstr_daiji = "Stand\nby";
         btnstr_simulation = "Simulate\nmode";
+        btnstr_usrmanager = "User";
         btnstr_dangqianshangxiang = "Present\nhead.";
         btnstr_shoucao = "Joystick";
         btnstr_weizhibaochi = "Position\nkeeping";
@@ -443,6 +464,25 @@ void CharacterConversion::Refresh_character(QString language)
         str_zhanzhuangtai = "state";
         str_zhancuowu = "last error";
         str_benji = "self";
+
+        str_yonghuming = "User";
+        str_jiuyonghuming = "Old name";
+        str_xinyonghuming = "New name";
+        str_mima = "Password";
+        str_jiumima = "Old Password";
+        str_xinmima = "New password";
+        str_mimachongfu = "Repeat password";
+        str_yonghudengji = "User level";
+        str_denglushibai = "Wrong user name or password !";
+        str_mimacuowu = "Passwords aren't accord";
+        str_zidongdengchu = "Auto log out";
+        str_yanshifenzhong = "Auto log out delay(min)";
+        str_denglu = "Log in";
+        str_dengchu = "Log out";
+        str_xiugaiyonghuming = "Modify name";
+        str_xiugaimima = "Modify password";
+        str_xinyonghu = "New user";
+        str_shanchuyonghu = "Delete user";
 
         danwei_jie = "knt";
         danwei_du = "°";
@@ -693,6 +733,7 @@ void CharacterConversion::Refresh_character(QString language)
         btnstr_shouxiangshezhi = "艏向\n设置";
         btnstr_daiji = "待机";
         btnstr_simulation = "仿真\n模式";
+        btnstr_usrmanager = "用户\n管理";
         btnstr_dangqianshangxiang = "当前\n艏向";
         btnstr_shoucao = "手操";
         btnstr_weizhibaochi = "位置\n保持";
@@ -753,6 +794,25 @@ void CharacterConversion::Refresh_character(QString language)
         str_zhanzhuangtai = "状态";
         str_zhancuowu = "最后错误";
         str_benji = "本站";
+
+        str_yonghuming = "用户名";
+        str_jiuyonghuming = "旧名称";
+        str_xinyonghuming = "新名称";
+        str_mima = "密码";
+        str_jiumima = "旧密码";
+        str_xinmima = "新密码";
+        str_mimachongfu = "重复输入密码";
+        str_yonghudengji = "用户等级";
+        str_denglushibai = "用户名密码错误";
+        str_mimacuowu = "密码不一致";
+        str_zidongdengchu = "自动登出";
+        str_yanshifenzhong = "自动登出延时（分钟）";
+        str_denglu = "登录";
+        str_dengchu = "登出";
+        str_xiugaiyonghuming = "修改用户名";
+        str_xiugaimima = "修改密码";
+        str_xinyonghu = "新用户";
+        str_shanchuyonghu = "删除用户";
 
         danwei_jie = "节";
         danwei_du = "°";
@@ -902,7 +962,7 @@ void CharacterConversion::Refresh_character(QString language)
         str_baitian = "白天";
         str_wanshang = "晚上";
 
-        str_CCalm0 = "控制器硬件损坏报警";
+        str_CCalm0 = "控制器硬件故障";
         str_CCalm1 = "罗经硬件警报";
         str_CCalm2 = "罗经野值警报";
         str_CCalm3 = "风速风向仪硬件警报";

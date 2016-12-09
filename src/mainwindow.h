@@ -1,52 +1,54 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
-#include <dataCommit.h>
+#include <QtGui/QtGui>
+#include <QString>
 #include <QMainWindow>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcheckbox.h>
-#include <qtabwidget.h>
-#include <qpushbutton.h>
-#include <qrect.h>
-#include <qpainter.h>
-#include <qpalette.h>
-#include <qmessagebox.h>
-#include <qpushbutton.h>
+#include <QLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QTableWidget>
+#include <QPushButton>
+#include <QRect>
+#include <QPainter>
+#include <QPalette>
+#include <QMessageBox>
+#include <QPushButton>
 #include <QDebug>
-#include <MainViewWidget.h>
-#include <titleWidget.h>
-#include <infoWidget.h>
-#include <keyWidget.h>
-#include <headWidget.h>
-#include <positionWidget.h>
-#include <limitsetwidget.h>
-#include <alarmlistwidget.h>
-#include <softwareoperationwidget.h>
-#include <positionreferencewidget.h>
-#include <propellerwidget.h>
-#include <sensorwidget.h>
-#include <powerconsumptionwidget.h>
-#include <deviceviewwidget.h>
-#include <systemsettingwidget.h>
-#include <systeminfowidget.h>
-#include <generalsettingwidget.h>
-#include <sensorenablewidget.h>
-#include <propellerenablewidget.h>
-#include <autoruddersettingwidget.h>
-#include <headingsetpwidget.h>
-#include <adjustingbrightnesswidget.h>
-#include <promptwidget.h>
-#include <systemstatuswidget.h>
+#include "MainViewWidget.h"
+#include "titleWidget.h"
+#include "infoWidget.h"
+#include "keyWidget.h"
+#include "headWidget.h"
+#include "positionWidget.h"
+#include "limitsetwidget.h"
+#include "alarmlistwidget.h"
+#include "softwareoperationwidget.h"
+#include "positionreferencewidget.h"
+#include "propellerwidget.h"
+#include "sensorwidget.h"
+#include "powerconsumptionwidget.h"
+#include "deviceviewwidget.h"
+#include "systemsettingwidget.h"
+#include "systeminfowidget.h"
+#include "generalsettingwidget.h"
+#include "sensorenablewidget.h"
+#include "propellerenablewidget.h"
+#include "autoruddersettingwidget.h"
+#include "headingsetpwidget.h"
+#include "adjustingbrightnesswidget.h"
+#include "promptwidgets/promptwidget.h"
+#include "systemstatuswidget.h"
 #include "tokenwidget.h"
-#include <globalSettings.h>
+#include "globalSettings.h"
 #include "serialcomm.h"
 #include "AlarmHandle.h"
 #include "characterconversion.h"
 #include "buzzergovernor.h"
-
+#include "usrmanagewidget.h"
+#include "usrloginwidget.h"
+#include "dataCommit.h"
 
 
 namespace Ui {
@@ -83,6 +85,7 @@ public slots:
     void btnTest_clicked();//测试
     void btnLightDim_clicked();//调光
     void btnTokenManager_clicked();//令牌切换
+    void btnUsrManage_clicked();//用户管理
 
     //消声
     void noiseElimination_Pressed();
@@ -175,7 +178,9 @@ private:
     AdjustingBrightnessWidget *adjustingbrightnesswidget;//测试，调光按钮
     SystemStatusWidget *systemstatuswidget;//系统状态
     PromptWidget *promptwidget;
-    TokenWidget *tokenWidget;
+    TokenWidget *tokenWidget;//令牌
+    UsrManageWidget *usrManageWidget;//用户管理
+    UsrLogInWidget *usrLogInWidget;//用户登录
     SerialComm *serialcom;//串口
     CharacterConversion  *character;//字体
 

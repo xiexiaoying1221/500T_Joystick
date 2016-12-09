@@ -2,7 +2,7 @@
 #define POSITIONWIDGET_H
 #include <QDebug>
 #include <qwidget.h>
-#include <qpainter.h>
+#include <QPainter>
 #include <math.h>
 #include "globalSettings.h"
 #include "characterconversion.h"

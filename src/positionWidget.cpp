@@ -834,26 +834,26 @@ void PositionWidget::paintEvent(QPaintEvent *){
             painter.drawLine(-1,-i*interval,1,-i*interval);// y-
         }
 
-//        cmd_Fy = -cmd_Fy;
-//        fbk_Fy = - fbk_Fy;
-
-        int cmdfx = rectH * cmd_Fx / MAX_FX;
-        int fbkfx = rectH * speed_u / MAX_SPEED;
-
+        //新程序（20161206）
+        //手柄显示的永远是当前起作用的命令值
+        int cmdfx = rectH * masterJoystick_x / 100;
         if(cmdfx > rectH) cmdfx = rectH;
-        if(fbkfx > rectH) fbkfx = rectH;
-
+        else if( cmdfx < -rectH ) cmdfx = -rectH;
         int beginX = cmdfx > 0 ? -2*interval : 2*interval;
         painter.setPen(pen3);
         painter.drawLine(-rectW/2,beginX, -rectW/2,beginX-cmdfx);//cmd-fx
 
-
+        int fbkfx = rectH * speed_u / MAX_SPEED;
+        if(fbkfx > rectH) fbkfx = rectH;
+        else if( fbkfx < -rectH ) fbkfx = -rectH;
         painter.setPen(pen4);
         beginX = speed_u > 0 ? -2*interval : 2*interval;
         painter.drawLine(rectW/2,beginX,rectW/2,beginX-fbkfx);//fbk-fx
 
+        //新程序（20161206）
+        //手柄显示的永远是当前起作用的命令值
         //虚线
-        cmdfx = 10 * interval * cmd_Fx / MAX_FX;
+        cmdfx = 10 * interval * masterJoystick_x / 100;
 
         painter.setPen(pen5);
 
@@ -874,7 +874,7 @@ void PositionWidget::paintEvent(QPaintEvent *){
          int rectY = rectW;
 
 
-         if(cmd_Fx > 0)
+         if(masterJoystick_x > 0)
          {
              rectY = -10 * interval;
          }
@@ -916,9 +916,11 @@ void PositionWidget::paintEvent(QPaintEvent *){
         }
 
 
-        float cmdfx = rectH * cmd_Fx / MAX_FX;
-        float fbkfx = rectH * fbk_Fx / MAX_FX;
-        int cmdfy = rectH * cmd_Fy / MAX_FY;
+        //新程序（20161206）
+        //手柄显示的永远是当前起作用的命令值
+        int cmdfx = rectH * masterJoystick_x / 100;
+        int fbkfx = rectH * fbk_Fx / MAX_FX;
+        int cmdfy = rectH * masterJoystick_y / 100;
         int fbkfy = rectH * fbk_Fy / MAX_FY;
         //qDebug()<<"PositionWidget::paintEvent.0"<<rectH<<cmd_Fx<<MAX_FX<<cmdfx;
 
@@ -934,13 +936,14 @@ void PositionWidget::paintEvent(QPaintEvent *){
         painter.drawLine(rectW/2,beginX,rectW/2,beginX-fbkfx);//fbk-fx
         painter.drawLine(beginY, rectW/2,beginY + fbkfy,rectW/2);//fbk-fy
 
+        //新程序（20161206）
+        //手柄显示的永远是当前起作用的命令值
         //虚线
-
-        cmdfx = 10 * interval * cmd_Fx / MAX_FX;
-        cmdfy = 10 * interval * cmd_Fy / MAX_FY;
+        cmdfx = 10 * interval * masterJoystick_x / 100;
+        cmdfy = 10 * interval * masterJoystick_y / 100;
 
         painter.setPen(pen5);
-        if(!(cmd_Fx == 0 && cmd_Fy ==0))
+        if(!(masterJoystick_x == 0 && masterJoystick_y ==0))
         {
             painter.drawLine(-rectW,-cmdfx,cmdfy,-cmdfx);
             painter.drawLine(cmdfy,0,cmdfy,-cmdfx);
@@ -972,20 +975,20 @@ void PositionWidget::paintEvent(QPaintEvent *){
         QRect recthor;//横轴
 
 
-        if(cmd_Fx > 0)
+        if(masterJoystick_x > 0)
         {
             rectver =QRect(rectW,-10*interval,rectWidth,rectHeight);
         }
-        else if(cmd_Fx <0)
+        else if(masterJoystick_x <0)
         {
             rectver =QRect(rectW,10*interval-rectHeight,rectWidth,rectHeight);
         }
 
-        if(cmd_Fy > 0)
+        if(masterJoystick_y > 0)
         {
             recthor = QRect(10*interval - rectWidth,rectW,rectWidth,rectHeight);
         }
-        else if(cmd_Fy <0)
+        else if(masterJoystick_y <0)
         {
             recthor = QRect(-10*interval,rectW,rectWidth,rectHeight);
         }
@@ -1001,14 +1004,14 @@ void PositionWidget::paintEvent(QPaintEvent *){
 
         painter.setPen(pen2);
         painter.setFont(FONT_1);
-        if(cmd_Fx > 0)
+        if(masterJoystick_x > 0)
             painter.drawText(rectver,Qt::AlignBottom | Qt::AlignRight,str_chuanshou);//"船艏"
-        else if(cmd_Fx < 0)
+        else if(masterJoystick_x < 0)
             painter.drawText(rectver,Qt::AlignBottom | Qt::AlignRight,str_chuanwei);//"船艉"
 
-        if(cmd_Fy > 0)
+        if(masterJoystick_y > 0)
             painter.drawText(recthor,Qt::AlignBottom | Qt::AlignRight,str_youxian);//"右舷"
-        else if(cmd_Fy < 0)
+        else if(masterJoystick_y < 0)
             painter.drawText(recthor,Qt::AlignBottom | Qt::AlignRight,str_zuoxian);//"左舷"
     }
 }

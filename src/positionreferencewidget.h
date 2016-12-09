@@ -1,8 +1,8 @@
-#ifndef POSITIONREFERENCEWIDGET_H
+﻿#ifndef POSITIONREFERENCEWIDGET_H
 #define POSITIONREFERENCEWIDGET_H
 
 #include <QWidget>
-#include <qpainter.h>
+#include <QPainter>
 #include "globalSettings.h"
 #include "dataCommit.h"
 

@@ -23,7 +23,7 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
     _prompt->raise();//上层显示
     _prompt->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
     _prompt->setVisible(false);
-    connect(_prompt,SIGNAL(settingFinished()),this,SLOT(prompSettingFinished()));
+    connect(_prompt,SIGNAL(promptFinished()),this,SLOT(promptFinished()));
 
     //_editPtr正在修改的控件指针
     _editPtr = nullptr;
@@ -394,6 +394,6 @@ void GeneralSettingWidget::on_pbStickSetting_clicked()
     _prompt->show();
 }
 
-void GeneralSettingWidget::prompSettingFinished(){
+void GeneralSettingWidget::promptFinished(){
    this->parentWidget()->setEnabled(true);
 }

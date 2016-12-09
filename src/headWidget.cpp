@@ -625,20 +625,34 @@ void HeadWidget::paintEvent(QPaintEvent *){
         float spanAngle6;//24.6*16;
 
         QRectF rectangle6(-r2 ,-height*1/4 + interval2/4 ,2*r2,2*r2);
+        //老程序（20161206）
+//        spanAngle6 = fabs(cmd_Nz) * 24.68 / MAX_NZ;/*最大跨度 25*/
+//        if(cmd_Nz < 0)
+//        {
+//            startAngle6 = 90;
 
-        spanAngle6 = fabs(cmd_Nz) * 24.68 / MAX_NZ;/*最大跨度 25*/
+//            painter.drawArc(rectangle6,startAngle6*16,spanAngle6*16 );
+//        }
+//        else if(cmd_Nz > 0)
+//        {
+//            startAngle6 = 90 - spanAngle6;
+//            painter.drawArc(rectangle6,startAngle6*16,spanAngle6*16 );
+//        }
+        //新程序（20161206）
+        //手柄显示的永远是当前起作用的命令值
+        spanAngle6 = fabs(masterJoystick_z) * 24.68 / 100.0;/*最大跨度 25*/
+        if(masterJoystick_z < 0)
+        {
+            startAngle6 = 90;
 
-         if(cmd_Nz < 0)
-         {
-             startAngle6 = 90;
+            painter.drawArc(rectangle6,startAngle6*16,spanAngle6*16 );
+        }
+        else if(masterJoystick_z > 0)
+        {
+            startAngle6 = 90 - spanAngle6;
+            painter.drawArc(rectangle6,startAngle6*16,spanAngle6*16 );
+        }
 
-             painter.drawArc(rectangle6,startAngle6*16,spanAngle6*16 );
-         }
-         else if(cmd_Nz > 0)
-         {
-             startAngle6 = 90 - spanAngle6;
-             painter.drawArc(rectangle6,startAngle6*16,spanAngle6*16 );
-         }
 
         float startAngle7 ;
         float spanAngle7 ;//
@@ -685,12 +699,13 @@ void HeadWidget::paintEvent(QPaintEvent *){
         QPolygonF polygon;
 
 
-        if(cmd_Nz > 5000 || cmd_Nz < -5000.0){
-            if(cmd_Nz > 0)
+        if(masterJoystick_z > 5.0 || masterJoystick_z < -5.0){
+
+            if(masterJoystick_z > 0)
             {
                 rotateAng = 15;
             }
-            else if( cmd_Nz < -0 )
+            else if( masterJoystick_z < -0 )
             {
                 rotateAng = -15;
             }

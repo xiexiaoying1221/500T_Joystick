@@ -4,9 +4,6 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QtGui/QtGui>
-#include <QString>
-#include "serialcomm.h"
 
 QColor cbColor = COLOR_1;
 QColor cfColor = COLOR_2;
@@ -130,9 +127,12 @@ MainWindow::MainWindow(QWidget *parent) :
     systemInfoWidget->setObjectName("s3");
     systemInfoWidget->setVisible(false);
 
+#ifdef PORTABLE_STATION
+#else
     adjustingbrightnesswidget = new AdjustingBrightnessWidget(this,viewAreaRect);
     adjustingbrightnesswidget->setVisible(false);
     adjustingbrightnesswidget->setObjectName("adjustingbrightnesswidget");
+#endif
 
     autoruddersettingwidget = new AutoRudderSettingWidget(this,setAreaRect);
     autoruddersettingwidget->setVisible(false);
@@ -162,6 +162,14 @@ MainWindow::MainWindow(QWidget *parent) :
     tokenWidget = new TokenWidget(this,setAreaRect);//令牌切换
     tokenWidget->setObjectName("tokenwidget");
     tokenWidget->setVisible(false);
+
+    usrManageWidget = new UsrManageWidget(this,setAreaRect);//用户管理
+    usrManageWidget->setObjectName("usrmanagewidget");
+    usrManageWidget->setVisible(false);
+
+    usrLogInWidget = new UsrLogInWidget(this,setAreaRect);//用户登录
+    usrLogInWidget->setObjectName("usrloginwidget");
+    usrLogInWidget->setVisible(false);
 
     keyWidget = new KeyWidget(this,keyAreaRect);
     keyWidget->setObjectName("keyWidget");
@@ -216,7 +224,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //按键区 当前艏向灯灭
 //    connect(this,SIGNAL(changecurrenthead()),keyWidget,SLOT(changeCurrentHead()));
 
-    serialcom = SerialComm::getSerial();
+    serialcom = SerialComm::Instance();
     serialcom->OpenMyCom();
 
     //定时给数据赋值
@@ -320,16 +328,25 @@ void MainWindow::changeDayNightMode()
     systemInfoWidget->changeDNMode();
     sensorwidget->changeDNMode();
     sensorenablewidget->changeDNMode();
+#ifdef PORTABLE_STATION
+#else
     adjustingbrightnesswidget->changeDNMode();
+#endif
     deviceviewwidget->changeDNMode();
     positionReferenceWidget->changeDNMode();
     tokenWidget->changeDNMode();
+    usrLogInWidget->changeDNMode();
+    usrManageWidget->changeDNMode();
 }
 
 
 void MainWindow::showKeyArea(){
     keyWidget->setVisible(true);
     pbShowKeyArea->setVisible(false);
+#ifdef PORTABLE_STATION
+#else
+    adjustingbrightnesswidget->hideWindow( false );
+#endif
 }
 
 void MainWindow::hideKeyArea(bool force){
@@ -338,14 +355,17 @@ void MainWindow::hideKeyArea(bool force){
     if(objName.startsWith("gs") || objName.startsWith("es")
                || objName.startsWith("ls") || objName.startsWith("as")
                || objName.startsWith("systemsettingwidget") || objName.startsWith("headingsetpwidget")
-               || objName.startsWith("tokenwidget" )){
+               || objName.startsWith("tokenwidget" ) || objName.startsWith("usr") ){
         if(!force){
             return;
         }
     }
     keyWidget->setVisible(false);
     pbShowKeyArea->setVisible(true);
+#ifdef PORTABLE_STATION
+#else
     adjustingbrightnesswidget->hideWindow(true);
+#endif
 }
 
 
@@ -394,13 +414,17 @@ void MainWindow::Refresh_all_words()
 
     propellerenablewidget->Refresh_changless_words();
     positionReferenceWidget->Refresh_changless_words();
-
+#ifdef PORTABLE_STATION
+#else
     adjustingbrightnesswidget->Refresh_changless_words();
+#endif
     deviceviewwidget->Refresh_changless_words();
 
     headingsetpwidget->Refresh_changless_words();
     titleWidget->Refresh_changlese_words();
     tokenWidget->Refresh_changlese_words();
+    usrLogInWidget->Refresh_changlese_words();
+    usrManageWidget->Refresh_changlese_words();
 
 }
 
@@ -441,7 +465,7 @@ void MainWindow::btnLightDim_clicked()//调光
         currentWidget = adjustingbrightnesswidget;
 
 }
-//令牌切换
+//令牌切换（201610新增）
 void MainWindow::btnTokenManager_clicked(){
 
     if(currentWidget != NULL)
@@ -457,6 +481,35 @@ void MainWindow::btnTokenManager_clicked(){
     currentWidget = tokenWidget;
 
 }
+//用户登录和管理（20161202新增）
+void MainWindow::btnUsrManage_clicked(){
+
+    if(currentWidget != NULL)
+    {
+        QString test = currentWidget->objectName();
+        if( !currentWidget->objectName().startsWith("usr")  ){
+            currentWidget->setVisible(false);
+            usrLogInWidget->setVisible(true);
+            previousWidget = currentWidget;
+            currentWidget = usrLogInWidget;
+        }
+        else{
+            if(currentWidget->objectName() == usrLogInWidget->objectName() ){
+                currentWidget->setVisible(false);
+                previousWidget = currentWidget;
+                currentWidget = usrManageWidget;
+                currentWidget->setVisible(true);
+            }
+            else{
+                currentWidget->setVisible(false);
+                previousWidget = currentWidget;
+                currentWidget = usrLogInWidget;
+                currentWidget->setVisible(true);
+            }
+        }
+    }
+}
+
 
 void MainWindow::btnView_clicked()//视图
 {

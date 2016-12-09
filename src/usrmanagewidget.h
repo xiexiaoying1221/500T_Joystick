@@ -1,63 +1,63 @@
-﻿#ifndef TOKENWIDGET_H
-#define TOKENWIDGET_H
+﻿#ifndef USRMANAGEWIDGET_H
+#define USRMANAGEWIDGET_H
 
 #include <QWidget>
 #include <QDebug>
 #include <QStandardItemModel>
-#include <QThread>
-#include "tmtokenmanager.h"
-#include "promptwidgetwithsyn.h"
-#include "promptwidget.h"
-#include "buzzergovernor.h"
-#include "globalSettings.h"
+#include "usrmanager.h"
+#include "promptwidgets/promptwidgetusrnew.h"
+#include "promptwidgets/promptwidgetchangname.h"
+#include "promptwidgets/promptwidgetchangpswd.h"
 
 namespace Ui {
-class TokenWidget;
+class UsrManageWidget;
 }
 
-class TokenWidget : public QWidget
+class UsrManageWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TokenWidget(QWidget *parent = 0, QRect rect = QRect(0,0,0,0));
-    ~TokenWidget();
+    explicit UsrManageWidget(QWidget *parent = 0, QRect rect = QRect(0,0,0,0));
+    ~UsrManageWidget();
 
     void changeDNMode();
-    void refreshData();
     void Refresh_changlese_words();
 
 
-    tmTokenManager *manager;
-    PromptWidgetWithSyn *promptWidgetWithSyn;
-    PromptWidget *promptWidget;
-
 private slots:
-    void updateModel(int index);//更新从站列表
-    void updateMasterString();//更新主站信息
-    void selfStateChanged(quint64 state);//更新本机的状态
-    void prompFinished(bool ok);//处理弹出界面完成
-    void lostToken();//处理网络令牌丢失，本机需要获得令牌的故障
-    void multiToken();//处理网络令牌重复，本机需要让出令牌的故障
+    //处理用户列表改变
+    void updateModel();
+    //登录状态改变
+    void usrLogInChanged();
+    //弹出界面结束
+    void promptFinished();
 
-    //按钮
-    void on_pbAct_clicked();
+    void on_pbChangeName_clicked();
+
+    void on_pbChangePswd_clicked();
+
+    void on_pbNewUsr_clicked();
+
+    void on_pbDeleteUsr_clicked();
 
     void on_pbCancel_clicked();
 
-    void on_pbOk_clicked();
-
     void on_tableView_clicked(const QModelIndex &index);
+protected:
+    void showEvent(QShowEvent *);
 
 private:
-    Ui::TokenWidget *ui;
+    Ui::UsrManageWidget *ui;
     QStandardItemModel* _model;
-    QThread *_comm;
-    unsigned short _promptRes;
-    buzzerGovernor *_buzzer;
+    UsrManager *_manager;
+    PromptWidgetChangeName *_promptWidgetChangeName;
+    PromptWidgetChangePswd *_promptWidgetChangePswd;
+    PromptWidgetUsrNew *_promptWidgetUsrNew;
+
 signals:
     void ok_signal(QString);
     void cancel_signal(QString);
 
 };
 
-#endif // TOKENWIDGET_H
+#endif // USRMANAGEWIDGET_H

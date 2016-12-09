@@ -589,7 +589,7 @@ void Refresh_Alarm_words()
 
 void EnableBuzzer()
 {
-    buzzerGovernor* buzz = buzzerGovernor::getBuzzerGovernor();
+    buzzerGovernor* buzz = buzzerGovernor::Instance();
 
     int unanswer_num = 0;
     int i = 0;

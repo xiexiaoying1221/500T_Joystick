@@ -16,8 +16,6 @@ HEADERS += mainwindow.h \
     headWidget.h \
     positionWidget.h \
     limitsetwidget.h \
-    promptwidget.h \
-    promptwidgetwithsyn.h \
     lineedit.h \
     alarmlistwidget.h \
     positionreferencewidget.h \
@@ -63,7 +61,15 @@ HEADERS += mainwindow.h \
     buzzergovernor.h \
     gpio/susigpio.h \
     sticksettingwidget.h \
-    usrmanagewidget.h
+    usrmanagewidget.h \
+    usrloginwidget.h \
+    promptwidgets/promptwidget.h \
+    promptwidgets/promptwidgetwithsyn.h \
+    promptwidgets/promptwidgetchangname.h \
+    promptwidgets/promptwidgetchangpswd.h \
+    promptwidgets/promptwidgetlogin.h \
+    promptwidgets/promptwidgetusrnew.h \
+    promptwidgets/promptwidgetusrsetting.h
 
 SOURCES += mainwindow.cpp \
     main.cpp \
@@ -74,8 +80,6 @@ SOURCES += mainwindow.cpp \
     headWidget.cpp \
     positionWidget.cpp \
     limitsetwidget.cpp \
-    promptwidget.cpp \
-    promptwidgetwithsyn.cpp \
     lineedit.cpp \
     alarmlistwidget.cpp \
     positionreferencewidget.cpp \
@@ -107,7 +111,15 @@ SOURCES += mainwindow.cpp \
     buzzergovernor.cpp \
     gpio/susigpio.cpp \
     sticksettingwidget.cpp \
-    usrmanagewidget.cpp
+    usrmanagewidget.cpp \
+    usrloginwidget.cpp \
+    promptwidgets/promptwidget.cpp \
+    promptwidgets/promptwidgetwithsyn.cpp \
+    promptwidgets/promptwidgetchangname.cpp \
+    promptwidgets/promptwidgetchangpswd.cpp \
+    promptwidgets/promptwidgetlogin.cpp \
+    promptwidgets/promptwidgetusrnew.cpp \
+    promptwidgets/promptwidgetusrsetting.cpp
 
 FORMS += mainwindow.ui \
     limitsetwidget.ui \
@@ -127,7 +139,9 @@ FORMS += mainwindow.ui \
     adjustingbrightnesswidget.ui \
     systemsettingwidget.ui \
     headingsetpwidget.ui \
-    tokenwidget.ui
+    tokenwidget.ui \
+    usrmanagewidget.ui \
+    usrloginwidget.ui
 
 RESOURCES += \
     img.qrc

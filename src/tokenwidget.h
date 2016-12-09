@@ -6,8 +6,8 @@
 #include <QStandardItemModel>
 #include <QThread>
 #include "tmtokenmanager.h"
-#include "promptwidgetwithsyn.h"
-#include "promptwidget.h"
+#include "promptwidgets/promptwidgetwithsyn.h"
+#include "promptwidgets/promptwidget.h"
 #include "buzzergovernor.h"
 #include "globalSettings.h"
 
