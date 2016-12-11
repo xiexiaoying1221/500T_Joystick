@@ -25,14 +25,7 @@ public:
 
 private:
     Ui::GeneralSettingWidget *ui;
-    QPushButton * _editPtr;
-    QString m_lastValue;
     StickSettingWidget* _prompt;
-//    QLineEdit *leThrusterAlloc;
-//    QLineEdit *leRateTurn;
-//    QLineEdit *leDraughtType;
-//    QLineEdit *leWindComp;
-//    QLineEdit *leGainLevel;
 
 private slots:
     void leThrusterAlloc_click();
@@ -42,16 +35,16 @@ private slots:
     void leGainLevel_click();
     void leMaxRudderAngle_click();
 
-    /*小键盘*/
-    void gbpbNumber_click();
-    void gbpbOK_click();
-
     //确定按钮
     void pbOK_clicked();
     void pbCancel_clicked();
 
     void on_pbStickSetting_clicked();
     void promptFinished();
+
+    void on_leRateTurn__editingFinished();
+
+    void on_leMaxRudderAngle__editingFinished();
 
 signals:
     void ok_signal(QString);

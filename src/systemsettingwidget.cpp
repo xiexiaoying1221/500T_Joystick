@@ -27,99 +27,67 @@ SystemSettingWidget::SystemSettingWidget(QWidget *parent,QRect rect) :
 
     //QFont font("Microsoft Sans Serif",16);
 
-    leYear = new LineEdit(this);
-    leMonth = new LineEdit(this);
-    leDay = new LineEdit(this);
-    leHour = new LineEdit(this);
-    leMinute = new LineEdit(this);
-    leSecond = new LineEdit(this);
-    leClose = new LineEdit(this);
-    leRestart = new LineEdit(this);
-    changeDNMode();
+    ui->leYear_->setFont(FONT_9);
+    ui->leMonth_->setFont(FONT_9);
+    ui->leDay_->setFont(FONT_9);
+    ui->leHour_->setFont(FONT_9);
+    ui->leMinute_->setFont(FONT_9);
+    ui->leSecond_->setFont(FONT_9);
+    ui->label_1->setFont(FONT_3);
+    ui->label_2->setFont(FONT_3);
+    ui->label_3->setFont(FONT_3);
+    ui->label_4->setFont(FONT_3);
+    ui->label_5->setFont(FONT_3);
+    ui->label_6->setFont(FONT_3);
+    ui->label_7->setFont(FONT_3);
+    ui->label_8->setFont(FONT_3);
+    ui->label_9->setFont(FONT_3);
+    ui->pbOK->setFont(FONT_3);
+    ui->pbCancel->setFont(FONT_3);
+    ui->pbClose_->setFont(FONT_3);
+    ui->pbRestart_->setFont(FONT_3);
 
 
-    leYear->setGeometry(ui->leYear_->geometry());
-    leYear->setReadOnly(true);
-    leYear->setText(QString("%1").arg(cDate.year()));
-    leYear->setFont(FONT_9);
-    leYear->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
+    ui->leYear_->setText(QString("%1").arg(cDate.year()));
+    ui->leYear_->setProperty("numinput", true);
+    ui->leYear_->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
 
-    leMonth->setGeometry(ui->leMonth_->geometry());
-    leMonth->setReadOnly(true);
-    leMonth->setText(QString("%1").arg(cDate.month()));
-    leMonth->setFont(FONT_9);
-    leMonth->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
+    ui->leMonth_->setText(QString("%1").arg(cDate.month()));
+    ui->leMonth_->setProperty("numinput", true);
+    ui->leMonth_->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
 
-    leDay->setGeometry(ui->leDay_->geometry());
-    leDay->setReadOnly(true);
-    leDay->setText(QString("%1").arg(cDate.day()));
-    leDay->setFont(FONT_9);
-    leDay->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
+    ui->leDay_->setText(QString("%1").arg(cDate.day()));
+    ui->leDay_->setProperty("numinput", true);
+    ui->leDay_->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
 
-    leHour->setGeometry(ui->leHour_->geometry());
-    leHour->setReadOnly(true);
-    leHour->setText(QString("%1").arg(cTime.hour()));
-    leHour->setFont(FONT_9);
-    leHour->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
+    ui->leHour_->setText(QString("%1").arg(cTime.hour()));
+    ui->leHour_->setProperty("numinput", true);
+    ui->leHour_->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
 
-    leMinute->setGeometry(ui->leMinute_->geometry());
-    leMinute->setReadOnly(true);
-    leMinute->setText(QString("%1").arg(cTime.minute()));
-    leMinute->setFont(FONT_9);
-    leMinute->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
+    ui->leMinute_->setText(QString("%1").arg(cTime.minute()));
+    ui->leMinute_->setProperty("numinput", true);
+    ui->leMinute_->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
 
-    leSecond->setGeometry(ui->leSecond_->geometry());
-    leSecond->setReadOnly(true);
-    leSecond->setText(QString("%1").arg(cTime.second()));
-    leSecond->setFont(FONT_9);
-    leSecond->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
+    ui->leSecond_->setText(QString("%1").arg(cTime.second()));
+    ui->leSecond_->setProperty("numinput", true);
+    ui->leSecond_->setStyleSheet("background-color: transparent;border-width:0;border-style:outset;");
 
-    leClose->setGeometry(ui->leClose_->geometry());
-    leClose->setReadOnly(true);
-    leClose->setText(str_no);//"否"
-    leClose->setFont(FONT_3);
-    leClose->setStyleSheet("border-width:0; border-style:outset;  background-color: rgb(255, 0, 0);");
+    ui->pbClose_->setText(str_no);//"否"
+    ui->pbClose_->setStyleSheet("border-width:0; border-style:outset;  background-color: rgb(255, 0, 0);");
 
-    leRestart->setGeometry(ui->leRestart_->geometry());
-    leRestart->setReadOnly(true);
-    leRestart->setText(str_no);//"否"
-    leRestart->setFont(FONT_3);
-    leRestart->setStyleSheet("border-width:0; border-style:outset;  background-color: rgb( 255,0, 0);");
-
-    this->ui->groupBox->setVisible(false);
-
-    /*时间文本框事件-槽*/
-    connect(leYear,SIGNAL(clicked()),this,SLOT(leTime_click()));
-    connect(leMonth,SIGNAL(clicked()),this,SLOT(leTime_click()));
-    connect(leDay,SIGNAL(clicked()),this,SLOT(leTime_click()));
-    connect(leHour,SIGNAL(clicked()),this,SLOT(leTime_click()));
-    connect(leMinute,SIGNAL(clicked()),this,SLOT(leTime_click()));
-    connect(leSecond,SIGNAL(clicked()),this,SLOT(leTime_click()));
+    ui->pbRestart_->setText(str_no);//"否"
+    ui->pbRestart_->setStyleSheet("border-width:0; border-style:outset;  background-color: rgb( 255,0, 0);");
 
     /*按键区 事件-槽*/
-    connect(ui->pb0,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb1,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb2,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb3,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb4,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb5,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb6,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb7,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb8,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb9,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->gbpbCancel,SIGNAL(clicked()),this,SLOT(gbplCancel_click()));
-    connect(ui->gbpbOK,SIGNAL(clicked()),this,SLOT(gbpbOK_click()));
-
-
-    connect(leClose,SIGNAL(clicked()),this,SLOT(leCloseOrRestart_click()));
-    connect(leRestart,SIGNAL(clicked()),this,SLOT(leCloseOrRestart_click()));
-
     connect(ui->pbOk,SIGNAL(clicked()),this,SLOT(pbOk_clicked()));
     connect(ui->pbCancel,SIGNAL(clicked()),this,SLOT(pbCancel_clicked()));
 
     //确定、取消信号-槽
     connect(this,SIGNAL(ok_signal(QString)),parent,SLOT(childWidgetOkSlot(QString)));
     connect(this,SIGNAL(cancel_signal(QString)),parent,SLOT(childWidgetCancleSlot(QString)));
+
+    changeDNMode();
+    Refresh_changless_words();
 }
 
 //白天、夜晚模式切换
@@ -160,145 +128,25 @@ void SystemSettingWidget::changeDNMode()
         p.setColor(QPalette::Text,COLOR_23);
     }
 
-    leDay->setPalette(p);
-    leMonth->setPalette(p);
-    leYear->setPalette(p);
-    leHour->setPalette(p);
-    leMinute->setPalette(p);
-    leSecond->setPalette(p);
-    leClose->setPalette(p);
-    leRestart->setPalette(p);
-}
-
-
-void SystemSettingWidget::leTime_click()
-{
-
-    leYear->setEnabled(false);
-    leMonth->setEnabled(false);
-    leDay->setEnabled(false);
-    leHour->setEnabled(false);
-    leMinute->setEnabled(false);
-    leSecond->setEnabled(false);
-
-    leCurrent = qobject_cast<QLineEdit *>(sender());
-
-    leCurrent->setEnabled(true);
-    leCurrent->setFocus();
-
-    valCurrent = leCurrent->text().toInt();
-    leCurrent->setText("");
-    ui->groupBox->setVisible(true);
-}
-
-void SystemSettingWidget::gbpbNumber_click()
-{
-    QPushButton *button = qobject_cast<QPushButton *>(sender());
-    QString text = button->text();
-
-    leCurrent->setText(leCurrent->text() + text);
-}
-
-void SystemSettingWidget::gbplCancel_click()
-{
-    leYear->setEnabled(true);
-    leMonth->setEnabled(true);
-    leDay->setEnabled(true);
-    leHour->setEnabled(true);
-    leMinute->setEnabled(true);
-    leSecond->setEnabled(true);
-
-    leCurrent->setText(QString("%1").arg(valCurrent));
-    ui->groupBox->setVisible(false);
-    leCurrent->setFocus();
-}
-
-void SystemSettingWidget::gbpbOK_click()
-{
-
-    int year = leYear->text().toInt();
-    int month = leMonth->text().toInt();
-    int day = leDay->text().toInt();
-
-
-
-    if(leCurrent->text()=="" || year ==0 ||
-               month ==0 || day ==0)
-        leCurrent->setText(QString("%1").arg(valCurrent));
-    else
-    {
-
-        if(month > 12)
-            return;
-
-        if(month == 12)
-        {
-            year += 1;
-            month = 1;
-        }
-        else
-            month += 1;
-        QDate cDate(year,month,1);
-
-        int maxDay = cDate.addDays(-1).day();
-
-        if(day > maxDay)
-            return;
-
-
-        if(leHour->text().toInt() > 23)
-            return;
-        if(leMinute->text().toInt() > 59)
-            return;
-        if(leSecond->text().toInt() > 59)
-            return;
-    }
-
-    leYear->setEnabled(true);
-    leMonth->setEnabled(true);
-    leDay->setEnabled(true);
-    leHour->setEnabled(true);
-    leMinute->setEnabled(true);
-    leSecond->setEnabled(true);
-
-    ui->groupBox->setVisible(false);
-    leCurrent->setFocus();
-
-    leCurrent->setText(QString("%1").arg(leCurrent->text().toInt()));
-}
-
-
-void SystemSettingWidget::leCloseOrRestart_click()
-{
-    QLineEdit *le = qobject_cast<QLineEdit *>(sender());
-    QString text = le->text();
-
-
-    leClose->setStyleSheet("border-width:0; border-style:outset; background-color: rgb( 255, 0, 0);");
-    leRestart->setStyleSheet("border-width:0; border-style:outset;background-color: rgb( 255,0, 0);");
-    leClose->setText(str_no);//"否"
-    leRestart->setText(str_no);//"否"
-
-    if(text == "否" || text == "No")
-    {
-        le->setText(str_yes);
-        le->setStyleSheet("border-width:0; border-style:outset; background-color: rgb( 0, 255, 0);");
-    }
-    else
-    {
-        le->setText(str_no);
-    }
+    ui->leDay_->setPalette(p);
+    ui->leMonth_->setPalette(p);
+    ui->leYear_->setPalette(p);
+    ui->leHour_->setPalette(p);
+    ui->leMinute_->setPalette(p);
+    ui->leSecond_->setPalette(p);
+    ui->pbClose_->setPalette(p);
+    ui->pbRestart_->setPalette(p);
 }
 
 void SystemSettingWidget::pbOk_clicked()
 {
     /*设置系统时间*/
-    int year = leYear->text().toInt();
-    int month = leMonth->text().toInt();
-    int day = leDay->text().toInt();
-    int hour = leHour->text().toInt();
-    int minute = leMinute->text().toInt();
-    int second = leSecond->text().toInt();
+    int year = ui->leYear_->text().toInt();
+    int month = ui->leMonth_->text().toInt();
+    int day = ui->leDay_->text().toInt();
+    int hour = ui->leHour_->text().toInt();
+    int minute = ui->leMinute_->text().toInt();
+    int second = ui->leSecond_->text().toInt();
 
     SYSTEMTIME st;
 
@@ -315,7 +163,7 @@ void SystemSettingWidget::pbOk_clicked()
 
 
     /*关机、重启*/
-    if(leClose->text()==str_yes || leRestart->text() == str_yes)
+    if(ui->pbClose_->text()==str_yes || ui->pbRestart_->text() == str_yes)
     {
         HANDLE hToken;
         TOKEN_PRIVILEGES tkp;
@@ -334,13 +182,13 @@ void SystemSettingWidget::pbOk_clicked()
         if (GetLastError() != ERROR_SUCCESS) return;
 
 
-        if(leClose->text()==str_yes)
+        if(ui->pbClose_->text()==str_yes)
         {
            // ExitWindowsEx(EWX_SHUTDOWN | EWX_FORCE, 0);
 
             QCoreApplication::exit(1);
         }
-        else if(leRestart->text() == str_yes)
+        else if(ui->pbRestart_->text() == str_yes)
         {
            // ExitWindowsEx(EWX_REBOOT | EWX_FORCE, 0);
             qApp->quit();
@@ -368,62 +216,27 @@ void SystemSettingWidget::pbOk_clicked()
 void SystemSettingWidget::Refresh_changless_words()
 {
 
-    ui->label_1->setFont(FONT_3);
     ui->label_1->setText(str_year_XTSZ);//年
-
-    ui->label_2->setFont(FONT_3);
     ui->label_2->setText(str_month_XTSZ);//月
-
-    ui->label_3->setFont(FONT_3);
     ui->label_3->setText(str_day_XTSZ);//日
-
-    ui->label_4->setFont(FONT_3);
     ui->label_4->setText(str_hour_XTSZ);//时
-
-    ui->label_5->setFont(FONT_3);
     ui->label_5->setText(str_minute_XTSZ);//分
-
-    ui->label_6->setFont(FONT_3);
     ui->label_6->setText(str_second_XTSZ);//秒
-
-    ui->label_7->setFont(FONT_3);
     ui->label_7->setText(str_guanbixitong_XTSZ);//关闭系统
-
-    ui->label_8->setFont(FONT_3);
     ui->label_8->setText(str_guanbizhongduan_XTSZ);//关闭此操作终端
-
-    ui->label_9->setFont(FONT_3);
     ui->label_9->setText(str_chongqizhongduan_XTSZ);//重启此操作终端
-
-    ui->pbOK->setFont(FONT_3);
     ui->pbOK->setText(str_queding);//确定
-
-    ui->pbCancel->setFont(FONT_3);
     ui->pbCancel->setText(str_quxiao);//取消
 
-    leClose->setFont(FONT_3);
-    leRestart->setFont(FONT_3);
-    if(leClose->text() == "Yes" || leClose->text() == "是")
-        leClose->setText(str_yes);
+    if(ui->pbClose_->text() == "Yes" || ui->pbClose_->text() == "是")
+        ui->pbClose_->setText(str_yes);
     else
-        leClose->setText(str_no);
+        ui->pbClose_->setText(str_no);
 
-    if(leRestart->text() == "Yes" || leRestart->text() == "是")
-        leRestart->setText(str_yes);
+    if(ui->pbRestart_->text() == "Yes" || ui->pbRestart_->text() == "是")
+        ui->pbRestart_->setText(str_yes);
     else
-        leRestart->setText(str_no);
-
-
-    ui->gbpbCancel->setFont(FONT_1);
-    ui->gbpbCancel->setText(str_quxiao);
-
-    ui->gbpbOK->setFont(FONT_1);
-    ui->gbpbOK->setText(str_queding);
-
-    ui->pbOk->setFont(FONT_3);
-    ui->pbCancel->setFont(FONT_3);
-    ui->pbOk->setText(str_queding);
-    ui->pbCancel->setText(str_quxiao);
+        ui->pbRestart_->setText(str_no);
 
 }
 void SystemSettingWidget::pbCancel_clicked()
@@ -435,4 +248,125 @@ void SystemSettingWidget::pbCancel_clicked()
 SystemSettingWidget::~SystemSettingWidget()
 {
     delete ui;
+}
+
+void SystemSettingWidget::on_leYear__editingFinished()
+{
+    QDate cDate = QDate::currentDate();
+    QString res = ui->leYear_->text();
+    bool ok;
+    int resInt = res.toInt(&ok);
+    if(ok){
+        if(resInt > 2100)        ui->leYear_->setText(QString::number(2100) );
+        else if (resInt <2000)   ui->leYear_->setText(QString::number(2000) );
+    }
+    else{
+        ui->leYear_->setText(QString("%1").arg(cDate.year()));
+    }
+}
+
+void SystemSettingWidget::on_leMonth__editingFinished()
+{
+    QDate cDate = QDate::currentDate();
+    QString res = ui->leMonth_->text();
+    bool ok;
+    int resInt = res.toInt(&ok);
+    if(ok){
+        if(resInt > 12)        ui->leMonth_->setText(QString::number(12) );
+        else if (resInt <1)    ui->leMonth_->setText(QString::number(1) );
+    }
+    else{
+        ui->leMonth_->setText(QString("%1").arg(cDate.month()));
+    }
+}
+
+void SystemSettingWidget::on_leDay__editingFinished()
+{
+    QDate cDate = QDate::currentDate();
+    QString res = ui->leDay_->text();
+    bool ok;
+    int resInt = res.toInt(&ok);
+    if(ok){
+        if(resInt > 31)        ui->leDay_->setText(QString::number(31) );
+        else if (resInt <1)    ui->leDay_->setText(QString::number(1) );
+    }
+    else{
+        ui->leDay_->setText(QString("%1").arg(cDate.day()));
+    }
+}
+
+void SystemSettingWidget::on_leHour__editingFinished()
+{
+    QTime cTime = QTime::currentTime();
+    QString res = ui->leHour_->text();
+    bool ok;
+    int resInt = res.toInt(&ok);
+    if(ok){
+        if(resInt > 24)        ui->leHour_->setText(QString::number(24) );
+        else if (resInt <0)    ui->leHour_->setText(QString::number(0 ) );
+    }
+    else{
+        ui->leHour_->setText(QString("%1").arg(cTime.hour()));
+    }
+}
+
+void SystemSettingWidget::on_leMinute__editingFinished()
+{
+    QTime cTime = QTime::currentTime();
+    QString res = ui->leMinute_->text();
+    bool ok;
+    int resInt = res.toInt(&ok);
+    if(ok){
+        if(resInt > 60)        ui->leMinute_->setText(QString::number(60) );
+        else if (resInt <0)    ui->leMinute_->setText(QString::number(0 ) );
+    }
+    else{
+        ui->leMinute_->setText(QString("%1").arg(cTime.minute()));
+    }
+}
+
+void SystemSettingWidget::on_leSecond__editingFinished()
+{
+    QTime cTime = QTime::currentTime();
+    QString res = ui->leSecond_->text();
+    bool ok;
+    int resInt = res.toInt(&ok);
+    if(ok){
+        if(resInt > 60)        ui->leSecond_->setText(QString::number(60) );
+        else if (resInt <0)    ui->leSecond_->setText(QString::number(0 ) );
+    }
+    else{
+        ui->leSecond_->setText(QString("%1").arg(cTime.second()));
+    }
+}
+
+void SystemSettingWidget::on_pbClose__clicked()
+{
+    QString text = ui->pbClose_->text();
+
+    if(text == "否" || text == "No")
+    {
+        ui->pbClose_->setText(str_yes);
+        ui->pbClose_->setStyleSheet("border-width:0; border-style:outset; background-color: rgb( 0, 255, 0);");
+    }
+    else
+    {
+        ui->pbClose_->setText(str_no);
+        ui->pbClose_->setStyleSheet("border-width:0; border-style:outset; background-color: rgb( 255, 0, 0);");
+    }
+}
+
+void SystemSettingWidget::on_pbRestart__clicked()
+{
+    QString text = ui->pbRestart_->text();
+    if(text == "否" || text == "No")
+    {
+        ui->pbRestart_->setText(str_yes);
+        ui->pbRestart_->setStyleSheet("border-width:0; border-style:outset; background-color: rgb( 0, 255, 0);");
+    }
+    else
+    {
+        ui->pbRestart_->setText(str_no);
+        ui->pbRestart_->setStyleSheet("border-width:0; border-style:outset; background-color: rgb( 255, 0, 0);");
+    }
 }

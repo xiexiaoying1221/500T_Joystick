@@ -1,16 +1,16 @@
 ﻿#ifndef TITLEWIDGET_H
 #define TITLEWIDGET_H
 
-#include <qwidget.h>
-#include <qpushbutton.h>
-#include <qpainter.h>
-#include <qframe.h>
-#include <qtimer.h>
-#include <qspinbox.h>
-#include <qdatetime.h>
-#include <qlabel.h>
+#include <QWidget>
+#include <QPushButton>
+#include <QPainter>
+#include <QFrame>
+#include <QTimer>
+#include <QSpinBox>
+#include <QDateTime>
+#include <QLabel>
 
-#include <globalSettings.h>
+#include "globalSettings.h"
 
 class TitleWidget: public QWidget{
     Q_OBJECT

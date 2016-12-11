@@ -1,4 +1,4 @@
-﻿                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   /*
+﻿/*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   /*
     总体设置
 */
 
@@ -25,9 +25,6 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
     _prompt->setVisible(false);
     connect(_prompt,SIGNAL(promptFinished()),this,SLOT(promptFinished()));
 
-    //_editPtr正在修改的控件指针
-    _editPtr = nullptr;
-
     this->setAutoFillBackground(true);
 //    QPalette p;
 //    p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_5)));//"images/总体设置-日.png"
@@ -35,47 +32,7 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
 
     this->setGeometry(viewRect.x(),  viewRect.y(), viewRect.width(),viewRect.height());
 
-    ui->groupBox->setVisible(false);
-    ui->groupBox->setStyleSheet("background-image: url(:/images/设置区.png);");
-
-//    leThrusterAlloc = new LineEdit(this);
-//    leRateTurn = new LineEdit(this);
-//    leDraughtType = new LineEdit(this);
-//    leWindComp = new LineEdit(this);
-//    leGainLevel = new LineEdit(this);
-
     changeDNMode();
-
-//    leThrusterAlloc->setGeometry(ui->leThrusterAlloc_->geometry());
-//    leThrusterAlloc->setText(ui->leThrusterAlloc_->text());
-//    leThrusterAlloc->setStyleSheet(ui->leThrusterAlloc_->styleSheet());
-//    leThrusterAlloc->setFont(ui->leThrusterAlloc_->font());
-
-
-//    leRateTurn->setGeometry(ui->leRateTurn_->geometry());
-//    leRateTurn->setText(ui->leRateTurn_->text());
-//    leRateTurn->setStyleSheet(ui->leRateTurn_->styleSheet());
-//    leRateTurn->setFont(ui->leRateTurn_->font());
-
-
-//    leDraughtType->setGeometry(ui->leDraughtType_->geometry());
-//    leDraughtType->setText(ui->leDraughtType_->text());
-//    leDraughtType->setStyleSheet(ui->leDraughtType_->styleSheet());
-//    leDraughtType->setFont(ui->leDraughtType_->font());
-
-
-//    leWindComp->setGeometry(ui->leWindComp_->geometry());
-//    leWindComp->setText(ui->leWindComp_->text());
-//    leWindComp->setStyleSheet(ui->leWindComp_->styleSheet());
-//    leWindComp->setFont(ui->leWindComp_->font());
-
-
-//    leGainLevel->setGeometry(ui->leGainLevel_->geometry());
-//    leGainLevel->setText(ui->leGainLevel_->text());
-//    leGainLevel->setStyleSheet(ui->leGainLevel_->styleSheet());
-//    leGainLevel->setFont(ui->leGainLevel_->font());
-
-//    ui->leMaxRudderAngle_->setReadOnly(true);
 
     connect(ui->leThrusterAlloc_,SIGNAL(clicked(bool)),this,SLOT(leThrusterAlloc_click()));
     connect(ui->leRateTurn_,SIGNAL(clicked(bool)),this,SLOT(leRateTurn_click()));
@@ -85,8 +42,8 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
     connect(ui->leMaxRudderAngle_,SIGNAL(clicked(bool)),this,SLOT(leMaxRudderAngle_click()));
 
     ui->leThrusterAlloc_->setText(mode_thrAlloc == 1 ? "模式一" : "模式二");
-
-    ui->leRateTurn_->setText(QString::number(set_rot,'f',1));
+    ui->leRateTurn_->setText(QString::number(set_rot * 60.0 ,'f',2));
+    ui->leRateTurn_->setProperty("numinput", true);
 
     if(drughttype == 1)
          ui->leDraughtType_->setText(str_moshi1);//"模式一"
@@ -104,32 +61,41 @@ GeneralSettingWidget::GeneralSettingWidget(QWidget *parent,QRect viewRect) :
     else
         ui->leGainLevel_->setText(str_gao);//"High"
 
-    ui->leMaxRudderAngle_->setText ( QString::number(set_maxRudderAngle) );
+    ui->leMaxRudderAngle_->setText ( QString::number(set_maxRudderAngle,'f',2) );
+    ui->leMaxRudderAngle_->setProperty("numinput", true);
 
     /*按键区 事件-槽*/
-    connect(ui->pb0,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb1,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb2,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb3,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb4,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb5,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb6,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb7,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb8,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pb9,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->pbPoint,SIGNAL(clicked()),this,SLOT(gbpbNumber_click()));
-    connect(ui->gbpbOK,SIGNAL(clicked()),this,SLOT(gbpbOK_click()));
-
     connect(ui->pbOk,SIGNAL(clicked()),this,SLOT(pbOK_clicked()));
     connect(ui->pbCancel,SIGNAL(clicked()),this,SLOT(pbCancel_clicked()));
-
-     ui->groupBox->raise();//上层显示
 
     //确定、取消信号-槽
     connect(this,SIGNAL(ok_signal(QString)),parent,SLOT(childWidgetOkSlot(QString)));
     connect(this,SIGNAL(cancel_signal(QString)),parent,SLOT(childWidgetCancleSlot(QString)));
+
+
+    ui->label_1->setFont(FONT_3);
+    ui->label_2->setFont(FONT_3);
+    ui->label_3->setFont(FONT_3);
+    ui->label_4->setFont(FONT_3);
+    ui->label_5->setFont(FONT_3);
+    ui->label_6->setFont(FONT_3);
+    ui->label_7->setFont(FONT_3);
+    ui->label_8->setFont(FONT_3);
+    ui->pbOk->setFont(FONT_3);
+    ui->pbCancel->setFont(FONT_3);
+    ui->leDraughtType_->setFont(FONT_3);
+    ui->pbStickSetting->setFont(FONT_3);
+    ui->leThrusterAlloc_->setFont(FONT_3);
+    ui->leGainLevel_->setFont(FONT_3);
+    ui->leWindComp_->setFont(FONT_3);
+    ui->leMaxRudderAngle_->setFont(FONT_3);
+    ui->leRateTurn_->setFont(FONT_3);
 }
 
+GeneralSettingWidget::~GeneralSettingWidget()
+{
+    delete ui;
+}
 
 //白天、夜晚模式切换
 void GeneralSettingWidget::changeDNMode()
@@ -191,13 +157,7 @@ void GeneralSettingWidget::leThrusterAlloc_click()
 
 void GeneralSettingWidget::leRateTurn_click()
 {
-    if(ui->groupBox->isVisible () ){
-        _editPtr->setText ( m_lastValue );
-    }
-    _editPtr = ui->leRateTurn_;
-    ui->groupBox->setVisible(true);
-    m_lastValue = ui->leRateTurn_->text ();
-    ui->leRateTurn_->setText("");
+
 }
 
 void GeneralSettingWidget::leDraughtType_click()
@@ -229,64 +189,21 @@ void GeneralSettingWidget::leGainLevel_click()
 }
 
 void GeneralSettingWidget::leMaxRudderAngle_click(){
-    if(ui->groupBox->isVisible () ){
-        _editPtr->setText ( m_lastValue );
-    }
-    _editPtr = ui->leMaxRudderAngle_;
-    ui->groupBox->setVisible(true);
-    m_lastValue = ui->leMaxRudderAngle_->text ();
-    ui->leMaxRudderAngle_->setText("");
+
 }
 
-void GeneralSettingWidget::gbpbNumber_click()
-{
-    QPushButton *button = qobject_cast<QPushButton *>(sender());
-    QString text = button->text();
-    if(text == "．")
-        text = ".";
-
-    if(_editPtr != nullptr){
-        _editPtr->setText(_editPtr->text() + text);
-    }
-}
-
-void GeneralSettingWidget::gbpbOK_click()
-{
-    QString text;
-    if(_editPtr != nullptr){
-        text = _editPtr->text();
-    }
-
-    bool ok;
-    double a = text.toDouble(&ok);
-    if(!ok || a  > 999)
-    {
-        if(_editPtr != nullptr){
-            _editPtr->setText( m_lastValue );
-        }
-    }
-    ui->groupBox->setVisible(false);
-    if(_editPtr != nullptr){
-        _editPtr->setFocus();
-    }
-    _editPtr = nullptr;
-}
 
 void GeneralSettingWidget::pbOK_clicked()
 {
-    if(ui->gbpbOK->isVisible ()){
-        gbpbOK_click();
-    }
-
     bool isOk;
     mode_thrAlloc = ui->leThrusterAlloc_->text() == str_moshi1 ? 1 :2 ;//"模式一"
-    set_rot = ui->leRateTurn_->text().toDouble(&isOk);
+    set_rot = ui->leRateTurn_->text().toDouble(&isOk) / 60.0;
     if(!isOk)
         set_rot =0;
 
-    set_maxRudderAngle = ui->leRateTurn_->text().toInt(&isOk);
+    set_maxRudderAngle = ui->leMaxRudderAngle_->text().toFloat(&isOk);
     if(!isOk)
-        set_maxRudderAngle =0;
+        set_maxRudderAngle =0.0;
 
     if(ui->leDraughtType_->text() == "模式一"  || ui->leDraughtType_->text() == "Mode 1")
         drughttype = 1;
@@ -310,39 +227,27 @@ void GeneralSettingWidget::pbOK_clicked()
 }
 void GeneralSettingWidget::Refresh_changless_words()
 {
-    ui->label_1->setFont(FONT_3);
+
     ui->label_1->setText(str_tuilifenpeimoshi_ZTSZ);
 
-    ui->label_2->setFont(FONT_3);
     ui->label_2->setText(str_shezhihuizhuanlv_ZTSZ);
 
-    ui->label_3->setFont(FONT_3);
     ui->label_3->setText(str_fenglibuchang_ZTSZ);
 
-    ui->label_4->setFont(FONT_3);
     ui->label_4->setText(str_zengyidengji_ZTSZ);
 
-    ui->label_5->setFont(FONT_3);
     ui->label_5->setText(str_chuanbochishuileixing_ZTSZ);
 
-    ui->label_6->setFont(FONT_3);
     ui->label_6->setText(str_zuidaduojiao_ZTSZ);
 
-    ui->label_7->setFont(FONT_3);
     ui->label_7->setText (danwei_du);
 
-    ui->label_8->setFont(FONT_3);
-    ui->label_8->setText (danwei_dumiao);
+    ui->label_8->setText (danwei_dufen);
 
-    ui->pbOk->setFont(FONT_3);
     ui->pbOk->setText(str_queding);
 
-    ui->pbCancel->setFont(FONT_3);
     ui->pbCancel->setText(str_quxiao);
 
-    ui->leDraughtType_->setFont(FONT_3);
-
-    ui->pbStickSetting->setFont(FONT_3);
     ui->pbStickSetting->setText(str_shezhishoubing);
 
     if(ui->leDraughtType_->text() == "Mode 1" || ui->leDraughtType_->text() == "模式一")
@@ -352,14 +257,12 @@ void GeneralSettingWidget::Refresh_changless_words()
     else
         ui->leDraughtType_->setText(str_moshi3);
 
-    ui->leThrusterAlloc_->setFont(FONT_3);
 
     if(ui->leThrusterAlloc_->text() == "Mode 1" || ui->leThrusterAlloc_->text() == "模式一")
             ui->leThrusterAlloc_->setText(str_moshi1);
         else
             ui->leThrusterAlloc_->setText(str_moshi2);
 
-    ui->leGainLevel_->setFont(FONT_3);
 
     if(ui->leGainLevel_->text() == "高" || ui->leGainLevel_->text() == "High")
         ui->leGainLevel_->setText(str_gao);
@@ -368,24 +271,15 @@ void GeneralSettingWidget::Refresh_changless_words()
     else
         ui->leGainLevel_->setText(str_di);
 
-    ui->leWindComp_->setFont(FONT_3);
-
     if(ui->leWindComp_->text() == "开" || ui->leWindComp_->text() == "On")
         ui->leWindComp_->setText(str_on);
     else
         ui->leWindComp_->setText(str_off);
 
-    ui->gbpbOK->setFont(FONT_1);
-    ui->gbpbOK->setText(str_queding);
 }
 void GeneralSettingWidget::pbCancel_clicked()
 {
     emit cancel_signal(this->objectName());
-}
-
-GeneralSettingWidget::~GeneralSettingWidget()
-{
-    delete ui;
 }
 
 void GeneralSettingWidget::on_pbStickSetting_clicked()
@@ -396,4 +290,32 @@ void GeneralSettingWidget::on_pbStickSetting_clicked()
 
 void GeneralSettingWidget::promptFinished(){
    this->parentWidget()->setEnabled(true);
+}
+
+void GeneralSettingWidget::on_leRateTurn__editingFinished()
+{
+    QString res = ui->leRateTurn_->text();
+    bool ok;
+    float resReal = res.toFloat(&ok);
+    if(ok){
+        if(resReal > 60.0)      ui->leRateTurn_->setText(QString::number(60.0) );
+        else if (resReal <0.0)  ui->leRateTurn_->setText(QString::number(0.0) );
+    }
+    else{
+        ui->leRateTurn_->setText(QString::number(set_rot,'f',2 ) );
+    }
+}
+
+void GeneralSettingWidget::on_leMaxRudderAngle__editingFinished()
+{
+    QString res = ui->leMaxRudderAngle_->text();
+    bool ok;
+    float resReal = res.toFloat(&ok);
+    if(ok){
+        if(resReal > 45.0)      ui->leMaxRudderAngle_->setText(QString::number(45.0) );
+        else if (resReal <0.0)  ui->leMaxRudderAngle_->setText(QString::number(0.0) );
+    }
+    else{
+        ui->leMaxRudderAngle_->setText(QString::number(set_maxRudderAngle,'f',2 ) );
+    }
 }

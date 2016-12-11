@@ -148,8 +148,10 @@ void PromptWidgetUsrNew::clickOk(){
     if(_lePswd->text() != _leRepeatPswd->text() ){
         _lePswd->clear();
         _leRepeatPswd->clear();
+        this->setVisible(false);
         msgBox.setText(str_mimacuowu);
         msgBox.exec();
+        this->setVisible(false);
     }
 
     quint8 level = _cbxLevel->currentText().remove(0,6).toUShort();

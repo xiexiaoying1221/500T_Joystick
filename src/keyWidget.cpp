@@ -165,30 +165,6 @@ void KeyWidget::keyAreaInit(){
 
 //    y = y + btnHeight + vSpace;//第二行
 
-    //QPushButton *btn5 = new QPushButton(this);//总体设置
-    btn5 = new QPushButton(this);//总体设置
-    btn5->setFocusPolicy(Qt::NoFocus);
-    btn5->setGeometry(x1 , y2 , btnWidth,btnHeight);
-    btn5->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
-    btn5->setText(btnstr_zongtishezhi);
-    connect(btn5,SIGNAL(clicked()),parent,SLOT(btnGeneralSetting_clicked()));
-
-    //QPushButton *btn6 = new QPushButton(this);//启用设置
-    btn6 = new QPushButton(this);//启用设置
-    btn6->setFocusPolicy(Qt::NoFocus);
-    btn6->setGeometry(x2 , y2 , btnWidth,btnHeight);
-    btn6->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
-    btn6->setText(btnstr_qiyongshezhi);
-    connect(btn6,SIGNAL(clicked()),parent,SLOT(btnEnableSetting_clicked()));
-
-    //QPushButton *btn7 =new QPushButton(this);//限值设置
-    btn7 =new QPushButton(this);//限值设置
-    btn7->setFocusPolicy(Qt::NoFocus);
-    btn7->setGeometry(x3, y2 , btnWidth,btnHeight);
-    btn7->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
-    btn7->setText(btnstr_xianzhishezhi);
-    connect(btn7,SIGNAL(clicked()),parent,SLOT(btnLimitSetting_clicked()));
-
     //QPushButton *btn8 = new QPushButton(this);//系统设置(原自动舵设置)
     btn8 = new QPushButton(this);//系统设置(原自动舵设置)
     btn8->setFocusPolicy(Qt::NoFocus);
@@ -339,6 +315,32 @@ void KeyWidget::keyAreaInit(){
     btn24->setStyleSheet("border-image:url(:/images/whitebtn.png); color: rgb(52, 52, 52);");
     btn24->setText(btnstr_tiaoguang);
     connect(btn24,SIGNAL(clicked()),parent,SLOT(btnLightDim_clicked()));
+
+
+    //QPushButton *btn5 = new QPushButton(this);//总体设置
+    btn5 = new QPushButton(this);//总体设置
+    btn5->setFocusPolicy(Qt::NoFocus);
+    btn5->setGeometry(x1 , y2 , btnWidth,btnHeight);
+    btn5->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+    btn5->setText(btnstr_zongtishezhi);
+    connect(btn5,SIGNAL(clicked()),parent,SLOT(btnGeneralSetting_clicked()));
+
+    //QPushButton *btn6 = new QPushButton(this);//启用设置
+    btn6 = new QPushButton(this);//启用设置
+    btn6->setFocusPolicy(Qt::NoFocus);
+    btn6->setGeometry(x2 , y2 , btnWidth,btnHeight);
+    btn6->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+    btn6->setText(btnstr_qiyongshezhi);
+    connect(btn6,SIGNAL(clicked()),parent,SLOT(btnEnableSetting_clicked()));
+
+    //QPushButton *btn7 =new QPushButton(this);//限值设置
+    btn7 =new QPushButton(this);//限值设置
+    btn7->setFocusPolicy(Qt::NoFocus);
+    btn7->setGeometry(x3, y2 , btnWidth,btnHeight);
+    btn7->setStyleSheet("border-image:url(:/images/whitebtn.png);color:rgb(52, 52, 52);");
+    btn7->setText(btnstr_xianzhishezhi);
+    connect(btn7,SIGNAL(clicked()),parent,SLOT(btnLimitSetting_clicked()));
+
 #endif
 
     //QPushButton *btn25 = new QPushButton(this);//中英文
@@ -370,9 +372,7 @@ void KeyWidget::keyAreaInit(){
     btn2->setFont(FONT_16);
     btn3->setFont(FONT_16);
     btn4->setFont(FONT_16);
-    btn5->setFont(FONT_16);
-    btn6->setFont(FONT_16);
-    btn7->setFont(FONT_16);
+
     btn8->setFont(FONT_16);
     btn9->setFont(FONT_16);
     btn10->setFont(FONT_16);
@@ -392,6 +392,10 @@ void KeyWidget::keyAreaInit(){
 #ifdef PORTABLE_STATION
 #else
     btn24->setFont(FONT_16);
+
+    btn5->setFont(FONT_16);
+    btn6->setFont(FONT_16);
+    btn7->setFont(FONT_16);
 #endif
     btn27->setFont(FONT_16);
     btn28->setFont(FONT_16);
@@ -478,9 +482,7 @@ void KeyWidget:: Refresh_keys_title()
     }
 
     btn4->setText(btnstr_baojing);
-    btn5->setText(btnstr_zongtishezhi);
-    btn6->setText(btnstr_qiyongshezhi);
-    btn7->setText(btnstr_xianzhishezhi);
+
     btn8->setText(btnstr_xitongshezhi);
     btn9->setText(btnstr_quantuili);
     btn10->setText(btnstr_daiji);
@@ -500,6 +502,10 @@ void KeyWidget:: Refresh_keys_title()
 #ifdef PORTABLE_STATION
 #else
     btn24->setText(btnstr_tiaoguang);
+
+    btn5->setText(btnstr_zongtishezhi);
+    btn6->setText(btnstr_qiyongshezhi);
+    btn7->setText(btnstr_xianzhishezhi);
 #endif
     btn25->setText(btnstr_zhongyingwen);
     btn27->setText(btnstr_simulation);
@@ -509,9 +515,7 @@ void KeyWidget:: Refresh_keys_title()
     btn2->setFont(FONT_16);
     btn3->setFont(FONT_16);
     btn4->setFont(FONT_16);
-    btn5->setFont(FONT_16);
-    btn6->setFont(FONT_16);
-    btn7->setFont(FONT_16);
+
     btn8->setFont(FONT_16);
     btn9->setFont(FONT_16);
     btn10->setFont(FONT_16);
@@ -531,6 +535,10 @@ void KeyWidget:: Refresh_keys_title()
 #ifdef PORTABLE_STATION
 #else
     btn24->setFont(FONT_16);
+
+    btn5->setFont(FONT_16);
+    btn6->setFont(FONT_16);
+    btn7->setFont(FONT_16);
 #endif
 //    btn25->setFont(FONT_16);
     btn27->setFont(FONT_16);

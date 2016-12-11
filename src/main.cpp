@@ -4,7 +4,8 @@
 #endif
 
 #include <QApplication>
-
+#include "frminputnew.h"
+#include "frminputnum.h"
 #include "mainwindow.h"
 #include "modbusdataprocess.h"
 
@@ -13,6 +14,8 @@ int main(int argc, char *argv[]){
     QApplication app(argc, argv);
     InitData();
 
+    frmInputNew::Instance()->init("control", "black", 12, 10, 700, 230, 20, 20, 6, 45);
+    frmInputNum::Instance()->init("black", 10);
     MainWindow * mw= new MainWindow;
     mw->move(0,0);
     mw->show();

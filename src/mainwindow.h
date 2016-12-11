@@ -16,6 +16,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QDebug>
+
 #include "MainViewWidget.h"
 #include "titleWidget.h"
 #include "infoWidget.h"

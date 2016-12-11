@@ -68,178 +68,6 @@ border-style:outset;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>520</y>
-     <width>161</width>
-     <height>171</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>true</bool>
-   </property>
-   <property name="title">
-    <string/>
-   </property>
-   <widget class="QPushButton" name="pb5">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>50</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>5</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb2">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>90</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>2</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbPoint">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>130</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>．</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="gbpbOK">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>130</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ＯＫ</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb6">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>50</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>6</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb3">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>90</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>3</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb4">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>4</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb9">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>10</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>9</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb0">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>130</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb7">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>7</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb1">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>90</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pb8">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>10</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>8</string>
-    </property>
-   </widget>
-  </widget>
   <widget class="QLabel" name="label_1">
    <property name="geometry">
     <rect>
@@ -339,24 +167,6 @@ border-style:outset;</string>
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="leRateTurn_">
-   <property name="geometry">
-    <rect>
-     <x>235</x>
-     <y>117</y>
-     <width>91</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string>leRateTurn_</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="leGainLevel_">
    <property name="geometry">
     <rect>
@@ -373,24 +183,6 @@ border-style:outset;</string>
    </property>
    <property name="text">
     <string>leGainLevel_</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="leMaxRudderAngle_">
-   <property name="geometry">
-    <rect>
-     <x>235</x>
-     <y>240</y>
-     <width>91</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string>leMaxRudderAngle</string>
    </property>
   </widget>
   <widget class="QPushButton" name="leWindComp_">
@@ -487,6 +279,38 @@ border-style:outset;</string>
    </property>
    <property name="text">
     <string>设置手柄</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="leRateTurn_">
+   <property name="geometry">
+    <rect>
+     <x>245</x>
+     <y>117</y>
+     <width>81</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
+   </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="leMaxRudderAngle_">
+   <property name="geometry">
+    <rect>
+     <x>245</x>
+     <y>240</y>
+     <width>81</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: transparent;</string>
+   </property>
+   <property name="frame">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

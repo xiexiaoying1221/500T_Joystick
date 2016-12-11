@@ -123,7 +123,9 @@ void PromptWidgetLogIn::clickOk(){
         _lePswd->clear();
         QMessageBox msgBox;
         msgBox.setText(str_denglushibai);
+        this->setVisible(false);
         msgBox.exec();
+        this->setVisible(true);
     }
 }
 

@@ -1,13 +1,13 @@
-#ifndef HEADWIDGET_H
+﻿#ifndef HEADWIDGET_H
 #define HEADWIDGET_H
 
-#include <qwidget.h>
-#include <qpainter.h>
-#include <math.h>
+#include <QWidget>
+#include <QPainter>
 #include <QTimer>
-#include <qpoint.h>
-#include <globalSettings.h>
-#include <dataCommit.h>
+#include <QPoint>
+#include "math.h"
+#include "globalSettings.h"
+#include "dataCommit.h"
 #include "characterconversion.h"
 
 class HeadWidget: public QWidget{

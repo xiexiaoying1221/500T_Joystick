@@ -225,7 +225,7 @@ extern short drughttype;
 extern short gain_autopilot;
 extern float max_rudangle;
 extern int gainlevel;
-extern int set_maxRudderAngle;
+extern float set_maxRudderAngle;
 extern bool flag_weathercomp;
 extern unsigned int avlb_power;
 extern unsigned int real_power;

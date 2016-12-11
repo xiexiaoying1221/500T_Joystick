@@ -40,45 +40,6 @@ border-style:outset;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="leHeadWarnActive_">
-   <property name="geometry">
-    <rect>
-     <x>147</x>
-     <y>167</y>
-     <width>52</width>
-     <height>34</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="contextMenuPolicy">
-    <enum>Qt::NoContextMenu</enum>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 255, 0);
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="leHeadWarnLimit_">
    <property name="geometry">
     <rect>
@@ -112,39 +73,6 @@ border-style:outset;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leHeadAlarmActive_">
-   <property name="geometry">
-    <rect>
-     <x>147</x>
-     <y>217</y>
-     <width>52</width>
-     <height>34</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Microsoft Sans Serif</family>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 255, 0);
-border-width:0;
-border-style:outset;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="dragEnabled">
-    <bool>false</bool>
    </property>
    <property name="readOnly">
     <bool>true</bool>
@@ -293,6 +221,42 @@ border-style:outset;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbHeadWarnActive_">
+   <property name="geometry">
+    <rect>
+     <x>147</x>
+     <y>167</y>
+     <width>52</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 255, 0);
+border-width:0;
+border-style:outset;</string>
+   </property>
+   <property name="text">
+    <string>启用</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbHeadAlarmActive_">
+   <property name="geometry">
+    <rect>
+     <x>147</x>
+     <y>217</y>
+     <width>52</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 255, 0);
+border-width:0;
+border-style:outset;</string>
+   </property>
+   <property name="text">
+    <string>启用</string>
    </property>
   </widget>
  </widget>

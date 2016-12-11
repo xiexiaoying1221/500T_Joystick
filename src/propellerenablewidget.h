@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <qlineedit.h>
-#include "lineedit.h"
 #include "globalSettings.h"
 
 namespace Ui {
@@ -23,12 +22,6 @@ public:
     void Refresh_changless_words();
 
 protected slots:
-    void leEnable_Prop1_click();
-    void leEnable_Prop2_click();
-    void leEnable_Prop3_click();
-    void leEnable_Rudder1_click();
-    void leEnable_Rudder2_click();
-
 
     //确定-取消按钮
     void pbOK_clicked();
@@ -39,15 +32,15 @@ signals:
     void cancel_signal(QString);
 
 
+private slots:
+    void on_pbEnableProp1_clicked();
+    void on_pbEnableProp2_clicked();
+    void on_pbEnableProp3_clicked();
+    void on_pbEnableRudder1_clicked();
+    void on_pbEnableRudder2_clicked();
+
 private:
     Ui::PropellerEnableWidget *ui;
-
-    QLineEdit *leEnable_Prop1;
-    QLineEdit *leEnable_Prop2;
-    QLineEdit *leEnable_Prop3;
-    QLineEdit *leEnable_Rudder1;
-    QLineEdit *leEnable_Rudder2;
-
 };
 
 #endif // PROPELLERENABLEWIDGET_H

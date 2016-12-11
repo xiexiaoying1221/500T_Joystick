@@ -155,3 +155,5 @@ LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
 
 include($PWD/../../lib/tokenManager/src/tokenManager.pri)
 include($PWD/../../lib/usrManager/src/usrmanager.pri)
+include($PWD/../../lib/inputMethod/src/inputnew/inputnew.pri)
+include($PWD/../../lib/inputMethod/src/inputnum/inputnum.pri)

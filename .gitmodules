@@ -4,3 +4,6 @@
 [submodule "lib/usrManager"]
 	path = lib/usrManager
 	url = https://github.com/linbin823/Qt.711.2016.UsrManager.git
+[submodule "lib/inputMethod"]
+	path = lib/inputMethod
+	url = https://github.com/linbin823/Qt.reference.2016.InputMethod.git

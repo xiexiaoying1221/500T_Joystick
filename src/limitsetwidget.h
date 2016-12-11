@@ -1,8 +1,7 @@
-#ifndef LIMITSETWIDGET_H
+﻿#ifndef LIMITSETWIDGET_H
 #define LIMITSETWIDGET_H
 
 #include <QWidget>
-#include "lineedit.h"
 #include "globalSettings.h"
 
 namespace Ui {
@@ -21,31 +20,22 @@ public:
     void changeDNMode();
 
 public slots:
-    void setActive();
-    void setWarningLimit();
-    void setAlarmLimit();
-
     void pbOk_clicked();
     void pbCancel_clicked();
     void Refresh_changless_words();
 
-
 signals:
     void ok_signal(QString);
     void cancel_signal(QString);
+
+private slots:
+    void on_leHeadWarnLimit__editingFinished();
+    void on_leHeadAlarmLimit__editingFinished();
+    void on_pbHeadWarnActive__clicked();
+    void on_pbHeadAlarmActive__clicked();
+
 private:
     Ui::limitSetWidget *ui;
-
-    /*艏向限定*/
-    LineEdit *leHeadWarnActive;
-    LineEdit *leHeadAlarmActive;
-    LineEdit *leHeadWarnLimit;
-    LineEdit *leHeadAlarmLimit;
-    /*位置限定*/
-    LineEdit *lePositionWarnActive;
-    LineEdit *lePositionAlarmActive;
-    LineEdit *lePositionWarnLimit;
-    LineEdit *lePositionAlarmLimit;
 };
 
 #endif // LIMITSETWIDGET_H

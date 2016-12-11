@@ -152,7 +152,7 @@ short drughttype = 0;
 short gain_autopilot = 0;
 float max_rudangle = 35;
 int gainlevel = 0;
-int set_maxRudderAngle = 45;
+float set_maxRudderAngle = 45.0;
 bool flag_weathercomp = false;
 unsigned int avlb_power = 0;
 unsigned int real_power = 0;
@@ -478,6 +478,17 @@ int saveParameters(void){
     processor->saveParameters("setStickZZero",      QString::number(setStickZZero));
     processor->saveParameters("setStickZDeadband",  QString::number(setStickZDeadband));
 
+    processor->saveParameters("flag_warningh",      QString::number(flag_warningh));
+    processor->saveParameters("flag_alarmh",        QString::number(flag_alarmh));
+    processor->saveParameters("Warning_head",       QString::number(Warning_head));
+    processor->saveParameters("Alarm_head",         QString::number(Alarm_head));
+
+    processor->saveParameters("set_rot",            QString::number(set_rot));
+    processor->saveParameters("gainlevel",          QString::number(gainlevel));
+    processor->saveParameters("drughttype",         QString::number(drughttype));
+    processor->saveParameters("flag_windcomp",      QString::number(flag_windcomp));
+    processor->saveParameters("set_maxRudderAngle", QString::number(set_maxRudderAngle));
+
     ret = processor->saveFile("jsParameter.xml");
     if(ret != 0){
         delete processor;
@@ -527,6 +538,25 @@ int loadParameters(void){
     processor->loadParameters("setStickZDeadband",&temp);
     setStickZDeadband = temp.toFloat();
 
+    processor->loadParameters("flag_warningh",&temp);
+    flag_warningh = temp.toInt();
+    processor->loadParameters("flag_alarmh",&temp);
+    flag_alarmh = temp.toInt();
+    processor->loadParameters("Warning_head",&temp);
+    Warning_head = temp.toFloat();
+    processor->loadParameters("Alarm_head",&temp);
+    Alarm_head = temp.toFloat();
+
+    processor->loadParameters("set_rot",&temp);
+    set_rot = temp.toFloat();
+    processor->loadParameters("gainlevel",&temp);
+    gainlevel = temp.toInt();
+    processor->loadParameters("drughttype",&temp);
+    drughttype = temp.toShort();
+    processor->loadParameters("flag_windcomp",&temp);
+    flag_windcomp = temp.toInt();
+    processor->loadParameters("set_maxRudderAngle",&temp);
+    set_maxRudderAngle = temp.toFloat();
 
     delete processor;
     return 0;

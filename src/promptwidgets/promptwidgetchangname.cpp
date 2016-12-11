@@ -151,8 +151,10 @@ void PromptWidgetChangeName::clickOk(){
             //登录失败
             _lePswd->clear();
             QMessageBox msgBox;
+            this->setVisible(false);
             msgBox.setText(str_denglushibai);
             msgBox.exec();
+            this->setVisible(true);
         }
     }
 }

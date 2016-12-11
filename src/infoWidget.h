@@ -1,10 +1,10 @@
-#ifndef INFOWIDGET_H
+﻿#ifndef INFOWIDGET_H
 #define INFOWIDGET_H
-#include <qwidget.h>
-#include <qpainter.h>
-#include <AlarmHandle.h>
+#include <QWidget>
+#include <QPainter>
 
-#include <globalSettings.h>
+#include "AlarmHandle.h"
+#include "globalSettings.h"
 
 class InfoWidget: public QWidget{
     Q_OBJECT

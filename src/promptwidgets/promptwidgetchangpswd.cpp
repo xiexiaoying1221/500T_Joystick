@@ -152,8 +152,10 @@ void PromptWidgetChangePswd::clickOk(){
     if(_lblNewPswd->text() != _lblNewRepeatPswd->text() ){
         _lblNewPswd->clear();
         _lblNewRepeatPswd->clear();
+        this->setVisible(false);
         msgBox.setText(str_mimacuowu);
         msgBox.exec();
+        this->setVisible(true);
         return;
     }
     targetUsr = _manager->getUsr( _targetUsrName );
@@ -173,8 +175,10 @@ void PromptWidgetChangePswd::clickOk(){
             _lblNewPswd->clear();
             _lblNewRepeatPswd->clear();
             QMessageBox msgBox;
+            this->setVisible(false);
             msgBox.setText(str_denglushibai);
             msgBox.exec();
+            this->setVisible(true);
         }
     }
 }

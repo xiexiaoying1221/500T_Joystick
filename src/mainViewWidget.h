@@ -1,16 +1,16 @@
-#ifndef MainViewWidget_H
+﻿#ifndef MainViewWidget_H
 #define MainViewWidget_H
 
-#include <qwidget.h>
-#include <qwidget.h>
-#include <qpushbutton.h>
-#include <qpainter.h>
-#include <qframe.h>
-#include <qtimer.h>
-#include <qspinbox.h>
-#include <math.h>
-#include <qpixmap.h>
+#include <QWidget>
+#include <QPushButton>
+#include <QPainter>
+#include <QFrame>
+#include <QTimer>
+#include <QSpinBox>
+#include <QPixmap>
 #include <QDebug>
+
+#include "math.h"
 #include "dataCommit.h"
 #include "globalSettings.h"
 #include "characterconversion.h"
