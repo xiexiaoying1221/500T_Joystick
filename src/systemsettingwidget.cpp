@@ -42,7 +42,7 @@ SystemSettingWidget::SystemSettingWidget(QWidget *parent,QRect rect) :
     ui->label_7->setFont(FONT_3);
     ui->label_8->setFont(FONT_3);
     ui->label_9->setFont(FONT_3);
-    ui->pbOK->setFont(FONT_3);
+    ui->pbOk->setFont(FONT_3);
     ui->pbCancel->setFont(FONT_3);
     ui->pbClose_->setFont(FONT_3);
     ui->pbRestart_->setFont(FONT_3);
@@ -225,7 +225,7 @@ void SystemSettingWidget::Refresh_changless_words()
     ui->label_7->setText(str_guanbixitong_XTSZ);//关闭系统
     ui->label_8->setText(str_guanbizhongduan_XTSZ);//关闭此操作终端
     ui->label_9->setText(str_chongqizhongduan_XTSZ);//重启此操作终端
-    ui->pbOK->setText(str_queding);//确定
+    ui->pbOk->setText(str_queding);//确定
     ui->pbCancel->setText(str_quxiao);//取消
 
     if(ui->pbClose_->text() == "Yes" || ui->pbClose_->text() == "是")

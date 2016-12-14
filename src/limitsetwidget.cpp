@@ -56,9 +56,11 @@ LimitSetWidget::LimitSetWidget(QWidget *parent,QRect viewAreaRect) :
 
     ui->leHeadWarnLimit_->setText(QString::number(Warning_head,'f',1));
     ui->leHeadWarnLimit_->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+    ui->leHeadWarnLimit_->setProperty("numinput", true);
 
     ui->leHeadAlarmLimit_->setText(QString::number(Alarm_head,'f',1));
     ui->leHeadAlarmLimit_->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+    ui->leHeadAlarmLimit_->setProperty("numinput", true);
 
     connect(ui->pbOk,SIGNAL(clicked()),this,SLOT(pbOk_clicked()));
     connect(ui->pbCancel,SIGNAL(clicked()),this,SLOT(pbCancel_clicked()));

@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     p.setBrush(QPalette::Window,QBrush(QPixmap(PicNameD_10)));//"images/backgournd.png"
     this->setPalette(p);
 
+    _manager  = UsrManager::Instance();
+
     //标题栏的长宽
     titleLWidth = WINDOWWIDTH;
     titleLHeight = WINDOWHEIGHT * TITLE_HEIGHT_PERCENTAGE;
@@ -116,15 +118,15 @@ MainWindow::MainWindow(QWidget *parent) :
     powerconsumptionwidget->setVisible(false);
 
     deviceviewwidget = new DeviceViewWidget(this,viewAreaRect);
-    deviceviewwidget->setObjectName("s1");
+    deviceviewwidget->setObjectName("systemview1");
     deviceviewwidget->setVisible(false);
 
     systemstatuswidget = new SystemStatusWidget(this, viewAreaRect);
-    systemstatuswidget->setObjectName("s2");
+    systemstatuswidget->setObjectName("systemview2");
     systemstatuswidget->setVisible(false);
 
     systemInfoWidget = new SystemInfoWidget(this,viewAreaRect);
-    systemInfoWidget->setObjectName("s3");
+    systemInfoWidget->setObjectName("systemview3");
     systemInfoWidget->setVisible(false);
 
 #ifdef PORTABLE_STATION
@@ -495,10 +497,15 @@ void MainWindow::btnUsrManage_clicked(){
         }
         else{
             if(currentWidget->objectName() == usrLogInWidget->objectName() ){
-                currentWidget->setVisible(false);
-                previousWidget = currentWidget;
-                currentWidget = usrManageWidget;
-                currentWidget->setVisible(true);
+                quint8 level;
+                _manager->getNameAndLevel(0,&level);
+                if(level>=2){
+                    //level>=2时才具备用户管理权限
+                    currentWidget->setVisible(false);
+                    previousWidget = currentWidget;
+                    currentWidget = usrManageWidget;
+                    currentWidget->setVisible(true);
+                }
             }
             else{
                 currentWidget->setVisible(false);
@@ -586,7 +593,7 @@ void MainWindow::btnSystem_clicked()//系统
 
     QString objectName = currentWidget->objectName();
 
-    if(!objectName.startsWith('s'))//从之前位置开始显示
+    if(!objectName.startsWith("systemview"))//从之前位置开始显示
     {
         currentWidget->setVisible(false);
     }
@@ -594,7 +601,7 @@ void MainWindow::btnSystem_clicked()//系统
     {
         bool ok;
 
-        int index = objectName.mid(1).toInt(&ok);
+        int index = objectName.mid(10).toInt(&ok);
         if(ok)
         {
             if(index == 4) index = 1;
@@ -602,19 +609,19 @@ void MainWindow::btnSystem_clicked()//系统
         }
         else
             index = 1;
-        systemIndex= QString("s%1").arg(index);
+        systemIndex= QString("systemview%1").arg(index);
     }
 
     previousWidget = currentWidget;
 
 
-    if(systemIndex == "s2")//显示系统状态
+    if(systemIndex == "systemview2")//显示系统状态
     {
         deviceviewwidget->setVisible(false);
         systemstatuswidget->setVisible(true);
         currentWidget = systemstatuswidget;
     }
-    else if(systemIndex == "s3")//显示信息视图
+    else if(systemIndex == "systemview3")//显示信息视图
     {
         systemstatuswidget->setVisible(false);
         systemInfoWidget->setVisible(true);

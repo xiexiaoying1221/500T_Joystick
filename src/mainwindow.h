@@ -50,7 +50,7 @@
 #include "usrmanagewidget.h"
 #include "usrloginwidget.h"
 #include "dataCommit.h"
-
+#include "usrmanager.h"
 
 namespace Ui {
     class MainWindow;
@@ -115,6 +115,8 @@ private:
 
     QPushButton *pbShowKeyArea;//显示按键区按钮
     QPushButton *pbNoiseElimination;//应答、消声
+
+    UsrManager *_manager;
 
     //标题栏的长宽
     int titleLWidth ;
