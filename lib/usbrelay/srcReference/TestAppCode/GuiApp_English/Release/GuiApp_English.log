@@ -1,0 +1,30 @@
+﻿Build started 2016/12/14 10:07:01.
+     1>Project "C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\GuiApp_English\GuiApp_English.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\GuiApp_English.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t- /Zc:forScope /Yc"StdAfx.h" /Fp"Release\GuiApp_English.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t- /Zc:forScope /Yu"StdAfx.h" /Fp"Release\GuiApp_English.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt GuiApp_English.cpp str_tools.cpp
+         GuiApp_English.cpp
+         str_tools.cpp
+       ResourceCompile:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Release\GuiApp_English.res" GuiApp_English.rc 
+       Link:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\Release\GuiApp_English.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\GuiApp_English.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\Release\GuiApp_English.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\Release\GuiApp_English.lib" /MACHINE:X86 Release\GuiApp_English.res
+         Release\GuiApp_English.obj
+         Release\stdafx.obj
+         Release\str_tools.obj
+         Generating code
+         Finished generating code
+         GuiApp_English.vcxproj -> C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\Release\GuiApp_English.exe
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\Release\GuiApp_English.exe;#1" /manifest Release\GuiApp_English.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\GuiApp_English.unsuccessfulbuild".
+         Touching "Release\GuiApp_English.lastbuildstate".
+     1>Done Building Project "C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\GuiApp_English\GuiApp_English.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.43

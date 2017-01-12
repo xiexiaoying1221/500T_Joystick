@@ -1,4 +1,6 @@
 ﻿#include "buzzergovernor.h"
+#include "gpio/serialrelay.h"
+#include "gpio/usbrelay.h"
 
 buzzerGovernor* buzzerGovernor::_singleton = nullptr;
 
@@ -8,9 +10,33 @@ buzzerGovernor::buzzerGovernor(QObject *parent) : QObject(parent)
     connect(_t05,SIGNAL(timeout()),this,SLOT(process()));
     _t05->start(500);
 
-    _gpio = SusiGpio::Instance();
+
+
+#ifdef PORTABLE_STATION
+    _gpio = UsbRelay::Instance();
+    buzzPort = 1;
+#else
+    _gpio = SerialRelay::Instance();
+    buzzPort = 4;
+    //green 2
+    //red 3
+    //buzz 4
+#endif
     _gpio->init();
     _gpio->setIODirection(0, 0);
+
+    controlBits.buzzer1Hz =false;
+    controlBits.buzzer2Hz = false;
+    controlBits.buzzer05Hz = false;
+    controlBits.buzzerContinuous = false;
+    _countdown1Hz =0;
+    _countdown2Hz =0;
+    _countdown05Hz = 0;
+    _countdownContinuous =0;
+    _counterBuzzer1Hz =0;
+    _counterBuzzer2Hz =0;
+    _counterBuzzer05Hz =0;
+
 }
 //全局单例模式
 buzzerGovernor* buzzerGovernor::Instance( void ){
@@ -59,29 +85,32 @@ void buzzerGovernor::process(void){
     }
 
     //处理延时
-    if(_counterBuzzer1Hz >=0 ){
-        if(_counterBuzzer1Hz==0){
-            controlBits.buzzer1Hz = false;
-        }
-        _counterBuzzer1Hz --;
+    if(_countdown1Hz >0 ){
+        _countdown1Hz --;
     }
-    if(_counterBuzzer05Hz >=0 ){
-        if(_counterBuzzer05Hz==0){
-            controlBits.buzzer05Hz = false;
-        }
-        _counterBuzzer05Hz --;
+    if(_countdown1Hz==0){
+        controlBits.buzzer1Hz = false;
     }
-    if(_counterBuzzer2Hz >=0 ){
-        if(_counterBuzzer2Hz==0){
-            controlBits.buzzer2Hz = false;
-        }
-        _counterBuzzer2Hz --;
+
+    if(_countdown05Hz >0 ){
+        _countdown05Hz --;
     }
-    if(_counterBuzzerContinuous >=0 ){
-        if(_counterBuzzerContinuous==0){
-            controlBits.buzzer2Hz = false;
-        }
-        _counterBuzzerContinuous --;
+    if(_countdown05Hz==0){
+        controlBits.buzzer05Hz = false;
+    }
+
+    if(_countdown2Hz >0 ){
+        _countdown2Hz --;
+    }
+    if(_countdown2Hz==0){
+        controlBits.buzzer2Hz = false;
+    }
+
+    if(_countdownContinuous >=0 ){
+        _countdownContinuous --;
+    }
+    if(_countdownContinuous==0){
+        controlBits.buzzerContinuous = false;
     }
 
     //处理输出
@@ -99,12 +128,12 @@ void buzzerGovernor::process(void){
     }
 
     //输出到GPIO 0
-    if(_gpio->ready){
-        _gpio->writeIO(0, _buzzer);
+    if(_gpio->isReady()){
+        _gpio->writeIO(buzzPort, _buzzer);
     }
     else{
         _gpio->init();
-        _gpio->setIODirection(0, 0);
+        _gpio->setIODirection(1, 0);
     }
 }
 
@@ -114,44 +143,44 @@ void buzzerGovernor::silence(void){
     controlBits.buzzer2Hz=false;
     controlBits.buzzer05Hz=false;
     controlBits.buzzerContinuous=false;
-    _counterBuzzer1Hz = -1;
-    _counterBuzzer2Hz = -1;
-    _counterBuzzer05Hz = -1;
-    _counterBuzzerContinuous = -1;
+    _countdown1Hz = -1;
+    _countdown2Hz = -1;
+    _countdown05Hz = -1;
+    _countdownContinuous = -1;
 }
 
 void buzzerGovernor::set1Hz(long during){
     controlBits.buzzer1Hz=true;
-    _counterBuzzer1Hz = during *2;
+    _countdown1Hz = during *2;
 }
 void buzzerGovernor::reset1Hz(void){
     controlBits.buzzer1Hz=false;
-    _counterBuzzer1Hz = -1;
+    _countdown1Hz = -1;
 }
 
 void buzzerGovernor::set05Hz(long during){
     controlBits.buzzer05Hz=true;
-    _counterBuzzer05Hz = during *2;
+    _countdown05Hz = during *2;
 }
 void buzzerGovernor::reset05Hz(void){
     controlBits.buzzer05Hz=false;
-    _counterBuzzer05Hz = -1;
+    _countdown05Hz = -1;
 }
 
 void buzzerGovernor::set2Hz(long during){
     controlBits.buzzer2Hz=true;
-    _counterBuzzer2Hz = during *2;
+    _countdown2Hz = during *2;
 }
 void buzzerGovernor::reset2Hz(void){
     controlBits.buzzer2Hz=false;
-    _counterBuzzer2Hz = -1;
+    _countdown2Hz = -1;
 }
 
 void buzzerGovernor::setContinurous(long during){
     controlBits.buzzerContinuous=true;
-    _counterBuzzerContinuous = during *2;
+    _countdownContinuous = during *2;
 }
 void buzzerGovernor::resetContinurous(void){
     controlBits.buzzerContinuous=false;
-    _counterBuzzerContinuous = -1;
+    _countdownContinuous = -1;
 }

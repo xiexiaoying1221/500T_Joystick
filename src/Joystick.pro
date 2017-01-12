@@ -52,14 +52,8 @@ HEADERS += mainwindow.h \
     modbus/stdint.h \
     modbus/modbustcpcomm.h\
     modbusdataprocess.h \
-    #gpio/define.h \
-    gpio/REL_DEBUG.H \
-    gpio/REL_SUSI.H \
-    gpio/REL_ERRLIB.H \
-    gpio/REL_ERRDRV.H \
     tokenwidget.h \
     buzzergovernor.h \
-    gpio/susigpio.h \
     sticksettingwidget.h \
     usrmanagewidget.h \
     usrloginwidget.h \
@@ -69,7 +63,10 @@ HEADERS += mainwindow.h \
     promptwidgets/promptwidgetchangpswd.h \
     promptwidgets/promptwidgetlogin.h \
     promptwidgets/promptwidgetusrnew.h \
-    promptwidgets/promptwidgetusrsetting.h
+    promptwidgets/promptwidgetusrsetting.h \
+    GPIO/usbrelay.h \
+    GPIO/serialrelay.h \
+    GPIO/igpio.h
 
 SOURCES += mainwindow.cpp \
     main.cpp \
@@ -109,7 +106,6 @@ SOURCES += mainwindow.cpp \
     modbusdataprocess.cpp \
     tokenwidget.cpp \
     buzzergovernor.cpp \
-    gpio/susigpio.cpp \
     sticksettingwidget.cpp \
     usrmanagewidget.cpp \
     usrloginwidget.cpp \
@@ -119,7 +115,9 @@ SOURCES += mainwindow.cpp \
     promptwidgets/promptwidgetchangpswd.cpp \
     promptwidgets/promptwidgetlogin.cpp \
     promptwidgets/promptwidgetusrnew.cpp \
-    promptwidgets/promptwidgetusrsetting.cpp
+    promptwidgets/promptwidgetusrsetting.cpp \
+    GPIO/usbrelay.cpp \
+    GPIO/serialrelay.cpp
 
 FORMS += mainwindow.ui \
     limitsetwidget.ui \
@@ -146,14 +144,20 @@ FORMS += mainwindow.ui \
 RESOURCES += \
     img.qrc
 
-LIBS += -LC:\Proj\Qt.711.2016.JoyStick\src\gpio\
+LIBS += \
+        -LC:/Proj/Qt.711.2016.Joystick/lib/usbrelay -lusb_relay_device\
         -luser32\
         -lGdi32\
         -ladvapi32\
         -lWs2_32\
-        -lSusi
+
+INCLUDEPATH += ../lib/usbrelay
 
 include($PWD/../../lib/tokenManager/src/tokenManager.pri)
 include($PWD/../../lib/usrManager/src/usrmanager.pri)
 include($PWD/../../lib/inputMethod/src/inputnew/inputnew.pri)
 include($PWD/../../lib/inputMethod/src/inputnum/inputnum.pri)
+
+
+#如果是便携式操作站则启用，固定式则注释掉，编译前必须1.清除 2.执行qmake 3.编译
+DEFINES += PORTABLE_STATION

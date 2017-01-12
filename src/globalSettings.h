@@ -4,8 +4,6 @@
 #include "dataCommit.h"
 #include "characterconversion.h"
 
-//如果是便携式操作站则启用，固定式则注释掉
-//#define PORTABLE_STATION
 
 /*
 整体宽度定义为100%

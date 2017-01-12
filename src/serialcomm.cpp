@@ -15,7 +15,7 @@ SerialComm* SerialComm::_singleton = nullptr;
 SerialComm::SerialComm(QObject *parent) :
     QObject(parent)
 {
-
+    stateError = true;
 }
 
 //全局单例模式
@@ -29,6 +29,11 @@ SerialComm* SerialComm::Instance( void ){
 
 void SerialComm::OpenMyCom()
 {
+    _overTime = new QTimer(this);
+    _overTime->setSingleShot(true);
+    connect(_overTime,SIGNAL(timeout()),this,SLOT(overTimeError()));
+    _overTime->start(10*1000);
+
     bool open_flag = false;
     _sendTimer = new QTimer(this);
 
@@ -126,12 +131,15 @@ void SerialComm::readMyCom()
     if(num >= 13){
         newdata_flag = false;
         HandleMyComData();
+        stateError = false;
+        _overTime->start(10* 1000);
         num = 0;
         myCom_data.clear();
     }
     if(error_count > 80){
         OpenMyCom();
         error_count = 0;
+        stateError = true;
     }
 #else
 
@@ -208,24 +216,6 @@ void SerialComm::HandleMyComData()
     rawX = list[6].toFloat();
     rawY = list[7].toFloat();
     rawZ = list[8].toFloat();
-
-    //断线报警（硬件不支持断线报警！此功能作废）
-    //2016.11.22
-    //    if(rawX <= 0.0 || rawX >= 10.0)
-    //    {
-    //        OTdata_alarm[0] = 1;
-    //    }
-    //    else OTdata_alarm[0] = 0;
-    //    if(rawY <= 0.0 || rawY >= 10.0)
-    //    {
-    //        OTdata_alarm[1] = 1;
-    //    }
-    //    else OTdata_alarm[1] = 0;
-    //    if(rawZ <= 0.0 || rawZ >= 10.0)
-    //    {
-    //        OTdata_alarm[2] = 1;
-    //    }
-    //    else OTdata_alarm[2] = 0;
 
 #endif
 
@@ -352,6 +342,25 @@ void SerialComm::HandleMyComData()
         joystick_y = 0;
         joystick_z = 0;
     }
+#ifndef PORTABLE_STATION
+//断线报警，固定端
+//2016.11.22
+    if(rawX <= setStickXMin -0.1 || rawX >= setStickXMax +0.1 )
+    {
+        OTdata_alarm[0] = 1;
+    }
+    else OTdata_alarm[0] = 0;
+    if(rawY <= setStickYMin -0.1 || rawY >= setStickYMax +0.1 )
+    {
+        OTdata_alarm[1] = 1;
+    }
+    else OTdata_alarm[1] = 0;
+    if(rawZ <= setStickZMin -0.1 || rawZ >= setStickZMax +0.1)
+    {
+        OTdata_alarm[2] = 1;
+    }
+    else OTdata_alarm[2] = 0;
+#endif
 //限幅
     if(fabs(joystick_x)>100)
         joystick_x = 100.0 * joystick_x/fabs(joystick_x);
@@ -406,3 +415,6 @@ void SerialComm::closeMyCom()
 }
 
 
+void SerialComm::overTimeError(){
+    stateError = true;
+}

@@ -605,7 +605,7 @@ void EnableBuzzer()
         buzz->set1Hz();
     }
     else
-        buzz->set1Hz();
+        buzz->reset1Hz();
 }
 
 

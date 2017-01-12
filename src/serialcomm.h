@@ -19,21 +19,24 @@ public:
 
     float rawX,rawY,rawZ;
     static SerialComm* Instance(void);//全局单例模式
+    bool stateError;
 
 signals:
+
 private:
     explicit SerialComm(QObject *parent = 0);
     static SerialComm* _singleton;//全局单例模式
     QString myCom_data;
     QSerialPort * myCom;
     QTimer* _sendTimer;
+    QTimer* _overTime;
 public slots:
     void readMyCom();
     void sendMyCom();
     void OpenMyCom();
     void HandleMyComData();
     void closeMyCom();
-
+    void overTimeError();
 };
 
 #endif // SERIALCOMM_H

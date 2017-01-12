@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="USBRelayExport">
+</Property><Property Name="Solution File" Value="C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\USBRelayExport.sln">
+</Property><Property Name="User Options File" Value="C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\USBRelayExport.suo">
+</Property><Property Name="Date" Value="2016年12月14日">
+</Property><Property Name="Time" Value="10:05">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="USBRelayExport.sln" Description="File successfully backed up as C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\USBRelayExport.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="USBRelayExport.suo" Description="File successfully backed up as C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\USBRelayExport.suo.old">
+</Event><Event ErrorLevel="0" Project="GuiApp_English" Source="GuiApp_English\GuiApp_English.vcproj" Description="Converting project file 'C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\GuiApp_English\GuiApp_English.vcproj'.">
+</Event><Event ErrorLevel="1" Project="GuiApp_English" Source="GuiApp_English\GuiApp_English.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="GuiApp_English" Source="GuiApp_English\GuiApp_English.vcproj" Description="Done converting to new project file 'C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\GuiApp_English\GuiApp_English.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="GuiApp_English" Source="GuiApp_English\GuiApp_English.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="GuiApp" Source="GuiApp_Chinese\GuiApp.vcproj" Description="Converting project file 'C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\GuiApp_Chinese\GuiApp.vcproj'.">
+</Event><Event ErrorLevel="1" Project="GuiApp" Source="GuiApp_Chinese\GuiApp.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="GuiApp" Source="GuiApp_Chinese\GuiApp.vcproj" Description="Done converting to new project file 'C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\GuiApp_Chinese\GuiApp.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="GuiApp" Source="GuiApp_Chinese\GuiApp.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CommandApp_USBRelay" Source="CommandApp_USBRelay\CommandApp_USBRelay.vcproj" Description="Converting project file 'C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\CommandApp_USBRelay\CommandApp_USBRelay.vcproj'.">
+</Event><Event ErrorLevel="1" Project="CommandApp_USBRelay" Source="CommandApp_USBRelay\CommandApp_USBRelay.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="CommandApp_USBRelay" Source="CommandApp_USBRelay\CommandApp_USBRelay.vcproj" Description="Done converting to new project file 'C:\Proj\Qt.711.2016.Joystick\lib\usbrelay\库函数\库函数\TestAppCode\CommandApp_USBRelay\CommandApp_USBRelay.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="CommandApp_USBRelay" Source="CommandApp_USBRelay\CommandApp_USBRelay.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="USBRelayExport.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="USBRelayExport.sln" Description="Converted">
+</Event></UpgradeLog>

@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <Windows.h>
-#include "gpio/susigpio.h"
+#include "gpio/igpio.h"
 
 typedef struct _buzzerGov{
     //控制位
@@ -34,12 +34,14 @@ signals:
 
 private:
     buzzerGov_t controlBits;
-    SusiGpio* _gpio;
+    IGPIO* _gpio;
     QTimer* _t05;
     bool _sq05Hz,_sq1Hz,_sq2Hz;//方波
-    long _countdown1Hz,_countdown05Hz,_countdown2Hz;
-    int _counterBuzzer1Hz,_counterBuzzer2Hz,_counterBuzzer05Hz,_counterBuzzerContinuous;
+    long _countdown1Hz,_countdown05Hz,_countdown2Hz,_countdownContinuous;
+    int _counterBuzzer1Hz,_counterBuzzer2Hz,_counterBuzzer05Hz;
     bool _buzzer;
+
+    int buzzPort;
 
 private slots:
     void process(void);
