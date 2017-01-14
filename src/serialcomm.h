@@ -37,6 +37,7 @@ public slots:
     void HandleMyComData();
     void closeMyCom();
     void overTimeError();
+private slots:
 };
 
 #endif // SERIALCOMM_H

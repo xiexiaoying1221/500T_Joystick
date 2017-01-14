@@ -58,8 +58,8 @@ void SerialRelay::init(){
     blankTimer->start();
     //初始化
     if(ready){
-        char wdata[10] = "PQ";
-        port->write(wdata);
+        char wdata[30] = "Q P P Q QP PQ QPQ PQP";
+        int ret =port->write(wdata);
     }
 
 }

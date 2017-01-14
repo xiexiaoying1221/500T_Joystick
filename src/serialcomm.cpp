@@ -132,7 +132,6 @@ void SerialComm::readMyCom()
         newdata_flag = false;
         HandleMyComData();
         stateError = false;
-        _overTime->start(10* 1000);
         num = 0;
         myCom_data.clear();
     }
@@ -191,6 +190,7 @@ void SerialComm::readMyCom()
 void SerialComm::HandleMyComData()
 {
     //2016.09.09以下为修改部分
+    _overTime->start(10*1000);
     //qDebug()<<"SerialComm::readMyCom"<<myCom_data;
 #ifdef PORTABLE_STATION
     //移动式终端的取值
@@ -417,4 +417,7 @@ void SerialComm::closeMyCom()
 
 void SerialComm::overTimeError(){
     stateError = true;
+    OTdata_alarm[0] = 1;
+    OTdata_alarm[1] = 1;
+    OTdata_alarm[2] = 1;
 }

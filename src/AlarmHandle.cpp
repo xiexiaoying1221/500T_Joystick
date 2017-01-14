@@ -3,7 +3,7 @@
 #endif
 
 #include "AlarmHandle.h"
-
+#include "buzzergovernor.h"
 
 int run_time = 0;
 
@@ -324,7 +324,7 @@ void OTAlarmHandle()
 
     int i,j;
 
-    for(i=0,j=25;i<5;i++)
+    for(i=0,j=25;i<5;i++,j++)
     {
         if(OTdata_alarm[i] == true && ota_flag[i] != true)
         {
@@ -339,7 +339,7 @@ void OTAlarmHandle()
             AlarmList[j][6] = QString(" ");//报警信息
          }
 
-        if(CCdata_alarm[i] == false )//报警恢复
+        if(OTdata_alarm[i] == false )//报警恢复
         {
             AlarmList[i][4] = QString("--");//报警状态-模拟量报警状态：HS,HH,H,L,LL,LS;开关量报警状态-ON;正常-‘--’;
             ota_flag[i] = false;
@@ -352,6 +352,8 @@ void AlarmAnswer()
 {
     int num , i;
     if(btn_answer == 1){//确认
+    buzzerGovernor* bz = buzzerGovernor::Instance();
+    bz->silence();
         for(num = 0; num <30 ; num++){
             AlarmList[num][0] = "";
         }

@@ -126,6 +126,9 @@ void buzzerGovernor::process(void){
     else if(controlBits.buzzerContinuous){
         _buzzer = true;
     }
+    else{
+        _buzzer = false;
+    }
 
     //输出到GPIO 0
     if(_gpio->isReady()){

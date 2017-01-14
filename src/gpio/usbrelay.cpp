@@ -67,11 +67,11 @@ void UsbRelay::setIODirection(int pinNum, int direction){
 void UsbRelay::writeIO(int pinNum, bool status){
     if(status)//energize
     {
-        usb_relay_device_close_one_relay_channel(handle, pinNum);
+        usb_relay_device_open_one_relay_channel(handle, pinNum);
     }
     else//denergize
     {
-        usb_relay_device_open_one_relay_channel(handle, pinNum);
+        usb_relay_device_close_one_relay_channel(handle, pinNum);
     }
 }
 
@@ -80,7 +80,7 @@ bool UsbRelay::readIO(int pinNum){
     unsigned int res = 0;
     usb_relay_device_get_status(handle, &res);
     int mask = 1;
-    mask<<(pinNum - 1 );
+    mask = mask<<(pinNum - 1 );
     if( res & mask ){
         return true;
     }
