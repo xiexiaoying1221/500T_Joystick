@@ -335,13 +335,13 @@ void OTAlarmHandle()
 
             AlarmList[j][0] = "*";//报警应答状态
             AlarmList[j][2] = QString("%1 %2").arg(alm_date).arg(alm_time);//报警时间
-            AlarmList[j][4] = QString("ON");//报警状态-模拟量报警状态：HS,HH,H,L,LL,LS;开关量报警状态-ON;正常-‘--’;
+            AlarmList[j][4] = QString("H");//报警状态-模拟量报警状态：HS,HH,H,L,LL,LS;开关量报警状态-ON;正常-‘--’;
             AlarmList[j][6] = QString(" ");//报警信息
          }
 
         if(OTdata_alarm[i] == false )//报警恢复
         {
-            AlarmList[i][4] = QString("--");//报警状态-模拟量报警状态：HS,HH,H,L,LL,LS;开关量报警状态-ON;正常-‘--’;
+            AlarmList[j][4] = QString("--");//报警状态-模拟量报警状态：HS,HH,H,L,LL,LS;开关量报警状态-ON;正常-‘--’;
             ota_flag[i] = false;
         }
     }
@@ -358,6 +358,7 @@ void AlarmAnswer()
             AlarmList[num][0] = "";
         }
     }
+    //对所有报警进行应答判断，并记录要显示的报警条目及条目数
     for(num = 0, i = 0; num <30 ; num++){
         if( (AlarmList[num][0] == "*") || ( (AlarmList[num][4] != "--") && (AlarmList[num][4] != NULL) ) ){
             //记录测点列表中存在报警的测点报警时间和测点序号

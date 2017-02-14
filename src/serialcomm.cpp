@@ -7,6 +7,9 @@
 #include <QDebug>
 #include <math.h>
 
+//float SerialComm::joystick_x_old[5] = {0.0};
+//float SerialComm::joystick_y_old[5] = {0.0};
+//float SerialComm::joystick_z_old[5] = {0.0};
 
 long error_count = 0;
 
@@ -189,6 +192,10 @@ void SerialComm::readMyCom()
 
 void SerialComm::HandleMyComData()
 {
+    int i = 0;
+    static float joystick_x_old[50] = {0.0};
+    static float joystick_y_old[50] = {0.0};
+    static float joystick_z_old[50] = {0.0};
     //2016.09.09以下为修改部分
     _overTime->start(10*1000);
     //qDebug()<<"SerialComm::readMyCom"<<myCom_data;
@@ -199,6 +206,7 @@ void SerialComm::HandleMyComData()
     rawX = (float)list[1].toInt();
     rawY = (float)list[2].toInt();
     rawZ = (float)list[3].toInt();
+	
 #else
     //固定式终端的正则表达式
     QRegExp rx("\\+(\\d+\\.\\d+)"
@@ -332,35 +340,115 @@ void SerialComm::HandleMyComData()
 //    joystick_z = 100.0 * (rawZ - zero8)/half8;//(rawZ - zero8)/half8;
 
     if(!flag_fullprop){
-        joystick_x /= 2;
-        joystick_y /= 2;
-        joystick_z /= 2;
+        joystick_x /= 2.0;
+        joystick_y /= 2.0;
+        joystick_z /= 2.0;
     }
 //第一次启动时，所有设置都为0，此时的输出值也为0
     if(setStickXMax ==0 && setStickXMin ==0 && setStickXZero ==0){
-        joystick_x = 0;
-        joystick_y = 0;
-        joystick_z = 0;
+        joystick_x = 0.0;
+        joystick_y = 0.0;
+        joystick_z = 0.0;
     }
+
 #ifndef PORTABLE_STATION
-//断线报警，固定端
+//固定端专用
+//断线报警
 //2016.11.22
     if(rawX <= setStickXMin -0.1 || rawX >= setStickXMax +0.1 )
     {
         OTdata_alarm[0] = 1;
+		joystick_x = joystick_x_old[0];
     }
-    else OTdata_alarm[0] = 0;
+    else 
+	{
+		OTdata_alarm[0] = 0;
+
+        for(i=0;i<49;i++)
+		{
+            joystick_x_old[i] = joystick_x_old[i+1];
+		}
+        joystick_x_old[49] = joystick_x;
+    }
     if(rawY <= setStickYMin -0.1 || rawY >= setStickYMax +0.1 )
     {
         OTdata_alarm[1] = 1;
+		joystick_y = joystick_y_old[0];
     }
-    else OTdata_alarm[1] = 0;
+    else 
+	{
+		OTdata_alarm[1] = 0;
+
+        for(i=0;i<49;i++)
+		{
+            joystick_y_old[i] = joystick_y_old[i+1];
+		}
+        joystick_y_old[49] = joystick_y;
+    }
     if(rawZ <= setStickZMin -0.1 || rawZ >= setStickZMax +0.1)
     {
         OTdata_alarm[2] = 1;
+		joystick_z = joystick_z_old[0];
     }
-    else OTdata_alarm[2] = 0;
+    else 
+    {
+		OTdata_alarm[2] = 0;
+        for(i=0;i<49;i++)
+        {
+            joystick_z_old[i] = joystick_z_old[i+1];
+        }
+        joystick_z_old[49] = joystick_z;
+    }
+#else
+//移动端专用
+//断线报警
+//2016.11.22
+    if(rawX <= setStickXMin -5 || rawX >= setStickXMax +5 )
+    {
+        OTdata_alarm[0] = 1;
+        joystick_x = joystick_x_old[0];
+    }
+    else
+    {
+        OTdata_alarm[0] = 0;
+
+        for(i=0;i<49;i++)
+        {
+            joystick_x_old[i] = joystick_x_old[i+1];
+        }
+        joystick_x_old[49] = joystick_x;
+    }
+    if(rawY <= setStickYMin -5 || rawY >= setStickYMax +5 )
+    {
+        OTdata_alarm[1] = 1;
+        joystick_y = joystick_y_old[0];
+    }
+    else
+    {
+        OTdata_alarm[1] = 0;
+
+        for(i=0;i<49;i++)
+        {
+            joystick_y_old[i] = joystick_y_old[i+1];
+        }
+        joystick_y_old[49] = joystick_y;
+    }
+    if(rawZ <= setStickZMin -5 || rawZ >= setStickZMax +5)
+    {
+        OTdata_alarm[2] = 1;
+        joystick_z = joystick_z_old[0];
+    }
+    else
+    {
+        OTdata_alarm[2] = 0;
+        for(i=0;i<49;i++)
+        {
+            joystick_z_old[i] = joystick_z_old[i+1];
+        }
+        joystick_z_old[49] = joystick_z;
+    }
 #endif
+
 //限幅
     if(fabs(joystick_x)>100)
         joystick_x = 100.0 * joystick_x/fabs(joystick_x);
@@ -384,7 +472,8 @@ void SerialComm::HandleMyComData()
     }
 }
 
-void SerialComm::sendMyCom()  //发送数据
+
+void SerialComm::sendMyCom()
 {
     int result =0;
     //int rcv_len = myCom_data.size();

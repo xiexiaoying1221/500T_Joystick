@@ -160,4 +160,4 @@ include($PWD/../../lib/inputMethod/src/inputnum/inputnum.pri)
 
 
 #如果是便携式操作站则启用，固定式则注释掉，编译前必须1.清除 2.执行qmake 3.编译
-#DEFINES += PORTABLE_STATION
+DEFINES += PORTABLE_STATION
