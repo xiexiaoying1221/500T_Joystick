@@ -730,11 +730,15 @@ void KeyWidget::modeCondition(int set_mode)
     {
     case MANUAL_MODE:
         break;
-    case HEADING_MODE:
+    case HEADING_MODE:        
         if(State_Gyro == 1)//&& Ready_prop1 == 1 && Ready_prop2 == 1 && Ready_prop3 == 1))
         {
             promptWidget->message = str_nomatch_autohead;//"不符合进入自动艏向模式的条件!"
             promptWidget->targetState = -1;
+        }
+        else
+        {
+            set_heading = heading;
         }
         break;
     default:

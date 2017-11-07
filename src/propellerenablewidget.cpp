@@ -110,6 +110,8 @@ void PropellerEnableWidget::refreshData()
     {
         ui->wReadyProp1->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
         Enable_prop1_on = false;
+        ui->pbEnableProp1->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
+        ui->pbEnableProp1->setText(str_no);//"否"
     }
     if(Run_prop1)
     {
@@ -129,6 +131,8 @@ void PropellerEnableWidget::refreshData()
     {
         ui->wReadyProp2->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
         Enable_prop2_on = false;
+        ui->pbEnableProp2->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
+        ui->pbEnableProp2->setText(str_no);//"否"
     }
     if(Run_prop2)
     {
@@ -148,6 +152,8 @@ void PropellerEnableWidget::refreshData()
     {
         ui->wReadyProp3->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
         Enable_prop3_on =false;
+        ui->pbEnableProp3->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
+        ui->pbEnableProp3->setText(str_no);//"否"
     }
     if(Run_prop3)
     {
@@ -168,6 +174,8 @@ void PropellerEnableWidget::refreshData()
     {
         ui->wReadyRudder1->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
         Enable_rudder1_on =false;
+        ui->pbEnableRudder1->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
+        ui->pbEnableRudder1->setText(str_no);//"否"
     }
     if(Run_rudder1)
     {
@@ -187,6 +195,8 @@ void PropellerEnableWidget::refreshData()
     {
         ui->wReadyRudder2->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
         Enable_rudder2_on = false;
+        ui->pbEnableRudder2->setStyleSheet("background-color: rgb(255, 0, 0);border-width:0; border-style:outset;");
+        ui->pbEnableRudder2->setText(str_no);//"否"
     }
     if(Run_rudder2)
     {

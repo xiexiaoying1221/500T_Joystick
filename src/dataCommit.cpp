@@ -118,7 +118,7 @@ unsigned short btn_language = 0;
 
 //_OT_SettingData
 
-unsigned short Run_mode = 1;//1仿真；2实船；3测试
+unsigned short Run_mode = 2;//1仿真；2实船；3测试
 unsigned short Operate_mode = 0;//1待机，2手操，3位置保持,4自动舵，5自动艏向，6自动纵向，7自动横向，8自动艏向自动纵向，9自动艏向自动横向，10自动纵向自动横向
 float set_heading = 0.0;
 float set_north = 0.0;
@@ -300,8 +300,8 @@ float ship_iz = 350.0;
 float ship_jz = 225.0;
 float ship_l1 = 1.038;
 float ship_l2 = 0.112;
-float SHIP_LEN = 134.0;
-float SHIP_WIDTH = 22.0;//实船型宽
+float SHIP_LEN = 50.0;
+float SHIP_WIDTH = 9.0;//实船型宽
 
 float set_heading_old = 0.0;
 

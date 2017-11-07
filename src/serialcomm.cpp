@@ -357,8 +357,8 @@ void SerialComm::HandleMyComData()
 //2016.11.22
     if(rawX <= setStickXMin -0.1 || rawX >= setStickXMax +0.1 )
     {
-        OTdata_alarm[0] = 1;
-		joystick_x = joystick_x_old[0];
+        //OTdata_alarm[0] = 1;
+        //joystick_x = joystick_x_old[0];
     }
     else 
 	{
@@ -372,8 +372,8 @@ void SerialComm::HandleMyComData()
     }
     if(rawY <= setStickYMin -0.1 || rawY >= setStickYMax +0.1 )
     {
-        OTdata_alarm[1] = 1;
-		joystick_y = joystick_y_old[0];
+        //OTdata_alarm[1] = 1;
+        //joystick_y = joystick_y_old[0];
     }
     else 
 	{
@@ -387,8 +387,8 @@ void SerialComm::HandleMyComData()
     }
     if(rawZ <= setStickZMin -0.1 || rawZ >= setStickZMax +0.1)
     {
-        OTdata_alarm[2] = 1;
-		joystick_z = joystick_z_old[0];
+        //OTdata_alarm[2] = 1;
+        //joystick_z = joystick_z_old[0];
     }
     else 
     {
@@ -405,8 +405,8 @@ void SerialComm::HandleMyComData()
 //2016.11.22
     if(rawX <= setStickXMin -5 || rawX >= setStickXMax +5 )
     {
-        OTdata_alarm[0] = 1;
-        joystick_x = joystick_x_old[0];
+        //OTdata_alarm[0] = 1;
+        //joystick_x = joystick_x_old[0];
     }
     else
     {
@@ -420,8 +420,8 @@ void SerialComm::HandleMyComData()
     }
     if(rawY <= setStickYMin -5 || rawY >= setStickYMax +5 )
     {
-        OTdata_alarm[1] = 1;
-        joystick_y = joystick_y_old[0];
+        //OTdata_alarm[1] = 1;
+        //joystick_y = joystick_y_old[0];
     }
     else
     {
@@ -435,8 +435,8 @@ void SerialComm::HandleMyComData()
     }
     if(rawZ <= setStickZMin -5 || rawZ >= setStickZMax +5)
     {
-        OTdata_alarm[2] = 1;
-        joystick_z = joystick_z_old[0];
+        //OTdata_alarm[2] = 1;
+        //joystick_z = joystick_z_old[0];
     }
     else
     {

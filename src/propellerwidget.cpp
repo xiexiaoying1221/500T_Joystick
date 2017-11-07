@@ -114,7 +114,7 @@ void PropellerWidget::refreshData()
 
    if(Enable_prop1_on == 1)
    {
-        pe.setColor(QPalette::Base,COLOR_20);
+        pe.setColor(QPalette::Base,COLOR_20);//绿色
         ui->leenable_p1->setPalette(pe);
         if(Ready_prop1)
             ui->lerun_p1->setPalette(pe);

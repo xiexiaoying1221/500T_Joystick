@@ -199,7 +199,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //显示按键区
     pbShowKeyArea = new QPushButton(this);
     pbShowKeyArea->setFocusPolicy(Qt::NoFocus);
-    pbShowKeyArea->setGeometry(2,324,40,130);
+    pbShowKeyArea->setGeometry(2,324,60,130);//40->60，20170916
     pbShowKeyArea->setVisible(true);
     pbShowKeyArea->setStyleSheet("background-image:url(:/images/keydisap.png); border-style:flat; background-repeat: no-repeat;");
     pbShowKeyArea->setWindowFlags(Qt::WindowStaysOnTopHint);
